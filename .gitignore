@@ -1,0 +1,25 @@
+# FangCloud 临时目录
+.fang_cloud_tmp_dir/
+
+# Keil 编译中间文件
+Listing/
+Listings/
+Output/
+Objects/
+
+*.o
+*.d
+*.crf
+*.axf
+*.lnp
+*.map
+*.dep
+*.build_log.htm
+
+# Keil 用户个人配置
+*.uvguix.*
+*.uvgui.*
+
+# Windows
+Thumbs.db
+Desktop.ini
