@@ -1,18 +1,18 @@
 /***********************************************
-��˾����Ȥ�Ƽ�����ݸ�����޹�˾
-Ʒ�ƣ�WHEELTEC
-������wheeltec.net
-�Ա����̣�shop114407458.taobao.com 
-����ͨ: https://minibalance.aliexpress.com/store/4455017
-�汾��V1.0
-�޸�ʱ�䣺2023-03-02
+公司：轮趣科技（东莞）有限公司
+品牌：WHEELTEC
+官网：wheeltec.net
+淘宝店铺：shop114407458.taobao.com 
+速卖通: https://minibalance.aliexpress.com/store/4455017
+版本：V1.0
+修改时间：2023-03-02
 
 Brand: WHEELTEC
 Website: wheeltec.net
 Taobao shop: shop114407458.taobao.com 
 Aliexpress: https://minibalance.aliexpress.com/store/4455017
 Version: V1.0
-Update��2023-03-02
+Update：2023-03-02
 
 All rights reserved
 ***********************************************/
@@ -24,24 +24,24 @@ __IO uint16_t ADC_ConvertedValue;
 Function: ADCx_GPIO_Config
 Input   : none
 Output  : none
-�������ܣ�ADC�˿ڳ�ʼ��
-��ڲ���: �� 
-����  ֵ����
+函数功能：ADC端口初始化
+入口参数: 无 
+返回  值：无
 **************************************************************************/	 
-//ADC�˿ڳ�ʼ�������ڶ�ȡ��ѹ
+//ADC端口初始化，用于读取电压
 static void ADCx_GPIO_Config(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 	
-	// �� ADC IO�˿�ʱ��
+	// 打开 ADC IO端口时钟
 	ADC_GPIO_APBxClock_FUN ( ADC_GPIO_CLK, ENABLE );
 	
-	// ���� ADC IO ����ģʽ
-	// ����Ϊģ������
+	// 配置 ADC IO 引脚模式
+	// 必须为模拟输入
 	GPIO_InitStructure.GPIO_Pin = ADC_PIN;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
 	
-	// ��ʼ�� ADC IO
+	// 初始化 ADC IO
 	GPIO_Init(ADC_PORT, &GPIO_InitStructure);				
 }
 
@@ -49,168 +49,168 @@ static void ADCx_GPIO_Config(void)
 Function: ADCx_Mode_Config
 Input   : none
 Output  : none
-�������ܣ�ADCģʽ��ʼ��
-��ڲ���: �� 
-����  ֵ����
+函数功能：ADC模式初始化
+入口参数: 无 
+返回  值：无
 **************************************************************************/	 
-//ADC��ʼ�������ڶ�ȡ��ѹ��
-//�жϷ�ʽ
+//ADC初始化，用于读取电压、
+//中断方式
 static void ADCx_Mode_Config(void)
 {
 	ADC_InitTypeDef ADC_InitStructure;	
 
-	// ��ADCʱ��
+	// 打开ADC时钟
 	ADC_APBxClock_FUN (ADC_CLK, ENABLE );
 	
-	//��λADC2,������ ADC2 ��ȫ���Ĵ�������Ϊȱʡֵ
+	//复位ADC2,将外设 ADC2 的全部寄存器重设为缺省值
 	ADC_DeInit(ADCx); 
 
-	// ADC ģʽ����
-	// ֻʹ��һ��ADC�����ڶ���ģʽ
+	// ADC 模式配置
+	// 只使用一个ADC，属于独立模式
 	ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
 	
-	// ��ֹɨ��ģʽ����ͨ����Ҫ����ͨ������Ҫ
+	// 禁止扫描模式，多通道才要，单通道不需要
 	ADC_InitStructure.ADC_ScanConvMode = DISABLE ; 
 
-	// ����ת��
+	// 单次转换
 	ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;
 
-	// �����ⲿ����ת����������������
+	// 不用外部触发转换，软件开启即可
 	ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
 
-	// ת������Ҷ���
+	// 转换结果右对齐
 	ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
 	
-	// ת��ͨ��1��
+	// 转换通道1个
 	ADC_InitStructure.ADC_NbrOfChannel = 1;	
 		
-	// ��ʼ��ADC
+	// 初始化ADC
 	ADC_Init(ADCx, &ADC_InitStructure);
 	
-	// ����ADCʱ��ΪPCLK2��6��Ƶ����12MHz
+	// 配置ADC时钟为PCLK2的6分频，即12MHz
 	RCC_ADCCLKConfig(RCC_PCLK2_Div6); 
 	
-	// ���� ADC ͨ��ת��˳��Ͳ���ʱ��
+	// 配置 ADC 通道转换顺序和采样时间
 	ADC_RegularChannelConfig(ADCx, ADC_CHANNEL, 1, 
 	                         ADC_SampleTime_239Cycles5);
 	
-	// ADC ת�����������жϣ����жϷ�������ж�ȡת��ֵ
+	// ADC 转换结束产生中断，在中断服务程序中读取转换值
 	ADC_ITConfig(ADCx, ADC_IT_EOC, ENABLE);
 	
-	// ����ADC ������ʼת��
+	// 开启ADC ，并开始转换
 	ADC_Cmd(ADCx, ENABLE);
 	
-	// ��ʼ��ADC У׼�Ĵ���  
+	// 初始化ADC 校准寄存器  
 	ADC_ResetCalibration(ADCx);
-	// �ȴ�У׼�Ĵ�����ʼ�����
+	// 等待校准寄存器初始化完成
 	while(ADC_GetResetCalibrationStatus(ADCx));
 	
-	// ADC��ʼУ׼
+	// ADC开始校准
 	ADC_StartCalibration(ADCx);
-	// �ȴ�У׼���
+	// 等待校准完成
 	while(ADC_GetCalibrationStatus(ADCx));
 }
 /**************************************************************************
 Function: Voltage_ADC_Init
 Input   : none
 Output  : none
-�������ܣ�ADC��ʼ��
-��ڲ���: �� 
-����  ֵ����
+函数功能：ADC初始化
+入口参数: 无 
+返回  值：无
 **************************************************************************/	 
-//���ڶ�ȡ��ѹ
+//用于读取电压
 void Voltage_ADC_Init(void)
 {
-	ADCx_GPIO_Config();		//�˿�����
-	ADCx_Mode_Config();		//ģʽ����
+	ADCx_GPIO_Config();		//端口配置
+	ADCx_Mode_Config();		//模式配置
 }
 
 /**************************************************************************
 Function: Car_Select_ADC_GPIO_Config
 Input   : none
 Output  : none
-�������ܣ�ADC�˿ڳ�ʼ��
-��ڲ���: �� 
-����  ֵ����
+函数功能：ADC端口初始化
+入口参数: 无 
+返回  值：无
 **************************************************************************/	 
-//����ѡ��ADC�˿ڳ�ʼ����������ѡ����
+//车型选择ADC端口初始化，可用于选择车型
 static void Car_Select_ADC_GPIO_Config(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 	
-	// �� ADC IO�˿�ʱ��
+	// 打开 ADC IO端口时钟
 	RCC_APB2PeriphClockCmd ( CAR_ADC_GPIO_CLK, ENABLE );
 	
-	// ���� ADC IO ����ģʽ
-	// ����Ϊģ������
+	// 配置 ADC IO 引脚模式
+	// 必须为模拟输入
 	GPIO_InitStructure.GPIO_Pin = CAR_ADC_PIN;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
 	
-	// ��ʼ�� ADC IO
+	// 初始化 ADC IO
 	GPIO_Init(CAR_ADC_PORT, &GPIO_InitStructure);				
 }
 /**************************************************************************
 Function: Car_Select_ADC_Mode_Config
 Input   : none
 Output  : none
-�������ܣ�ADCģʽ��ʼ��
-��ڲ���: �� 
-����  ֵ����
+函数功能：ADC模式初始化
+入口参数: 无 
+返回  值：无
 **************************************************************************/	 
-//����ѡ��ADC�˿ڳ�ʼ����������ѡ����
+//车型选择ADC端口初始化，可用于选择车型
 static void Car_Select_ADC_Mode_Config(void)
 {
 	ADC_InitTypeDef ADC_InitStructure;	
 
-	// ��ADCʱ��
+	// 打开ADC时钟
 	CAR_ADC_APBxClock_FUN ( CAR_ADC_CLK, ENABLE );
 	
-	 //��λADC1,������ ADC1 ��ȫ���Ĵ�������Ϊȱʡֵ
+	 //复位ADC1,将外设 ADC1 的全部寄存器重设为缺省值
 	ADC_DeInit(CAR_ADC); 
 
-	// ADC ģʽ����
-	// ֻʹ��һ��ADC�����ڶ���ģʽ
+	// ADC 模式配置
+	// 只使用一个ADC，属于独立模式
 	ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
 	
-	// ��ֹɨ��ģʽ����ͨ����Ҫ����ͨ������Ҫ
+	// 禁止扫描模式，多通道才要，单通道不需要
 	ADC_InitStructure.ADC_ScanConvMode = DISABLE ; 
 
-	// ����ת��
+	// 单次转换
 	ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;
 
-	// �����ⲿ����ת����������������
+	// 不用外部触发转换，软件开启即可
 	ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
 
-	// ת������Ҷ���
+	// 转换结果右对齐
 	ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
 	
-	// ת��ͨ��1��
+	// 转换通道1个
 	ADC_InitStructure.ADC_NbrOfChannel = 1;	
 		
-	// ��ʼ��ADC
+	// 初始化ADC
 	ADC_Init(CAR_ADC, &ADC_InitStructure);
 	
-	// ����ADCʱ��ΪPCLK2��6��Ƶ����12MHz
+	// 配置ADC时钟为PCLK2的6分频，即12MHz
 	RCC_ADCCLKConfig(RCC_PCLK2_Div6); 
 	
-	// ���� ADC ͨ��ת��˳��Ͳ���ʱ��
+	// 配置 ADC 通道转换顺序和采样时间
 	ADC_RegularChannelConfig(CAR_ADC, CAR_ADC_CHANNEL, 1, 
 	                         ADC_SampleTime_239Cycles5);
 							 
-	// ���ж�
+	// 不中断
 	ADC_ITConfig(CAR_ADC, ADC_IT_EOC, DISABLE);
 	
-	// ����ADC ������ʼת��
+	// 开启ADC ，并开始转换
 	ADC_Cmd(CAR_ADC, ENABLE);
 	
-	// ��ʼ��ADC У׼�Ĵ���  
+	// 初始化ADC 校准寄存器  
 	ADC_ResetCalibration(CAR_ADC);
-	// �ȴ�У׼�Ĵ�����ʼ�����
+	// 等待校准寄存器初始化完成
 	while(ADC_GetResetCalibrationStatus(CAR_ADC));
 	
-	// ADC��ʼУ׼
+	// ADC开始校准
 	ADC_StartCalibration(CAR_ADC);
-	// �ȴ�У׼���
+	// 等待校准完成
 	while(ADC_GetCalibrationStatus(CAR_ADC));
 	
 }
@@ -219,47 +219,47 @@ static void Car_Select_ADC_Mode_Config(void)
 Function: Car_Select_ADC_Init
 Input   : none
 Output  : none
-�������ܣ�ADCģʽ��ʼ��
-��ڲ���: �� 
-����  ֵ����
+函数功能：ADC模式初始化
+入口参数: 无 
+返回  值：无
 **************************************************************************/	 
-//����ѡ��ADC��ʼ����������ѡ����
+//车型选择ADC初始化，可用于选择车型
 void Car_Select_ADC_Init(void)
 {
-	Car_Select_ADC_GPIO_Config();	//�˿�����
-	Car_Select_ADC_Mode_Config();	//ģʽ����
+	Car_Select_ADC_GPIO_Config();	//端口配置
+	Car_Select_ADC_Mode_Config();	//模式配置
 }
 
 /**************************************************************************
 Function: AD sampling
-Input   : ch��Channel of ADC1
+Input   : ch：Channel of ADC1
 Output  : AD conversion result
-�������ܣ�AD����
-��ڲ���: ch��ADC2 ��ͨ��
-����  ֵ��ADת�����
+函数功能：AD采样
+入口参数: ch：ADC2 的通道
+返回  值：AD转换结果
 **************************************************************************/	 		
 u16 Get_Adc2(u8 ch)   
 {
-	  	//����ָ��ADC�Ĺ�����ͨ����һ�����У�����ʱ��
-	ADC_RegularChannelConfig(ADC2, ch, 1, ADC_SampleTime_239Cycles5 );	//ADC2,ADCͨ��,����ʱ��Ϊ239.5����	  			     
-	ADC_SoftwareStartConvCmd(ADC2, ENABLE);		//ʹ��ָ����ADC2������ת����������		 
-	while(!ADC_GetFlagStatus(ADC2, ADC_FLAG_EOC ));//�ȴ�ת������
-	return ADC_GetConversionValue(ADC2);	//�������һ��ADC1�������ת�����
+	  	//设置指定ADC的规则组通道，一个序列，采样时间
+	ADC_RegularChannelConfig(ADC2, ch, 1, ADC_SampleTime_239Cycles5 );	//ADC2,ADC通道,采样时间为239.5周期	  			     
+	ADC_SoftwareStartConvCmd(ADC2, ENABLE);		//使能指定的ADC2的软件转换启动功能		 
+	while(!ADC_GetFlagStatus(ADC2, ADC_FLAG_EOC ));//等待转换结束
+	return ADC_GetConversionValue(ADC2);	//返回最近一次ADC1规则组的转换结果
 }
 
 /**************************************************************************
 Function: Get_Voltage
 Input   : none
 Output  : none
-�������ܣ���ȡ��ѹ
-��ڲ���: �� 
-����  ֵ����
+函数功能：获取电压
+入口参数: 无 
+返回  值：无
 **************************************************************************/	 
 u16 Get_Voltage(void)
 {
 	u16 Voltage;
 	
-	Voltage = Max_Voltage/Max_Voltage_ADC*Get_Adc2(Battery_Ch)*Ratio*100;//��ȡ��ѹ���Ŵ�100������
+	Voltage = Max_Voltage/Max_Voltage_ADC*Get_Adc2(Battery_Ch)*Ratio*100;//读取电压，放大100倍储存
 	
 	return Voltage;
 }
@@ -267,19 +267,19 @@ u16 Get_Voltage(void)
 Function: Get_Voltage
 Input   : none
 Output  : none
-�������ܣ���ȡADC��ֵ
-��ڲ���: �� 
-����  ֵ����
+函数功能：获取ADC的值
+入口参数: 无 
+返回  值：无
 **************************************************************************/	 
-//��ȡADC��ֵ����Ҫ���ڳ��͵�ѡ��
+//获取ADC的值，主要用于车型的选择
 u16 Get_Adc(u8 ch)   
 {
-	//����ָ��ADC�Ĺ�����ͨ����һ�����У�����ʱ��
-	ADC_RegularChannelConfig(ADC1, ch, 1, ADC_SampleTime_239Cycles5 );	//ADC1,ADCͨ��,����ʱ��Ϊ239.5����	 
-	ADC_SoftwareStartConvCmd(ADC1, ENABLE);		//ʹ��ָ����ADC1������ת����������	
+	//设置指定ADC的规则组通道，一个序列，采样时间
+	ADC_RegularChannelConfig(ADC1, ch, 1, ADC_SampleTime_239Cycles5 );	//ADC1,ADC通道,采样时间为239.5周期	 
+	ADC_SoftwareStartConvCmd(ADC1, ENABLE);		//使能指定的ADC1的软件转换启动功能	
 	__nop();
-	while(!ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC ));//�ȴ�ת������
-	return ADC_GetConversionValue(ADC1);	//�������һ��ADC1�������ת�����
+	while(!ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC ));//等待转换结束
+	return ADC_GetConversionValue(ADC1);	//返回最近一次ADC1规则组的转换结果
 }
 
 
