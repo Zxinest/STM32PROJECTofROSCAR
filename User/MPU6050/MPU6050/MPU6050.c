@@ -95,17 +95,17 @@ int16_t Gx_offset=0,Gy_offset=0,Gz_offset=0;
 
 /**************************************************************************
 Function: The new ADC data is updated to FIFO array for filtering
-Input   : ax£¬ay£¬az£ºx£¬y, z-axis acceleration data£»gx£¬gy£¬gz£ºx. Y, z-axis angular acceleration data
+Input   : axï¼Œayï¼Œazï¼šxï¼Œy, z-axis acceleration dataï¼›gxï¼Œgyï¼Œgzï¼šx. Y, z-axis angular acceleration data
 Output  : none
-º¯Êı¹¦ÄÜ£º½«ĞÂµÄADCÊı¾İ¸üĞÂµ½ FIFOÊı×é£¬½øĞĞÂË²¨´¦Àí
-Èë¿Ú²ÎÊı£ºax£¬ay£¬az£ºx£¬y£¬zÖá¼ÓËÙ¶ÈÊı¾İ£»gx£¬gy£¬gz£ºx£¬y£¬zÖá½Ç¼ÓËÙ¶ÈÊı¾İ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šå°†æ–°çš„ADCæ•°æ®æ›´æ–°åˆ° FIFOæ•°ç»„ï¼Œè¿›è¡Œæ»¤æ³¢å¤„ç†
+å…¥å£å‚æ•°ï¼šaxï¼Œayï¼Œazï¼šxï¼Œyï¼Œzè½´åŠ é€Ÿåº¦æ•°æ®ï¼›gxï¼Œgyï¼Œgzï¼šxï¼Œyï¼Œzè½´è§’åŠ é€Ÿåº¦æ•°æ®
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
 void  MPU6050_newValues(int16_t ax,int16_t ay,int16_t az,int16_t gx,int16_t gy,int16_t gz)
 {
 unsigned char i ;
 int32_t sum=0;
-for(i=1;i<10;i++){	//FIFO ²Ù×÷
+for(i=1;i<10;i++){	//FIFO æ“ä½œ
 MPU6050_FIFO[0][i-1]=MPU6050_FIFO[0][i];
 MPU6050_FIFO[1][i-1]=MPU6050_FIFO[1][i];
 MPU6050_FIFO[2][i-1]=MPU6050_FIFO[2][i];
@@ -113,7 +113,7 @@ MPU6050_FIFO[3][i-1]=MPU6050_FIFO[3][i];
 MPU6050_FIFO[4][i-1]=MPU6050_FIFO[4][i];
 MPU6050_FIFO[5][i-1]=MPU6050_FIFO[5][i];
 }
-MPU6050_FIFO[0][9]=ax;//½«ĞÂµÄÊı¾İ·ÅÖÃµ½ Êı¾İµÄ×îºóÃæ
+MPU6050_FIFO[0][9]=ax;//å°†æ–°çš„æ•°æ®æ”¾ç½®åˆ° æ•°æ®çš„æœ€åé¢
 MPU6050_FIFO[1][9]=ay;
 MPU6050_FIFO[2][9]=az;
 MPU6050_FIFO[3][9]=gx;
@@ -121,7 +121,7 @@ MPU6050_FIFO[4][9]=gy;
 MPU6050_FIFO[5][9]=gz;
 
 sum=0;
-for(i=0;i<10;i++){	//Çóµ±Ç°Êı×éµÄºÏ£¬ÔÙÈ¡Æ½¾ùÖµ
+for(i=0;i<10;i++){	//æ±‚å½“å‰æ•°ç»„çš„åˆï¼Œå†å–å¹³å‡å€¼
    sum+=MPU6050_FIFO[0][i];
 }
 MPU6050_FIFO[0][10]=sum/10;
@@ -159,11 +159,11 @@ MPU6050_FIFO[5][10]=sum/10;
 
 /**************************************************************************
 Function: Setting the clock source of mpu6050
-Input   : source£ºClock source number
+Input   : sourceï¼šClock source number
 Output  : none
-º¯Êı¹¦ÄÜ£ºÉèÖÃ  MPU6050 µÄÊ±ÖÓÔ´
-Èë¿Ú²ÎÊı£ºsource£ºÊ±ÖÓÔ´±àºÅ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šè®¾ç½®  MPU6050 çš„æ—¶é’Ÿæº
+å…¥å£å‚æ•°ï¼šsourceï¼šæ—¶é’Ÿæºç¼–å·
+è¿”å›  å€¼ï¼šæ— 
  * CLK_SEL | Clock Source
  * --------+--------------------------------------
  * 0       | Internal oscillator
@@ -194,27 +194,27 @@ void MPU6050_setFullScaleGyroRange(uint8_t range) {
 
 /**************************************************************************
 Function: Setting the maximum range of mpu6050 accelerometer
-Input   : range£ºAcceleration maximum range number
+Input   : rangeï¼šAcceleration maximum range number
 Output  : none
-º¯Êı¹¦ÄÜ£ºÉèÖÃ MPU6050 ¼ÓËÙ¶È¼ÆµÄ×î´óÁ¿³Ì
-Èë¿Ú²ÎÊı£ºrange£º¼ÓËÙ¶È×î´óÁ¿³Ì±àºÅ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šè®¾ç½® MPU6050 åŠ é€Ÿåº¦è®¡çš„æœ€å¤§é‡ç¨‹
+å…¥å£å‚æ•°ï¼šrangeï¼šåŠ é€Ÿåº¦æœ€å¤§é‡ç¨‹ç¼–å·
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
-//#define MPU6050_ACCEL_FS_2          0x00  		//===×î´óÁ¿³Ì+-2G
-//#define MPU6050_ACCEL_FS_4          0x01			//===×î´óÁ¿³Ì+-4G
-//#define MPU6050_ACCEL_FS_8          0x02			//===×î´óÁ¿³Ì+-8G
-//#define MPU6050_ACCEL_FS_16         0x03			//===×î´óÁ¿³Ì+-16G
+//#define MPU6050_ACCEL_FS_2          0x00  		//===æœ€å¤§é‡ç¨‹+-2G
+//#define MPU6050_ACCEL_FS_4          0x01			//===æœ€å¤§é‡ç¨‹+-4G
+//#define MPU6050_ACCEL_FS_8          0x02			//===æœ€å¤§é‡ç¨‹+-8G
+//#define MPU6050_ACCEL_FS_16         0x03			//===æœ€å¤§é‡ç¨‹+-16G
 void MPU6050_setFullScaleAccelRange(uint8_t range) {
     IICwriteBits(devAddr, MPU6050_RA_ACCEL_CONFIG, MPU6050_ACONFIG_AFS_SEL_BIT, MPU6050_ACONFIG_AFS_SEL_LENGTH, range);
 }
 
 /**************************************************************************
 Function: Set mpu6050 to sleep mode or not
-Input   : enable£º1£¬sleep£»0£¬work£»
+Input   : enableï¼š1ï¼Œsleepï¼›0ï¼Œworkï¼›
 Output  : none
-º¯Êı¹¦ÄÜ£ºÉèÖÃ MPU6050 ÊÇ·ñ½øÈëË¯ÃßÄ£Ê½
-Èë¿Ú²ÎÊı£ºenable£º1£¬Ë¯¾õ£»0£¬¹¤×÷£»
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šè®¾ç½® MPU6050 æ˜¯å¦è¿›å…¥ç¡çœ æ¨¡å¼
+å…¥å£å‚æ•°ï¼šenableï¼š1ï¼Œç¡è§‰ï¼›0ï¼Œå·¥ä½œï¼›
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
 void MPU6050_setSleepEnabled(uint8_t enabled) {
     IICwriteBit(devAddr, MPU6050_RA_PWR_MGMT_1, MPU6050_PWR1_SLEEP_BIT, enabled);
@@ -224,9 +224,9 @@ void MPU6050_setSleepEnabled(uint8_t enabled) {
 Function: Read identity
 Input   : none
 Output  : 0x68
-º¯Êı¹¦ÄÜ£º¶ÁÈ¡  MPU6050 WHO_AM_I ±êÊ¶
-Èë¿Ú²ÎÊı£ºÎŞ
-·µ»Ø  Öµ£º0x68
+å‡½æ•°åŠŸèƒ½ï¼šè¯»å–  MPU6050 WHO_AM_I æ ‡è¯†
+å…¥å£å‚æ•°ï¼šæ— 
+è¿”å›  å€¼ï¼š0x68
 **************************************************************************/
 uint8_t MPU6050_getDeviceID(void) {
 
@@ -237,10 +237,10 @@ uint8_t MPU6050_getDeviceID(void) {
 /**************************************************************************
 Function: Check whether mpu6050 is connected
 Input   : none
-Output  : 1£ºConnected£»0£ºNot connected
-º¯Êı¹¦ÄÜ£º¼ì²âMPU6050 ÊÇ·ñÒÑ¾­Á¬½Ó
-Èë¿Ú²ÎÊı£ºÎŞ
-·µ»Ø  Öµ£º1£ºÒÑÁ¬½Ó£»0£ºÎ´Á¬½Ó
+Output  : 1ï¼šConnectedï¼›0ï¼šNot connected
+å‡½æ•°åŠŸèƒ½ï¼šæ£€æµ‹MPU6050 æ˜¯å¦å·²ç»è¿æ¥
+å…¥å£å‚æ•°ï¼šæ— 
+è¿”å›  å€¼ï¼š1ï¼šå·²è¿æ¥ï¼›0ï¼šæœªè¿æ¥
 **************************************************************************/
 uint8_t MPU6050_testConnection(void) {
    if(MPU6050_getDeviceID() == 0x68)  //0b01101000;
@@ -250,11 +250,11 @@ uint8_t MPU6050_testConnection(void) {
 
 /**************************************************************************
 Function: Setting whether mpu6050 is the host of aux I2C cable
-Input   : enable£º1£¬yes£»0;not
+Input   : enableï¼š1ï¼Œyesï¼›0;not
 Output  : none
-º¯Êı¹¦ÄÜ£ºÉèÖÃ MPU6050 ÊÇ·ñÎªAUX I2CÏßµÄÖ÷»ú
-Èë¿Ú²ÎÊı£ºenable£º1£¬ÊÇ£»0£º·ñ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šè®¾ç½® MPU6050 æ˜¯å¦ä¸ºAUX I2Cçº¿çš„ä¸»æœº
+å…¥å£å‚æ•°ï¼šenableï¼š1ï¼Œæ˜¯ï¼›0ï¼šå¦
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
 void MPU6050_setI2CMasterModeEnabled(uint8_t enabled) {
     IICwriteBit(devAddr, MPU6050_RA_USER_CTRL, MPU6050_USERCTRL_I2C_MST_EN_BIT, enabled);
@@ -262,11 +262,11 @@ void MPU6050_setI2CMasterModeEnabled(uint8_t enabled) {
 
 /**************************************************************************
 Function: Setting whether mpu6050 is the host of aux I2C cable
-Input   : enable£º1£¬yes£»0;not
+Input   : enableï¼š1ï¼Œyesï¼›0;not
 Output  : none
-º¯Êı¹¦ÄÜ£ºÉèÖÃ MPU6050 ÊÇ·ñÎªAUX I2CÏßµÄÖ÷»ú
-Èë¿Ú²ÎÊı£ºenable£º1£¬ÊÇ£»0£º·ñ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šè®¾ç½® MPU6050 æ˜¯å¦ä¸ºAUX I2Cçº¿çš„ä¸»æœº
+å…¥å£å‚æ•°ï¼šenableï¼š1ï¼Œæ˜¯ï¼›0ï¼šå¦
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
 void MPU6050_setI2CBypassEnabled(uint8_t enabled) {
     IICwriteBit(devAddr, MPU6050_RA_INT_PIN_CFG, MPU6050_INTCFG_I2C_BYPASS_EN_BIT, enabled);
@@ -276,26 +276,26 @@ void MPU6050_setI2CBypassEnabled(uint8_t enabled) {
 Function: initialization Mpu6050 to enter the available state
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º³õÊ¼»¯	MPU6050 ÒÔ½øÈë¿ÉÓÃ×´Ì¬
-Èë¿Ú²ÎÊı£ºÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šåˆå§‹åŒ–	MPU6050 ä»¥è¿›å…¥å¯ç”¨çŠ¶æ€
+å…¥å£å‚æ•°ï¼šæ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
 void MPU6050_initialize(void) {
-    MPU6050_setClockSource(MPU6050_CLOCK_PLL_YGYRO); //ÉèÖÃÊ±ÖÓ
-    MPU6050_setFullScaleGyroRange(MPU6050_GYRO_FS_500);//ÍÓÂİÒÇÁ¿³ÌÉèÖÃ
-    MPU6050_setFullScaleAccelRange(MPU6050_ACCEL_FS_2);	//¼ÓËÙ¶È¶È×î´óÁ¿³Ì +-2G
-    MPU6050_setSleepEnabled(0); //½øÈë¹¤×÷×´Ì¬
-	MPU6050_setI2CMasterModeEnabled(0);	 //²»ÈÃMPU6050 ¿ØÖÆAUXI2C
-	MPU6050_setI2CBypassEnabled(0);	 //Ö÷¿ØÖÆÆ÷µÄI2CÓë	MPU6050µÄAUXI2C	Ö±Í¨¹Ø±Õ
+    MPU6050_setClockSource(MPU6050_CLOCK_PLL_YGYRO); //è®¾ç½®æ—¶é’Ÿ
+    MPU6050_setFullScaleGyroRange(MPU6050_GYRO_FS_500);//é™€èºä»ªé‡ç¨‹è®¾ç½®
+    MPU6050_setFullScaleAccelRange(MPU6050_ACCEL_FS_2);	//åŠ é€Ÿåº¦åº¦æœ€å¤§é‡ç¨‹ +-2G
+    MPU6050_setSleepEnabled(0); //è¿›å…¥å·¥ä½œçŠ¶æ€
+	MPU6050_setI2CMasterModeEnabled(0);	 //ä¸è®©MPU6050 æ§åˆ¶AUXI2C
+	MPU6050_setI2CBypassEnabled(0);	 //ä¸»æ§åˆ¶å™¨çš„I2Cä¸	MPU6050çš„AUXI2C	ç›´é€šå…³é—­
 }
 
 /**************************************************************************
 Function: Initialization of DMP in mpu6050
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£ºMPU6050ÄÚÖÃDMPµÄ³õÊ¼»¯
-Èë¿Ú²ÎÊı£ºÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šMPU6050å†…ç½®DMPçš„åˆå§‹åŒ–
+å…¥å£å‚æ•°ï¼šæ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
 void DMP_Init(void)
 { 
@@ -334,9 +334,9 @@ void DMP_Init(void)
 Function: Read the attitude information of DMP in mpu6050
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º¶ÁÈ¡MPU6050ÄÚÖÃDMPµÄ×ËÌ¬ĞÅÏ¢
-Èë¿Ú²ÎÊı£ºÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šè¯»å–MPU6050å†…ç½®DMPçš„å§¿æ€ä¿¡æ¯
+å…¥å£å‚æ•°ï¼šæ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
 void Read_DMP(void)
 {	
@@ -344,16 +344,16 @@ void Read_DMP(void)
 		unsigned char more;
 		long quat[4];
 
-				dmp_read_fifo(gyro, accel, quat, &sensor_timestamp, &sensors, &more);		//¶ÁÈ¡DMPÊı¾İ
+				dmp_read_fifo(gyro, accel, quat, &sensor_timestamp, &sensors, &more);		//è¯»å–DMPæ•°æ®
 				if (sensors & INV_WXYZ_QUAT )
 				{    
 					 q0=quat[0] / q30;
 					 q1=quat[1] / q30;
 					 q2=quat[2] / q30;
-					 q3=quat[3] / q30; 		//ËÄÔªÊı
-					 Pitch = asin(-2 * q1 * q3 + 2 * q0* q2)* 57.3; 	//¼ÆËã³ö¸©Ñö½Ç
-					 Roll = atan2(2 * q2 * q3 + 2 * q0 * q1, -2 * q1 * q1 - 2 * q2* q2 + 1)* 57.3; // ¼ÆËã³öºá¹ö½Ç
-					 Yaw = atan2(2*(q1*q2 + q0*q3),q0*q0+q1*q1-q2*q2-q3*q3) * 57.3;	 //¼ÆËã³öÆ«º½½Ç
+					 q3=quat[3] / q30; 		//å››å…ƒæ•°
+					 Pitch = asin(-2 * q1 * q3 + 2 * q0* q2)* 57.3; 	//è®¡ç®—å‡ºä¿¯ä»°è§’
+					 Roll = atan2(2 * q2 * q3 + 2 * q0 * q1, -2 * q1 * q1 - 2 * q2* q2 + 1)* 57.3; // è®¡ç®—å‡ºæ¨ªæ»šè§’
+					 Yaw = atan2(2*(q1*q2 + q0*q3),q0*q0+q1*q1-q2*q2-q3*q3) * 57.3;	 //è®¡ç®—å‡ºåèˆªè§’
 				}
 
 }
@@ -361,16 +361,16 @@ void Read_DMP(void)
 Function: Read mpu6050 built-in temperature sensor data
 Input   : none
 Output  : Centigrade temperature
-º¯Êı¹¦ÄÜ£º¶ÁÈ¡MPU6050ÄÚÖÃÎÂ¶È´«¸ĞÆ÷Êı¾İ
-Èë¿Ú²ÎÊı£ºÎŞ
-·µ»Ø  Öµ£ºÉãÊÏÎÂ¶È
+å‡½æ•°åŠŸèƒ½ï¼šè¯»å–MPU6050å†…ç½®æ¸©åº¦ä¼ æ„Ÿå™¨æ•°æ®
+å…¥å£å‚æ•°ï¼šæ— 
+è¿”å›  å€¼ï¼šæ‘„æ°æ¸©åº¦
 **************************************************************************/
 int Read_Temperature(void)
 {	   
 	  float Temp;
 	  Temp=(I2C_ReadOneByte(devAddr,MPU6050_RA_TEMP_OUT_H)<<8)+I2C_ReadOneByte(devAddr,MPU6050_RA_TEMP_OUT_L);
-		if(Temp>32768) Temp-=65536;	//Êı¾İÀàĞÍ×ª»»
-		Temp=(36.53+Temp/340)*10;	  //ÎÂ¶È·Å´óÊ®±¶´æ·Å
+		if(Temp>32768) Temp-=65536;	//æ•°æ®ç±»å‹è½¬æ¢
+		Temp=(36.53+Temp/340)*10;	  //æ¸©åº¦æ”¾å¤§åå€å­˜æ”¾
 	  return (int)Temp;
 }
 
@@ -378,9 +378,9 @@ int Read_Temperature(void)
 Function: External interrupt initialization
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£ºÍâ²¿ÖĞ¶Ï³õÊ¼»¯
-Èë¿Ú²ÎÊı£ºÎŞ
-·µ»Ø  Öµ£ºÎŞ 
+å‡½æ•°åŠŸèƒ½ï¼šå¤–éƒ¨ä¸­æ–­åˆå§‹åŒ–
+å…¥å£å‚æ•°ï¼šæ— 
+è¿”å›  å€¼ï¼šæ—  
 **************************************************************************/
 void MiniBalance_EXTI_Init(void)
 {  
@@ -388,21 +388,21 @@ void MiniBalance_EXTI_Init(void)
 	GPIO_InitTypeDef GPIO_InitStructure;
 	EXTI_InitTypeDef EXTI_InitStructure;
 	NVIC_InitTypeDef NVIC_InitStructure;
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO,ENABLE);   //Íâ²¿ÖĞ¶Ï£¬ĞèÒªÊ¹ÄÜAFIOÊ±ÖÓ
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE); //Ê¹ÄÜGPIO¶Ë¿ÚÊ±ÖÓ
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;	          //¶Ë¿ÚÅäÖÃ
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;         //ÉÏÀ­ÊäÈë
-	GPIO_Init(GPIOB, &GPIO_InitStructure);					      	//¸ù¾İÉè¶¨²ÎÊı³õÊ¼»¯GPIO
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO,ENABLE);   //å¤–éƒ¨ä¸­æ–­ï¼Œéœ€è¦ä½¿èƒ½AFIOæ—¶é’Ÿ
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE); //ä½¿èƒ½GPIOç«¯å£æ—¶é’Ÿ
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;	          //ç«¯å£é…ç½®
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;         //ä¸Šæ‹‰è¾“å…¥
+	GPIO_Init(GPIOB, &GPIO_InitStructure);					      	//æ ¹æ®è®¾å®šå‚æ•°åˆå§‹åŒ–GPIO
 	GPIO_EXTILineConfig(GPIO_PortSourceGPIOB,GPIO_PinSource9);
 	EXTI_InitStructure.EXTI_Line=EXTI_Line9;
 	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;	
-	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;	//ÏÂ½µÑØ´¥·¢
+	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;	//ä¸‹é™æ²¿è§¦å‘
 	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
-	EXTI_Init(&EXTI_InitStructure);	 						//¸ù¾İEXTI_InitStructÖĞÖ¸¶¨µÄ²ÎÊı³õÊ¼»¯ÍâÉèEXTI¼Ä´æÆ÷
-	NVIC_InitStructure.NVIC_IRQChannel = EXTI9_5_IRQn;			//Ê¹ÄÜ°´¼üËùÔÚµÄÍâ²¿ÖĞ¶ÏÍ¨µÀ
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x02;	//ÇÀÕ¼ÓÅÏÈ¼¶2£¬ 
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x01;			//×ÓÓÅÏÈ¼¶1
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;					//Ê¹ÄÜÍâ²¿ÖĞ¶ÏÍ¨µÀ
+	EXTI_Init(&EXTI_InitStructure);	 						//æ ¹æ®EXTI_InitStructä¸­æŒ‡å®šçš„å‚æ•°åˆå§‹åŒ–å¤–è®¾EXTIå¯„å­˜å™¨
+	NVIC_InitStructure.NVIC_IRQChannel = EXTI9_5_IRQn;			//ä½¿èƒ½æŒ‰é”®æ‰€åœ¨çš„å¤–éƒ¨ä¸­æ–­é€šé“
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x02;	//æŠ¢å ä¼˜å…ˆçº§2ï¼Œ 
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x01;			//å­ä¼˜å…ˆçº§1
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;					//ä½¿èƒ½å¤–éƒ¨ä¸­æ–­é€šé“
 	NVIC_Init(&NVIC_InitStructure); 
 
 }
@@ -411,17 +411,17 @@ void MiniBalance_EXTI_Init(void)
 Function: MPU6050_Init
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£ºMPU6050³õÊ¼»¯
-Èë¿Ú²ÎÊı£ºÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šMPU6050åˆå§‹åŒ–
+å…¥å£å‚æ•°ï¼šæ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
-//³õÊ¼»¯6050£¬Ê¹ÓÃIICÍ¨ĞÅ£¬5msĞÅÏ¢¾ÍĞ÷ÖĞ¶Ï½øĞĞ¶ÁÈ¡
+//åˆå§‹åŒ–6050ï¼Œä½¿ç”¨IICé€šä¿¡ï¼Œ5msä¿¡æ¯å°±ç»ªä¸­æ–­è¿›è¡Œè¯»å–
 void MPU6050_Init(void)
 {
-	IIC_Init();                     //IIC³õÊ¼»¯
-	MPU6050_initialize();           //MPU6050³õÊ¼»¯	
-//	DMP_Init();                     //³õÊ¼»¯DMP 
-//	MiniBalance_EXTI_Init();        //MPU6050 5ms¶¨Ê±ÖĞ¶Ï³õÊ¼»¯£¬½ÚÊ¡¶¨Ê±Æ÷×ÊÔ´£¬¼õÉÙcpu¸ºµ£
+	IIC_Init();                     //IICåˆå§‹åŒ–
+	MPU6050_initialize();           //MPU6050åˆå§‹åŒ–	
+//	DMP_Init();                     //åˆå§‹åŒ–DMP 
+//	MiniBalance_EXTI_Init();        //MPU6050 5mså®šæ—¶ä¸­æ–­åˆå§‹åŒ–ï¼ŒèŠ‚çœå®šæ—¶å™¨èµ„æºï¼Œå‡å°‘cpuè´Ÿæ‹…
 	
 }
 //------------------End of File----------------------------

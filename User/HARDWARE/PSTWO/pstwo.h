@@ -1,18 +1,18 @@
 /***********************************************
-¹«Ë¾£ºÂÖÈ¤¿Æ¼¼£¨¶«İ¸£©ÓĞÏŞ¹«Ë¾
-Æ·ÅÆ£ºWHEELTEC
-¹ÙÍø£ºwheeltec.net
-ÌÔ±¦µêÆÌ£ºshop114407458.taobao.com 
-ËÙÂôÍ¨: https://minibalance.aliexpress.com/store/4455017
-°æ±¾£ºV1.0
-ĞŞ¸ÄÊ±¼ä£º2023-03-02
+å…¬å¸ï¼šè½®è¶£ç§‘æŠ€ï¼ˆä¸œèï¼‰æœ‰é™å…¬å¸
+å“ç‰Œï¼šWHEELTEC
+å®˜ç½‘ï¼šwheeltec.net
+æ·˜å®åº—é“ºï¼šshop114407458.taobao.com 
+é€Ÿå–é€š: https://minibalance.aliexpress.com/store/4455017
+ç‰ˆæœ¬ï¼šV1.0
+ä¿®æ”¹æ—¶é—´ï¼š2023-03-02
 
 Brand: WHEELTEC
 Website: wheeltec.net
 Taobao shop: shop114407458.taobao.com 
 Aliexpress: https://minibalance.aliexpress.com/store/4455017
 Version: V1.0
-Update£º2023-03-02
+Updateï¼š2023-03-02
 
 All rights reserved
 ***********************************************/
@@ -23,39 +23,39 @@ All rights reserved
 #include "Header.h"
 
 
-/* ¶¨ÒåPS2Á¬½ÓµÄGPIO¶Ë¿Ú, ÓÃ»§Ö»ĞèÒªĞŞ¸ÄÏÂÃæµÄ´úÂë¼´¿É¸Ä±ä¿ØÖÆµÄPS2Òı½Å */
-#define PS2_DI_GPIO_PORT    	GPIOB			              /* GPIO¶Ë¿Ú */
-#define PS2_DI_GPIO_CLK 	    RCC_APB2Periph_GPIOB			/* GPIO¶Ë¿ÚÊ±ÖÓ */
-#define PS2_DI_GPIO_PIN			GPIO_Pin_8			       		 /* Á¬½ÓµÄGPIO */
+/* å®šä¹‰PS2è¿æ¥çš„GPIOç«¯å£, ç”¨æˆ·åªéœ€è¦ä¿®æ”¹ä¸‹é¢çš„ä»£ç å³å¯æ”¹å˜æ§åˆ¶çš„PS2å¼•è„š */
+#define PS2_DI_GPIO_PORT    	GPIOB			              /* GPIOç«¯å£ */
+#define PS2_DI_GPIO_CLK 	    RCC_APB2Periph_GPIOB			/* GPIOç«¯å£æ—¶é’Ÿ */
+#define PS2_DI_GPIO_PIN			GPIO_Pin_8			       		 /* è¿æ¥çš„GPIO */
 
-#define PS2_DO_GPIO_PORT    	GPIOC			              /* GPIO¶Ë¿Ú */
-#define PS2_DO_GPIO_CLK 	    RCC_APB2Periph_GPIOC			/* GPIO¶Ë¿ÚÊ±ÖÓ */
-#define PS2_DO_GPIO_PIN			GPIO_Pin_9			       		 /* Á¬½ÓµÄGPIO */
+#define PS2_DO_GPIO_PORT    	GPIOC			              /* GPIOç«¯å£ */
+#define PS2_DO_GPIO_CLK 	    RCC_APB2Periph_GPIOC			/* GPIOç«¯å£æ—¶é’Ÿ */
+#define PS2_DO_GPIO_PIN			GPIO_Pin_9			       		 /* è¿æ¥çš„GPIO */
 
-#define PS2_CS_GPIO_PORT    	GPIOC			              /* GPIO¶Ë¿Ú */
-#define PS2_CS_GPIO_CLK 	    RCC_APB2Periph_GPIOC			/* GPIO¶Ë¿ÚÊ±ÖÓ */
-#define PS2_CS_GPIO_PIN			GPIO_Pin_4		       	  	  /* Á¬½ÓµÄGPIO */
+#define PS2_CS_GPIO_PORT    	GPIOC			              /* GPIOç«¯å£ */
+#define PS2_CS_GPIO_CLK 	    RCC_APB2Periph_GPIOC			/* GPIOç«¯å£æ—¶é’Ÿ */
+#define PS2_CS_GPIO_PIN			GPIO_Pin_4		       	  	  /* è¿æ¥çš„GPIO */
 
-#define PS2_CLK_GPIO_PORT    	GPIOC			              /* GPIO¶Ë¿Ú */
-#define PS2_CLK_GPIO_CLK 	    RCC_APB2Periph_GPIOC			/* GPIO¶Ë¿ÚÊ±ÖÓ */
-#define PS2_CLK_GPIO_PIN		GPIO_Pin_8			       		 /* Á¬½ÓµÄGPIO */
-
-
-#define DI   PBin(8)          	//  ÊäÈë
-
-#define DO_H PCout(9)=1        	//ÃüÁîÎ»¸ß
-#define DO_L PCout(9)=0        	//ÃüÁîÎ»µÍ
-
-#define CS_H PCout(4)=1       	//CSÀ­¸ß
-#define CS_L PCout(4)=0       	//CSÀ­µÍ
-
-#define CLK_H PCout(8)=1      	//Ê±ÖÓÀ­¸ß
-#define CLK_L PCout(8)=0      	//Ê±ÖÓÀ­µÍ
+#define PS2_CLK_GPIO_PORT    	GPIOC			              /* GPIOç«¯å£ */
+#define PS2_CLK_GPIO_CLK 	    RCC_APB2Periph_GPIOC			/* GPIOç«¯å£æ—¶é’Ÿ */
+#define PS2_CLK_GPIO_PIN		GPIO_Pin_8			       		 /* è¿æ¥çš„GPIO */
 
 
+#define DI   PBin(8)          	//  è¾“å…¥
+
+#define DO_H PCout(9)=1        	//å‘½ä»¤ä½é«˜
+#define DO_L PCout(9)=0        	//å‘½ä»¤ä½ä½
+
+#define CS_H PCout(4)=1       	//CSæ‹‰é«˜
+#define CS_L PCout(4)=0       	//CSæ‹‰ä½
+
+#define CLK_H PCout(8)=1      	//æ—¶é’Ÿæ‹‰é«˜
+#define CLK_L PCout(8)=0      	//æ—¶é’Ÿæ‹‰ä½
 
 
-//°´¼üĞòºÅ
+
+
+//æŒ‰é”®åºå·
 #define PSB_SELECT      1
 #define PSB_L3          2
 #define PSB_R3          3
@@ -81,7 +81,7 @@ All rights reserved
 //#define WHAMMY_BAR		8
 
 //These are stick values
-#define PSS_RX 5                //ÓÒÒ¡¸ËXÖáÊı¾İ
+#define PSS_RX 5                //å³æ‘‡æ†Xè½´æ•°æ®
 #define PSS_RY 6
 #define PSS_LX 7
 #define PSS_LY 8
@@ -92,19 +92,19 @@ extern u16 Handkey;
 extern int PS2_LX,PS2_LY,PS2_RX,PS2_RY,PS2_KEY; 
 
 void PS2_Init(void);
-u8 PS2_RedLight(void);  	 		//ÅĞ¶ÏÊÇ·ñÎªºìµÆÄ£Ê½
-void PS2_ReadData(void); 			//¶ÁÊÖ±úÊı¾İ
-void PS2_Cmd(u8 CMD);		  		//ÏòÊÖ±ú·¢ËÍÃüÁî
-u8 PS2_DataKey(void);		  		//°´¼üÖµ¶ÁÈ¡
-u8 PS2_AnologData(u8 button); 		//µÃµ½Ò»¸öÒ¡¸ËµÄÄ£ÄâÁ¿
-void PS2_ClearData(void);	  		//Çå³ıÊı¾İ»º³åÇø
-void PS2_Vibration(u8 motor1, u8 motor2);//Õñ¶¯ÉèÖÃmotor1  0xFF¿ª£¬ÆäËû¹Ø£¬motor2  0x40~0xFF
+u8 PS2_RedLight(void);  	 		//åˆ¤æ–­æ˜¯å¦ä¸ºçº¢ç¯æ¨¡å¼
+void PS2_ReadData(void); 			//è¯»æ‰‹æŸ„æ•°æ®
+void PS2_Cmd(u8 CMD);		  		//å‘æ‰‹æŸ„å‘é€å‘½ä»¤
+u8 PS2_DataKey(void);		  		//æŒ‰é”®å€¼è¯»å–
+u8 PS2_AnologData(u8 button); 		//å¾—åˆ°ä¸€ä¸ªæ‘‡æ†çš„æ¨¡æ‹Ÿé‡
+void PS2_ClearData(void);	  		//æ¸…é™¤æ•°æ®ç¼“å†²åŒº
+void PS2_Vibration(u8 motor1, u8 motor2);//æŒ¯åŠ¨è®¾ç½®motor1  0xFFå¼€ï¼Œå…¶ä»–å…³ï¼Œmotor2  0x40~0xFF
 
-void PS2_EnterConfing(void);	 	//½øÈëÅäÖÃ
-void PS2_TurnOnAnalogMode(void); 	//·¢ËÍÄ£ÄâÁ¿
-void PS2_VibrationMode(void);    	//Õñ¶¯ÉèÖÃ
-void PS2_ExitConfing(void);	     	//Íê³ÉÅäÖÃ
-void PS2_SetInit(void);		     	//ÅäÖÃ³õÊ¼»¯
+void PS2_EnterConfing(void);	 	//è¿›å…¥é…ç½®
+void PS2_TurnOnAnalogMode(void); 	//å‘é€æ¨¡æ‹Ÿé‡
+void PS2_VibrationMode(void);    	//æŒ¯åŠ¨è®¾ç½®
+void PS2_ExitConfing(void);	     	//å®Œæˆé…ç½®
+void PS2_SetInit(void);		     	//é…ç½®åˆå§‹åŒ–
 void PS2_Read(void);
 
 #endif

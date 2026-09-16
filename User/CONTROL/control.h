@@ -1,18 +1,18 @@
 /***********************************************
-¹«Ë¾£ºÂÖÈ¤¿Æ¼¼£¨¶«İ¸£©ÓĞÏŞ¹«Ë¾
-Æ·ÅÆ£ºWHEELTEC
-¹ÙÍø£ºwheeltec.net
-ÌÔ±¦µêÆÌ£ºshop114407458.taobao.com 
-ËÙÂôÍ¨: https://minibalance.aliexpress.com/store/4455017
-°æ±¾£ºV1.0
-ĞŞ¸ÄÊ±¼ä£º2023-03-02
+å…¬å¸ï¼šè½®è¶£ç§‘æŠ€ï¼ˆä¸œèï¼‰æœ‰é™å…¬å¸
+å“ç‰Œï¼šWHEELTEC
+å®˜ç½‘ï¼šwheeltec.net
+æ·˜å®åº—é“ºï¼šshop114407458.taobao.com 
+é€Ÿå–é€š: https://minibalance.aliexpress.com/store/4455017
+ç‰ˆæœ¬ï¼šV1.0
+ä¿®æ”¹æ—¶é—´ï¼š2023-03-02
 
 Brand: WHEELTEC
 Website: wheeltec.net
 Taobao shop: shop114407458.taobao.com 
 Aliexpress: https://minibalance.aliexpress.com/store/4455017
 Version: V1.0
-Update£º2023-03-02
+Updateï¼š2023-03-02
 
 All rights reserved
 ***********************************************/
@@ -24,22 +24,22 @@ All rights reserved
 #include "Lidar.h"
 #include "Header.h"
 
-//PWMÏŞÖÆ×î´ó×îĞ¡Öµ
+//PWMé™åˆ¶æœ€å¤§æœ€å°å€¼
 #define PWM_MAX  6900
 #define PWM_MIN  -6900
 
 
-#define Default_Velocity					350			//Ä¬ÈÏÒ£¿ØËÙ¶È£¬µ¥Î»mm/s
-#define Default_Turn_Bias					Pi/4			//Ä¬ÈÏÒ£¿ØËÙ¶È£¬µ¥Î»¶È/s
-#define Bluetooth_Turn_Angle				Pi/20		//°¢¿ËÂü³µÀ¶ÑÀÄ¬ÈÏ×ªÏò½Ç¶È£¬µ¥Î»rad
-#define PS2_Turn_Angle						Pi/4		//°¢¿ËÂü³µÊÖ±úÄ¬ÈÏ×ªÏò½Ç¶È£¬µ¥Î»rad
+#define Default_Velocity					350			//é»˜è®¤é¥æ§é€Ÿåº¦ï¼Œå•ä½mm/s
+#define Default_Turn_Bias					Pi/4			//é»˜è®¤é¥æ§é€Ÿåº¦ï¼Œå•ä½åº¦/s
+#define Bluetooth_Turn_Angle				Pi/20		//é˜¿å…‹æ›¼è½¦è“ç‰™é»˜è®¤è½¬å‘è§’åº¦ï¼Œå•ä½rad
+#define PS2_Turn_Angle						Pi/4		//é˜¿å…‹æ›¼è½¦æ‰‹æŸ„é»˜è®¤è½¬å‘è§’åº¦ï¼Œå•ä½rad
 
-#define forward_velocity 0.25  //Move_XËÙ¶È
-#define Along_Angle      282    //²ÎÕÕÎïµÄ·½Ïò
+#define forward_velocity 0.25  //Move_Xé€Ÿåº¦
+#define Along_Angle      282    //å‚ç…§ç‰©çš„æ–¹å‘
 
-#define FILTERING_TIMES 					10			//»¬¶¯ÂË²¨
+#define FILTERING_TIMES 					10			//æ»‘åŠ¨æ»¤æ³¢
 
-//Ğ¡³µ¸÷Ä£Ê½¶¨Òå
+//å°è½¦å„æ¨¡å¼å®šä¹‰
 #define Normal_Mode							0
 #define Lidar_Avoid_Mode					1
 #define Lidar_Follow_Mode					2
@@ -47,82 +47,82 @@ All rights reserved
 #define ELE_Line_Patrol_Mode				4
 #define CCD_Line_Patrol_Mode				5
 #define ROS_Mode				            6
-#define Measure_Distance_Mode				7			//Ä¬ÈÏÃ»ÓĞÊ¹ÓÃ
+#define Measure_Distance_Mode				7			//é»˜è®¤æ²¡æœ‰ä½¿ç”¨
 
-#define Follow_Distance 1600  //¸úËæ¾àÀë
-#define Keep_Follow_Distance 400  //¸úËæ±£³Ö¾àÀë
+#define Follow_Distance 1600  //è·Ÿéšè·ç¦»
+#define Keep_Follow_Distance 400  //è·Ÿéšä¿æŒè·ç¦»
 
-#define Aovid_Speed 0.3        //±ÜÕÏËÙ¶È
+#define Aovid_Speed 0.3        //é¿éšœé€Ÿåº¦
 
-//Ö¸Ê¾Ò£¿Ø¿ØÖÆµÄ¿ª¹Ø
+//æŒ‡ç¤ºé¥æ§æ§åˆ¶çš„å¼€å…³
 #define RC_ON								1	
 #define RC_OFF								0
-//Ò£¿Ø¿ØÖÆÇ°ºóËÙ¶È×î´óÖµ
+//é¥æ§æ§åˆ¶å‰åé€Ÿåº¦æœ€å¤§å€¼
 #define MAX_RC_Velocity						800
-//Ò£¿Ø¿ØÖÆ×ªÏòËÙ¶È×î´óÖµ
+//é¥æ§æ§åˆ¶è½¬å‘é€Ÿåº¦æœ€å¤§å€¼
 #define	MAX_RC_Turn_Bias					1
-//Ò£¿Ø¿ØÖÆÇ°ºóËÙ¶È×îĞ¡Öµ
+//é¥æ§æ§åˆ¶å‰åé€Ÿåº¦æœ€å°å€¼
 #define MINI_RC_Velocity					210
-//Ò£¿Ø¿ØÖÆ×ªÏòËÙ¶È×îĞ¡Öµ
+//é¥æ§æ§åˆ¶è½¬å‘é€Ÿåº¦æœ€å°å€¼
 #define	MINI_RC_Turn_Velocity			    Pi/20
 
-//Ç°½ø¼Ó¼õËÙ·ù¶ÈÖµ£¬Ã¿´ÎÒ£¿Ø¼Ó¼õµÄ²½½øÖµ
+//å‰è¿›åŠ å‡é€Ÿå¹…åº¦å€¼ï¼Œæ¯æ¬¡é¥æ§åŠ å‡çš„æ­¥è¿›å€¼
 #define X_Step								25
-//×ªÍä¼Ó¼õËÙ·ù¶ÈÖµ
+//è½¬å¼¯åŠ å‡é€Ÿå¹…åº¦å€¼
 #define Z_Step								0.1
 
-//³µÂÖÖ±¾¶
-#define Diff_Car_Wheel_diameter				0.0670f			//²îËÙ³µºÍ°¢¿ËÂü³µ£¬µ¥Î»m
-#define Small_Tank_WheelDiameter			0.0430f			//Ğ¡ÂÄ´ø³µ
-#define Big_Tank_WheelDiameter				0.0440f			//´óÂÄ´ø³µ
+//è½¦è½®ç›´å¾„
+#define Diff_Car_Wheel_diameter				0.0670f			//å·®é€Ÿè½¦å’Œé˜¿å…‹æ›¼è½¦ï¼Œå•ä½m
+#define Small_Tank_WheelDiameter			0.0430f			//å°å±¥å¸¦è½¦
+#define Big_Tank_WheelDiameter				0.0440f			//å¤§å±¥å¸¦è½¦
 
-//³µÂÖÂÖ¾à
-#define Diff_wheelspacing					0.177			//²îËÙ³µÂÖ¾à
-#define Akm_wheelspacing					0.162		//°¢¿ËÂü³µÂÖ¾à
-#define Small_Tank_wheelspacing				0.1350		//Ğ¡ÂÄ´ø³µÂÖ¾à
-#define Big_Tank_wheelspacing				0.2330			//´óÂÄ´ø³µÂÖ¾à
+//è½¦è½®è½®è·
+#define Diff_wheelspacing					0.177			//å·®é€Ÿè½¦è½®è·
+#define Akm_wheelspacing					0.162		//é˜¿å…‹æ›¼è½¦è½®è·
+#define Small_Tank_wheelspacing				0.1350		//å°å±¥å¸¦è½¦è½®è·
+#define Big_Tank_wheelspacing				0.2330			//å¤§å±¥å¸¦è½¦è½®è·
 
-#define Akm_axlespacing           			0.144f			//°¢¿ËÂü³µÖá¾à
-#define Diff_axlespacing                    0.155f           //²îËÙ³µÖá¾à
-
-
-#define Gear_Ratio							30.0f			//µç»úµÄ¼õËÙ±È
+#define Akm_axlespacing           			0.144f			//é˜¿å…‹æ›¼è½¦è½´è·
+#define Diff_axlespacing                    0.155f           //å·®é€Ÿè½¦è½´è·
 
 
-#define Pi									3.14159265358979f	//Ô²ÖÜÂÊ
-#define Angle_To_Rad						57.295779513f	//½Ç¶ÈÖÆ×ª»¡¶ÈÖÆ£¬³ıÒÔÕâ¸ö²ÎÊı
-#define Frequency							200.0f			//Ã¿5ms¶ÁÈ¡Ò»´Î±àÂëÆ÷µÄÖµ
-#define SERVO_INIT 							1500  			//¶æ»úÁãµãPWMÖµ
+#define Gear_Ratio							30.0f			//ç”µæœºçš„å‡é€Ÿæ¯”
 
 
-#define Encoder_resolution_Photoelectric	500.0f			//¹âµç±àÂëÆ÷500Ïß
-#define Encoder_resolution_Hall 			13.0f			//»ô¶û±àÂëÆ÷13Ïß
-#define Encoder_resolution 					Encoder_resolution_Hall		//Ê¹ÓÃ13Ïß»ô¶û±àÂëÆ÷
+#define Pi									3.14159265358979f	//åœ†å‘¨ç‡
+#define Angle_To_Rad						57.295779513f	//è§’åº¦åˆ¶è½¬å¼§åº¦åˆ¶ï¼Œé™¤ä»¥è¿™ä¸ªå‚æ•°
+#define Frequency							200.0f			//æ¯5msè¯»å–ä¸€æ¬¡ç¼–ç å™¨çš„å€¼
+#define SERVO_INIT 							1500  			//èˆµæœºé›¶ç‚¹PWMå€¼
 
-#define Angle_TO_PWM						640.62f			//ÓÃÓÚ¼ÆËãpwmºÍ½Ç¶ÈµÄ¹ØÏµ
 
-#define Normal								0				//¼ì²âÒì³£×´Ì¬£¬0ÎªÕı³£
+#define Encoder_resolution_Photoelectric	500.0f			//å…‰ç”µç¼–ç å™¨500çº¿
+#define Encoder_resolution_Hall 			13.0f			//éœå°”ç¼–ç å™¨13çº¿
+#define Encoder_resolution 					Encoder_resolution_Hall		//ä½¿ç”¨13çº¿éœå°”ç¼–ç å™¨
+
+#define Angle_TO_PWM						640.62f			//ç”¨äºè®¡ç®—pwmå’Œè§’åº¦çš„å…³ç³»
+
+#define Normal								0				//æ£€æµ‹å¼‚å¸¸çŠ¶æ€ï¼Œ0ä¸ºæ­£å¸¸
 #define Abnormal							1
 
 
-#define Lidar_Detect_ON						1				//µç´ÅÑ²ÏßÊÇ·ñ¿ªÆôÀ×´ï¼ì²âÕÏ°­Îï
+#define Lidar_Detect_ON						1				//ç”µç£å·¡çº¿æ˜¯å¦å¼€å¯é›·è¾¾æ£€æµ‹éšœç¢ç‰©
 #define Lidar_Detect_OFF					0
 
-//#define forward_velocity 250 //Ğ¡³µ³õÊ¼ËÙ¶È
+//#define forward_velocity 250 //å°è½¦åˆå§‹é€Ÿåº¦
 
-//±àÂëÆ÷Êı¾İ¶ÁÈ¡ÆµÂÊ
+//ç¼–ç å™¨æ•°æ®è¯»å–é¢‘ç‡
 #define   CONTROL_FREQUENCY 100
 #define   Encoder_precision 4*Encoder_resolution_Hall*Gear_Ratio
-//µç»úËÙ¶È¿ØÖÆÏà¹Ø²ÎÊı½á¹¹Ìå
+//ç”µæœºé€Ÿåº¦æ§åˆ¶ç›¸å…³å‚æ•°ç»“æ„ä½“
 typedef struct  
 {
-	float Current_Encoder;     	//±àÂëÆ÷ÊıÖµ£¬¶ÁÈ¡µç»úÊµÊ±ËÙ¶È
-	float Motor_Pwm;     		//µç»úPWMÊıÖµ£¬¿ØÖÆµç»úÊµÊ±ËÙ¶È
-	float Target_Encoder;  		//µç»úÄ¿±ê±àÂëÆ÷ËÙ¶ÈÖµ£¬¿ØÖÆµç»úÄ¿±êËÙ¶È
-	float Velocity; 	 		//µç»úËÙ¶ÈÖµ
+	float Current_Encoder;     	//ç¼–ç å™¨æ•°å€¼ï¼Œè¯»å–ç”µæœºå®æ—¶é€Ÿåº¦
+	float Motor_Pwm;     		//ç”µæœºPWMæ•°å€¼ï¼Œæ§åˆ¶ç”µæœºå®æ—¶é€Ÿåº¦
+	float Target_Encoder;  		//ç”µæœºç›®æ ‡ç¼–ç å™¨é€Ÿåº¦å€¼ï¼Œæ§åˆ¶ç”µæœºç›®æ ‡é€Ÿåº¦
+	float Velocity; 	 		//ç”µæœºé€Ÿåº¦å€¼
 }Motor_parameter;
 
-//±àÂëÆ÷½á¹¹Ìå
+//ç¼–ç å™¨ç»“æ„ä½“
 typedef struct  
 {
   int A;      

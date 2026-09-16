@@ -1,27 +1,27 @@
 /***********************************************
-¹«Ë¾£ºÂÖÈ¤¿Æ¼¼£¨¶«İ¸£©ÓĞÏŞ¹«Ë¾
-Æ·ÅÆ£ºWHEELTEC
-¹ÙÍø£ºwheeltec.net
-ÌÔ±¦µêÆÌ£ºshop114407458.taobao.com 
-ËÙÂôÍ¨: https://minibalance.aliexpress.com/store/4455017
-°æ±¾£ºV1.0
-ĞŞ¸ÄÊ±¼ä£º2023-03-02
+å…¬å¸ï¼šè½®è¶£ç§‘æŠ€ï¼ˆä¸œèï¼‰æœ‰é™å…¬å¸
+å“ç‰Œï¼šWHEELTEC
+å®˜ç½‘ï¼šwheeltec.net
+æ·˜å®åº—é“ºï¼šshop114407458.taobao.com 
+é€Ÿå–é€š: https://minibalance.aliexpress.com/store/4455017
+ç‰ˆæœ¬ï¼šV1.0
+ä¿®æ”¹æ—¶é—´ï¼š2023-03-02
 
 Brand: WHEELTEC
 Website: wheeltec.net
 Taobao shop: shop114407458.taobao.com 
 Aliexpress: https://minibalance.aliexpress.com/store/4455017
 Version: V1.0
-Update£º2023-03-02
+Updateï¼š2023-03-02
 
 All rights reserved
 ***********************************************/
 
 #include "./PSTWO/pstwo.h"
 #define DELAY_TIME  delay_us(5); 
-u16 Handkey;	// °´¼üÖµ¶ÁÈ¡£¬ÁÙÊ±´æ´¢¡£
-u8 Comd[2]={0x01,0x42};	//¿ªÊ¼ÃüÁî¡£ÇëÇóÊı¾İ
-u8 Data[9]={0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00}; //Êı¾İ´æ´¢Êı×é
+u16 Handkey;	// æŒ‰é”®å€¼è¯»å–ï¼Œä¸´æ—¶å­˜å‚¨ã€‚
+u8 Comd[2]={0x01,0x42};	//å¼€å§‹å‘½ä»¤ã€‚è¯·æ±‚æ•°æ®
+u8 Data[9]={0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00}; //æ•°æ®å­˜å‚¨æ•°ç»„
 u16 MASK[]={
     PSB_SELECT,
     PSB_L3,
@@ -39,43 +39,43 @@ u16 MASK[]={
     PSB_RED,
     PSB_BLUE,
     PSB_PINK
-	};	//°´¼üÖµÓë°´¼üÃ÷
+	};	//æŒ‰é”®å€¼ä¸æŒ‰é”®æ˜
 
 //The PS2 gamepad controls related variables
-//PS2ÊÖ±ú¿ØÖÆÏà¹Ø±äÁ¿
+//PS2æ‰‹æŸ„æ§åˆ¶ç›¸å…³å˜é‡
 int PS2_LX,PS2_LY,PS2_RX,PS2_RY,PS2_KEY; 
 
 /**************************************************************************
 Function: PS2_Init
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ: PS2ÊÖ±ú³õÊ¼»¯
-Èë¿Ú²ÎÊı: ÎŞ 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½: PS2æ‰‹æŸ„åˆå§‹åŒ–
+å…¥å£å‚æ•°: æ—  
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 	
 void PS2_Init(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
-	RCC_APB2PeriphClockCmd(PS2_DI_GPIO_CLK|PS2_DO_GPIO_CLK,ENABLE);     //Ê¹ÄÜÊ±ÖÓ,DI,DO 
-	RCC_APB2PeriphClockCmd(PS2_CS_GPIO_CLK|PS2_CLK_GPIO_CLK,ENABLE);    //Ê¹ÄÜÊ±ÖÓ,CS,CLK
+	RCC_APB2PeriphClockCmd(PS2_DI_GPIO_CLK|PS2_DO_GPIO_CLK,ENABLE);     //ä½¿èƒ½æ—¶é’Ÿ,DI,DO 
+	RCC_APB2PeriphClockCmd(PS2_CS_GPIO_CLK|PS2_CLK_GPIO_CLK,ENABLE);    //ä½¿èƒ½æ—¶é’Ÿ,CS,CLK
 	
-	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_IPU;           				//ÉÏÀ­ÊäÈë
+	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_IPU;           				//ä¸Šæ‹‰è¾“å…¥
 	GPIO_InitStructure.GPIO_Pin=PS2_DI_GPIO_PIN;                 		// DI 
 	GPIO_Init(PS2_DI_GPIO_PORT,&GPIO_InitStructure);
 	
-	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_Out_PP;              		//Í¨ÓÃÍÆÍìÊä³ö
+	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_Out_PP;              		//é€šç”¨æ¨æŒ½è¾“å‡º
 	GPIO_InitStructure.GPIO_Pin=PS2_DO_GPIO_PIN;                 		// DO 
 	GPIO_InitStructure.GPIO_Speed=GPIO_Speed_50MHz;
 	GPIO_Init(PS2_DO_GPIO_PORT,&GPIO_InitStructure);
 	
 	
-	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_Out_PP;           			//Í¨ÓÃÍÆÍìÊä³ö
+	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_Out_PP;           			//é€šç”¨æ¨æŒ½è¾“å‡º
 	GPIO_InitStructure.GPIO_Pin=PS2_CS_GPIO_PIN;     					// CS  
 	GPIO_InitStructure.GPIO_Speed=GPIO_Speed_50MHz;
 	GPIO_Init(PS2_CS_GPIO_PORT,&GPIO_InitStructure);
 
-	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_Out_PP;           			//Í¨ÓÃÍÆÍìÊä³ö
+	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_Out_PP;           			//é€šç”¨æ¨æŒ½è¾“å‡º
 	GPIO_InitStructure.GPIO_Pin=PS2_CLK_GPIO_PIN;     					// CLK  
 	GPIO_InitStructure.GPIO_Speed=GPIO_Speed_50MHz;
 	GPIO_Init(PS2_CLK_GPIO_PORT,&GPIO_InitStructure);
@@ -87,11 +87,11 @@ void PS2_Init(void)
 Function: Sent_Cmd
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ: ÏòÊÖ±ú·¢ËÍÃüÁî
-Èë¿Ú²ÎÊı: ÎŞ 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½: å‘æ‰‹æŸ„å‘é€å‘½ä»¤
+å…¥å£å‚æ•°: æ—  
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
-//ÏòÊÖ±ú·¢ËÍÃüÁî
+//å‘æ‰‹æŸ„å‘é€å‘½ä»¤
 void PS2_Cmd(u8 CMD)
 {
 	volatile u16 ref=0x01;
@@ -100,11 +100,11 @@ void PS2_Cmd(u8 CMD)
 	{
 		if(ref&CMD)
 		{
-			DO_H;                  	 //Êä³öÒ»Î»¿ØÖÆÎ»
+			DO_H;                  	 //è¾“å‡ºä¸€ä½æ§åˆ¶ä½
 		}
 		else DO_L;
 
-		CLK_H;                        //Ê±ÖÓÀ­¸ß
+		CLK_H;                        //æ—¶é’Ÿæ‹‰é«˜
 		DELAY_TIME;
 		CLK_L;
 		DELAY_TIME;
@@ -114,28 +114,28 @@ void PS2_Cmd(u8 CMD)
 	}
 	delay_us(16);
 }
-//ÅĞ¶ÏÊÇ·ñÎªºìµÆÄ£Ê½,0x41=Ä£ÄâÂÌµÆ£¬0x73=Ä£ÄâºìµÆ
-//·µ»ØÖµ£»0£¬ºìµÆÄ£Ê½
-//		  ÆäËû£¬ÆäËûÄ£Ê½
+//åˆ¤æ–­æ˜¯å¦ä¸ºçº¢ç¯æ¨¡å¼,0x41=æ¨¡æ‹Ÿç»¿ç¯ï¼Œ0x73=æ¨¡æ‹Ÿçº¢ç¯
+//è¿”å›å€¼ï¼›0ï¼Œçº¢ç¯æ¨¡å¼
+//		  å…¶ä»–ï¼Œå…¶ä»–æ¨¡å¼
 u8 PS2_RedLight(void)
 {
 	CS_L;
-	PS2_Cmd(Comd[0]);  //¿ªÊ¼ÃüÁî
-	PS2_Cmd(Comd[1]);  //ÇëÇóÊı¾İ
+	PS2_Cmd(Comd[0]);  //å¼€å§‹å‘½ä»¤
+	PS2_Cmd(Comd[1]);  //è¯·æ±‚æ•°æ®
 	CS_H;
 	if( Data[1] == 0X73)   return 0 ;
 	else return 1;
 
 }
-//¶ÁÈ¡ÊÖ±úÊı¾İ
+//è¯»å–æ‰‹æŸ„æ•°æ®
 void PS2_ReadData(void)
 {
 	u8 byte=0;
 	u16 ref=1;
 	CS_L;
-	PS2_Cmd(Comd[0]);  //¿ªÊ¼ÃüÁî
-	PS2_Cmd(Comd[1]);  //ÇëÇóÊı¾İ
-	for(byte=2;byte<9;byte++)          //¿ªÊ¼½ÓÊÜÊı¾İ
+	PS2_Cmd(Comd[0]);  //å¼€å§‹å‘½ä»¤
+	PS2_Cmd(Comd[1]);  //è¯·æ±‚æ•°æ®
+	for(byte=2;byte<9;byte++)          //å¼€å§‹æ¥å—æ•°æ®
 	{
 		for(ref=0x01;ref<0x100;ref<<=1)
 		{
@@ -152,8 +152,8 @@ void PS2_ReadData(void)
 	CS_H;
 }
 
-//¶Ô¶Á³öÀ´µÄPS2µÄÊı¾İ½øĞĞ´¦Àí,Ö»´¦Àí°´¼ü²¿·Ö  
-//Ö»ÓĞÒ»¸ö°´¼ü°´ÏÂÊ±°´ÏÂÎª0£¬ Î´°´ÏÂÎª1
+//å¯¹è¯»å‡ºæ¥çš„PS2çš„æ•°æ®è¿›è¡Œå¤„ç†,åªå¤„ç†æŒ‰é”®éƒ¨åˆ†  
+//åªæœ‰ä¸€ä¸ªæŒ‰é”®æŒ‰ä¸‹æ—¶æŒ‰ä¸‹ä¸º0ï¼Œ æœªæŒ‰ä¸‹ä¸º1
 u8 PS2_DataKey()
 {
 	u8 index;
@@ -161,22 +161,22 @@ u8 PS2_DataKey()
 	PS2_ClearData();
 	PS2_ReadData();
 
-	Handkey=(Data[4]<<8)|Data[3];     //ÕâÊÇ16¸ö°´¼ü  °´ÏÂÎª0£¬ Î´°´ÏÂÎª1
+	Handkey=(Data[4]<<8)|Data[3];     //è¿™æ˜¯16ä¸ªæŒ‰é”®  æŒ‰ä¸‹ä¸º0ï¼Œ æœªæŒ‰ä¸‹ä¸º1
 	for(index=0;index<16;index++)
 	{	    
 		if((Handkey&(1<<(MASK[index]-1)))==0)
 		return index+1;
 	}
-	return 0;          //Ã»ÓĞÈÎºÎ°´¼ü°´ÏÂ
+	return 0;          //æ²¡æœ‰ä»»ä½•æŒ‰é”®æŒ‰ä¸‹
 }
 
-//µÃµ½Ò»¸öÒ¡¸ËµÄÄ£ÄâÁ¿	 ·¶Î§0~256
+//å¾—åˆ°ä¸€ä¸ªæ‘‡æ†çš„æ¨¡æ‹Ÿé‡	 èŒƒå›´0~256
 u8 PS2_AnologData(u8 button)
 {
 	return Data[button];
 }
 
-//Çå³ıÊı¾İ»º³åÇø
+//æ¸…é™¤æ•°æ®ç¼“å†²åŒº
 void PS2_ClearData()
 {
 	u8 a;
@@ -185,17 +185,17 @@ void PS2_ClearData()
 }
 /******************************************************
 Function:    void PS2_Vibration(u8 motor1, u8 motor2)
-Description: ÊÖ±úÕğ¶¯º¯Êı£¬
+Description: æ‰‹æŸ„éœ‡åŠ¨å‡½æ•°ï¼Œ
 Calls:		 void PS2_Cmd(u8 CMD);
-Input: motor1:ÓÒ²àĞ¡Õğ¶¯µç»ú 0x00¹Ø£¬ÆäËû¿ª
-	   motor2:×ó²à´óÕğ¶¯µç»ú 0x40~0xFF µç»ú¿ª£¬ÖµÔ½´ó Õğ¶¯Ô½´ó
+Input: motor1:å³ä¾§å°éœ‡åŠ¨ç”µæœº 0x00å…³ï¼Œå…¶ä»–å¼€
+	   motor2:å·¦ä¾§å¤§éœ‡åŠ¨ç”µæœº 0x40~0xFF ç”µæœºå¼€ï¼Œå€¼è¶Šå¤§ éœ‡åŠ¨è¶Šå¤§
 ******************************************************/
 void PS2_Vibration(u8 motor1, u8 motor2)
 {
 	CS_L;
 	delay_us(16);
-    PS2_Cmd(0x01);  //¿ªÊ¼ÃüÁî
-	PS2_Cmd(0x42);  //ÇëÇóÊı¾İ
+    PS2_Cmd(0x01);  //å¼€å§‹å‘½ä»¤
+	PS2_Cmd(0x42);  //è¯·æ±‚æ•°æ®
 	PS2_Cmd(0X00);
 	PS2_Cmd(motor1);
 	PS2_Cmd(motor2);
@@ -219,7 +219,7 @@ void PS2_ShortPoll(void)
 	CS_H;
 	delay_us(16);	
 }
-//½øÈëÅäÖÃ
+//è¿›å…¥é…ç½®
 void PS2_EnterConfing(void)
 {
     CS_L;
@@ -236,16 +236,16 @@ void PS2_EnterConfing(void)
 	CS_H;
 	delay_us(16);
 }
-//·¢ËÍÄ£Ê½ÉèÖÃ
+//å‘é€æ¨¡å¼è®¾ç½®
 void PS2_TurnOnAnalogMode(void)
 {
 	CS_L;
 	PS2_Cmd(0x01);  
 	PS2_Cmd(0x44);  
 	PS2_Cmd(0X00);
-	PS2_Cmd(0x01); //analog=0x01;digital=0x00  Èí¼şÉèÖÃ·¢ËÍÄ£Ê½
-	PS2_Cmd(0x03); //Ox03Ëø´æÉèÖÃ£¬¼´²»¿ÉÍ¨¹ı°´¼ü¡°MODE¡±ÉèÖÃÄ£Ê½¡£
-				   //0xEE²»Ëø´æÈí¼şÉèÖÃ£¬¿ÉÍ¨¹ı°´¼ü¡°MODE¡±ÉèÖÃÄ£Ê½¡£
+	PS2_Cmd(0x01); //analog=0x01;digital=0x00  è½¯ä»¶è®¾ç½®å‘é€æ¨¡å¼
+	PS2_Cmd(0x03); //Ox03é”å­˜è®¾ç½®ï¼Œå³ä¸å¯é€šè¿‡æŒ‰é”®â€œMODEâ€è®¾ç½®æ¨¡å¼ã€‚
+				   //0xEEä¸é”å­˜è½¯ä»¶è®¾ç½®ï¼Œå¯é€šè¿‡æŒ‰é”®â€œMODEâ€è®¾ç½®æ¨¡å¼ã€‚
 	PS2_Cmd(0X00);
 	PS2_Cmd(0X00);
 	PS2_Cmd(0X00);
@@ -253,7 +253,7 @@ void PS2_TurnOnAnalogMode(void)
 	CS_H;
 	delay_us(16);
 }
-//Õñ¶¯ÉèÖÃ
+//æŒ¯åŠ¨è®¾ç½®
 void PS2_VibrationMode(void)
 {
 	CS_L;
@@ -266,7 +266,7 @@ void PS2_VibrationMode(void)
 	CS_H;
 	delay_us(16);	
 }
-//Íê³É²¢±£´æÅäÖÃ
+//å®Œæˆå¹¶ä¿å­˜é…ç½®
 void PS2_ExitConfing(void)
 {
     CS_L;
@@ -283,16 +283,16 @@ void PS2_ExitConfing(void)
 	CS_H;
 	delay_us(16);
 }
-//ÊÖ±úÅäÖÃ³õÊ¼»¯
+//æ‰‹æŸ„é…ç½®åˆå§‹åŒ–
 void PS2_SetInit(void)
 {
 	PS2_ShortPoll();
 	PS2_ShortPoll();
 	PS2_ShortPoll();
-	PS2_EnterConfing();		//½øÈëÅäÖÃÄ£Ê½
-	PS2_TurnOnAnalogMode();	//¡°ºìÂÌµÆ¡±ÅäÖÃÄ£Ê½£¬²¢Ñ¡ÔñÊÇ·ñ±£´æ
-	//PS2_VibrationMode();	//¿ªÆôÕğ¶¯Ä£Ê½
-	PS2_ExitConfing();		//Íê³É²¢±£´æÅäÖÃ
+	PS2_EnterConfing();		//è¿›å…¥é…ç½®æ¨¡å¼
+	PS2_TurnOnAnalogMode();	//â€œçº¢ç»¿ç¯â€é…ç½®æ¨¡å¼ï¼Œå¹¶é€‰æ‹©æ˜¯å¦ä¿å­˜
+	//PS2_VibrationMode();	//å¼€å¯éœ‡åŠ¨æ¨¡å¼
+	PS2_ExitConfing();		//å®Œæˆå¹¶ä¿å­˜é…ç½®
 }
 
 
@@ -301,44 +301,44 @@ void PS2_SetInit(void)
 Function: Read the control of the ps2 handle
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º¶ÁÈ¡PS2ÊÖ±úµÄ¿ØÖÆÁ¿
-Èë¿Ú²ÎÊı£ºÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šè¯»å–PS2æ‰‹æŸ„çš„æ§åˆ¶é‡
+å…¥å£å‚æ•°ï¼šæ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
 void PS2_Read(void)
 {
 	static int Strat;
 	//Reading key
-  //¶ÁÈ¡°´¼ü¼üÖµ
+  //è¯»å–æŒ‰é”®é”®å€¼
 	PS2_KEY=PS2_DataKey(); 
 	//Read the analog of the remote sensing x axis on the left
-  //¶ÁÈ¡×ó±ßÒ£¸ĞXÖá·½ÏòµÄÄ£ÄâÁ¿	
+  //è¯»å–å·¦è¾¹é¥æ„ŸXè½´æ–¹å‘çš„æ¨¡æ‹Ÿé‡	
 	PS2_LX=PS2_AnologData(PSS_LX); 
 	//Read the analog of the directional direction of remote sensing on the left
-  //¶ÁÈ¡×ó±ßÒ£¸ĞYÖá·½ÏòµÄÄ£ÄâÁ¿	
+  //è¯»å–å·¦è¾¹é¥æ„ŸYè½´æ–¹å‘çš„æ¨¡æ‹Ÿé‡	
 	PS2_LY=PS2_AnologData(PSS_LY);
 	//Read the analog of the remote sensing x axis
-  //¶ÁÈ¡ÓÒ±ßÒ£¸ĞXÖá·½ÏòµÄÄ£ÄâÁ¿  
+  //è¯»å–å³è¾¹é¥æ„ŸXè½´æ–¹å‘çš„æ¨¡æ‹Ÿé‡  
 	PS2_RX=PS2_AnologData(PSS_RX);
 	//Read the analog of the directional direction of the remote sensing y axis
-  //¶ÁÈ¡ÓÒ±ßÒ£¸ĞYÖá·½ÏòµÄÄ£ÄâÁ¿  
+  //è¯»å–å³è¾¹é¥æ„ŸYè½´æ–¹å‘çš„æ¨¡æ‹Ÿé‡  
 	PS2_RY=PS2_AnologData(PSS_RY);  
 
 	if(PS2_KEY==4&&PS2_ON_Flag==0) 
 		//The start button on the // handle is pressed
-		//ÊÖ±úÉÏµÄStart°´¼ü±»°´ÏÂ
+		//æ‰‹æŸ„ä¸Šçš„StartæŒ‰é”®è¢«æŒ‰ä¸‹
 		Strat=1; 
 	//When the button is pressed, you need to push the right side forward to the formal ps2 control car
-	//Start°´¼ü±»°´ÏÂºó£¬ĞèÒªÍÆÏÂ×ó±ßÇ°½ø¸Ë£¬²Å¿ÉÒÔÕıÊ½PS2¿ØÖÆĞ¡³µ
+	//StartæŒ‰é”®è¢«æŒ‰ä¸‹åï¼Œéœ€è¦æ¨ä¸‹å·¦è¾¹å‰è¿›æ†ï¼Œæ‰å¯ä»¥æ­£å¼PS2æ§åˆ¶å°è½¦
 	if(Strat&&(PS2_LY<118)&&PS2_ON_Flag==0)
 	{
 		PS2_ON_Flag=RC_ON;APP_ON_Flag=RC_OFF;ROS_ON_Flag=RC_OFF,Remote_ON_Flag=RC_OFF;
 		RC_Velocity = Default_Velocity;
-		if(Car_Num == Akm_Car)//Èç¹ûÊÇ°¢¿ËÂü³µ£¬×ªÏòËÙ¶ÈÊÇ½Ç¶È
+		if(Car_Num == Akm_Car)//å¦‚æœæ˜¯é˜¿å…‹æ›¼è½¦ï¼Œè½¬å‘é€Ÿåº¦æ˜¯è§’åº¦
 		{
 			RC_Turn_Velocity = PS2_Turn_Angle;
 		}
-		else			//ÆäËû³µĞÍÊÇÁ½ÂÖ²îËÙ
+		else			//å…¶ä»–è½¦å‹æ˜¯ä¸¤è½®å·®é€Ÿ
 			RC_Turn_Velocity = Default_Turn_Bias;
 	}
 	

@@ -1,18 +1,18 @@
 /***********************************************
-¹«Ë¾£ºÂÖÈ¤¿Æ¼¼£¨¶«Ý¸£©ÓÐÏÞ¹«Ë¾
-Æ·ÅÆ£ºWHEELTEC
-¹ÙÍø£ºwheeltec.net
-ÌÔ±¦µêÆÌ£ºshop114407458.taobao.com 
-ËÙÂôÍ¨: https://minibalance.aliexpress.com/store/4455017
-°æ±¾£ºV1.0
-ÐÞ¸ÄÊ±¼ä£º2023-03-02
+å…¬å¸ï¼šè½®è¶£ç§‘æŠ€ï¼ˆä¸œèŽžï¼‰æœ‰é™å…¬å¸
+å“ç‰Œï¼šWHEELTEC
+å®˜ç½‘ï¼šwheeltec.net
+æ·˜å®åº—é“ºï¼šshop114407458.taobao.com 
+é€Ÿå–é€š: https://minibalance.aliexpress.com/store/4455017
+ç‰ˆæœ¬ï¼šV1.0
+ä¿®æ”¹æ—¶é—´ï¼š2023-03-02
 
 Brand: WHEELTEC
 Website: wheeltec.net
 Taobao shop: shop114407458.taobao.com 
 Aliexpress: https://minibalance.aliexpress.com/store/4455017
 Version: V1.0
-Update£º2023-03-02
+Updateï¼š2023-03-02
 
 All rights reserved
 ***********************************************/
@@ -24,7 +24,7 @@ All rights reserved
 #include "stm32f10x.h"
 #include "./GeneralTim/bsp_GeneralTim.h" 
 
-//Òý½Å¶¨Òå
+//å¼•è„šå®šä¹‰
 
 //#define    MOTOR1_GPIO_CLK     			RCC_APB2Periph_GPIOA
 //#define    MOTOR1_GPIO_PORT    			GPIOA			   
@@ -38,12 +38,12 @@ All rights reserved
 //#define    MOTOR2_IN2_GPIO_PIN	 		GPIO_Pin_1
 
 
-//Òý½Å¶¨Òå
-//¶æ»ú
+//å¼•è„šå®šä¹‰
+//èˆµæœº
 #define    	SERVO_GPIO_CLK     					RCC_APB2Periph_GPIOA
 #define    	SERVO_GPIO_PORT    					GPIOA			   
 #define    	SERVO_GPIO_PIN	 					GPIO_Pin_8
-//Ê¹ÓÃ¶¨Ê±Æ÷TIM1
+//ä½¿ç”¨å®šæ—¶å™¨TIM1
 #define    	SERVO_TIM                   		TIM1
 #define    	SERVO_TIM_APBxClock_FUN     		RCC_APB2PeriphClockCmd
 #define    	SERVO_TIM_CLK               		RCC_APB2Periph_TIM1
@@ -54,7 +54,7 @@ All rights reserved
 
 
 
-//ÕâÀïÊÇµç»úÊä³öµÄPWM
+//è¿™é‡Œæ˜¯ç”µæœºè¾“å‡ºçš„PWM
 #define PWMA_IN1 TIM3->CCR1
 #define PWMA_IN2 TIM3->CCR2
 #define PWMB_IN1 TIM3->CCR3

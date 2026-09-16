@@ -1,35 +1,35 @@
 /***********************************************
-¹«Ë¾£ºÂÖÈ¤¿Æ¼¼£¨¶«İ¸£©ÓĞÏŞ¹«Ë¾
-Æ·ÅÆ£ºWHEELTEC
-¹ÙÍø£ºwheeltec.net
-ÌÔ±¦µêÆÌ£ºshop114407458.taobao.com 
-ËÙÂôÍ¨: https://minibalance.aliexpress.com/store/4455017
-°æ±¾£ºV1.0
-ĞŞ¸ÄÊ±¼ä£º2023-03-02
+å…¬å¸ï¼šè½®è¶£ç§‘æŠ€ï¼ˆä¸œèï¼‰æœ‰é™å…¬å¸
+å“ç‰Œï¼šWHEELTEC
+å®˜ç½‘ï¼šwheeltec.net
+æ·˜å®åº—é“ºï¼šshop114407458.taobao.com 
+é€Ÿå–é€š: https://minibalance.aliexpress.com/store/4455017
+ç‰ˆæœ¬ï¼šV1.0
+ä¿®æ”¹æ—¶é—´ï¼š2023-03-02
 
 Brand: WHEELTEC
 Website: wheeltec.net
 Taobao shop: shop114407458.taobao.com 
 Aliexpress: https://minibalance.aliexpress.com/store/4455017
 Version: V1.0
-Update£º2023-03-02
+Updateï¼š2023-03-02
 
 All rights reserved
 ***********************************************/
 #include "./DataScope_DP/DataScope_DP.h"
-unsigned char DataScope_OutPut_Buffer[42] = {0};	   //´®¿Ú·¢ËÍ»º³åÇø
+unsigned char DataScope_OutPut_Buffer[42] = {0};	   //ä¸²å£å‘é€ç¼“å†²åŒº
 /**************************************************************************
 Function: Convert single precision floating-point data into 4-byte data and store it in the specified address
 Input   : target:Target single precision data  buf:Array to be written  beg:Specifies which element of the array to write from
 Output  : none
-º¯Êı¹¦ÄÜ£º½«µ¥¾«¶È¸¡µãÊı¾İ×ª³É4×Ö½ÚÊı¾İ²¢´æÈëÖ¸¶¨µØÖ·  ¸½¼ÓËµÃ÷£ºÓÃ»§ÎŞĞèÖ±½Ó²Ù×÷´Ëº¯Êı
-Èë¿Ú²ÎÊı£ºtarget:Ä¿±êµ¥¾«¶ÈÊı¾İ  buf:´ıĞ´ÈëÊı×é  beg:Ö¸¶¨´ÓÊı×éµÚ¼¸¸öÔªËØ¿ªÊ¼Ğ´Èë
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šå°†å•ç²¾åº¦æµ®ç‚¹æ•°æ®è½¬æˆ4å­—èŠ‚æ•°æ®å¹¶å­˜å…¥æŒ‡å®šåœ°å€  é™„åŠ è¯´æ˜ï¼šç”¨æˆ·æ— éœ€ç›´æ¥æ“ä½œæ­¤å‡½æ•°
+å…¥å£å‚æ•°ï¼štarget:ç›®æ ‡å•ç²¾åº¦æ•°æ®  buf:å¾…å†™å…¥æ•°ç»„  beg:æŒ‡å®šä»æ•°ç»„ç¬¬å‡ ä¸ªå…ƒç´ å¼€å§‹å†™å…¥
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
 void Float2Byte(float *target,unsigned char *buf,unsigned char beg)
 {
     unsigned char *point;
-    point = (unsigned char*)target;	  //µÃµ½floatµÄµØÖ·
+    point = (unsigned char*)target;	  //å¾—åˆ°floatçš„åœ°å€
     buf[beg]   = point[0];
     buf[beg+1] = point[1];
     buf[beg+2] = point[2];
@@ -37,15 +37,15 @@ void Float2Byte(float *target,unsigned char *buf,unsigned char beg)
 }
 /**************************************************************************
 Function: Write the single precision floating-point data of the channel to be sent to the send buffer
-Input   : Data£ºChannel data  Channel£ºSelect channel (1-10)
+Input   : Dataï¼šChannel data  Channelï¼šSelect channel (1-10)
 Output  : none
-º¯Êı¹¦ÄÜ£º½«´ı·¢ËÍÍ¨µÀµÄµ¥¾«¶È¸¡µãÊı¾İĞ´Èë·¢ËÍ»º³åÇø
-Èë¿Ú²ÎÊı£ºData£ºÍ¨µÀÊı¾İ  Channel£ºÑ¡ÔñÍ¨µÀ£¨1-10£©
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šå°†å¾…å‘é€é€šé“çš„å•ç²¾åº¦æµ®ç‚¹æ•°æ®å†™å…¥å‘é€ç¼“å†²åŒº
+å…¥å£å‚æ•°ï¼šDataï¼šé€šé“æ•°æ®  Channelï¼šé€‰æ‹©é€šé“ï¼ˆ1-10ï¼‰
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
 void DataScope_Get_Channel_Data(float Data,unsigned char Channel)
 {
-	if ( (Channel > 10) || (Channel == 0) ) return;  //Í¨µÀ¸öÊı´óÓÚ10»òµÈÓÚ0£¬Ö±½ÓÌø³ö£¬²»Ö´ĞĞº¯Êı
+	if ( (Channel > 10) || (Channel == 0) ) return;  //é€šé“ä¸ªæ•°å¤§äº10æˆ–ç­‰äº0ï¼Œç›´æ¥è·³å‡ºï¼Œä¸æ‰§è¡Œå‡½æ•°
   else
   {
      switch (Channel)
@@ -65,18 +65,18 @@ void DataScope_Get_Channel_Data(float Data,unsigned char Channel)
 }
 /**************************************************************************
 Function: Generate frame format that datascope v1.0 can recognize correctly
-Input   : Channel_Number£ºNumber of channels to send
+Input   : Channel_Numberï¼šNumber of channels to send
 Output  : Returns the number of send buffer data
-º¯Êı¹¦ÄÜ£ºÉú³É DataScopeV1.0 ÄÜÕıÈ·Ê¶±ğµÄÖ¡¸ñÊ½
-Èë¿Ú²ÎÊı£ºChannel_Number£ºĞèÒª·¢ËÍµÄÍ¨µÀ¸öÊı
-·µ»Ø  Öµ£º·µ»Ø·¢ËÍ»º³åÇøÊı¾İ¸öÊı   ·µ»Ø0±íÊ¾Ö¡¸ñÊ½Éú³ÉÊ§°Ü
+å‡½æ•°åŠŸèƒ½ï¼šç”Ÿæˆ DataScopeV1.0 èƒ½æ­£ç¡®è¯†åˆ«çš„å¸§æ ¼å¼
+å…¥å£å‚æ•°ï¼šChannel_Numberï¼šéœ€è¦å‘é€çš„é€šé“ä¸ªæ•°
+è¿”å›  å€¼ï¼šè¿”å›å‘é€ç¼“å†²åŒºæ•°æ®ä¸ªæ•°   è¿”å›0è¡¨ç¤ºå¸§æ ¼å¼ç”Ÿæˆå¤±è´¥
 **************************************************************************/
 unsigned char DataScope_Data_Generate(unsigned char Channel_Number)
 {
-	if ( (Channel_Number > 10) || (Channel_Number == 0) ) { return 0; }  //Í¨µÀ¸öÊı´óÓÚ10»òµÈÓÚ0£¬Ö±½ÓÌø³ö£¬²»Ö´ĞĞº¯Êı
+	if ( (Channel_Number > 10) || (Channel_Number == 0) ) { return 0; }  //é€šé“ä¸ªæ•°å¤§äº10æˆ–ç­‰äº0ï¼Œç›´æ¥è·³å‡ºï¼Œä¸æ‰§è¡Œå‡½æ•°
   else
   {	
-	 DataScope_OutPut_Buffer[0] = '$';  //Ö¡Í·
+	 DataScope_OutPut_Buffer[0] = '$';  //å¸§å¤´
 		
 	 switch(Channel_Number)   
    { 

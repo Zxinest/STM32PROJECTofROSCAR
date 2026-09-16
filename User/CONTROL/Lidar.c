@@ -1,18 +1,18 @@
 /***********************************************
-¹«Ë¾£ºÂÖÈ¤¿Æ¼¼£¨¶«İ¸£©ÓĞÏŞ¹«Ë¾
-Æ·ÅÆ£ºWHEELTEC
-¹ÙÍø£ºwheeltec.net
-ÌÔ±¦µêÆÌ£ºshop114407458.taobao.com 
-ËÙÂôÍ¨: https://minibalance.aliexpress.com/store/4455017
-°æ±¾£ºV1.0
-ĞŞ¸ÄÊ±¼ä£º2023-03-02
+å…¬å¸ï¼šè½®è¶£ç§‘æŠ€ï¼ˆä¸œèï¼‰æœ‰é™å…¬å¸
+å“ç‰Œï¼šWHEELTEC
+å®˜ç½‘ï¼šwheeltec.net
+æ·˜å®åº—é“ºï¼šshop114407458.taobao.com 
+é€Ÿå–é€š: https://minibalance.aliexpress.com/store/4455017
+ç‰ˆæœ¬ï¼šV1.0
+ä¿®æ”¹æ—¶é—´ï¼š2023-03-02
 
 Brand: WHEELTEC
 Website: wheeltec.net
 Taobao shop: shop114407458.taobao.com 
 Aliexpress: https://minibalance.aliexpress.com/store/4455017
 Version: V1.0
-Update£º2023-03-02
+Updateï¼š2023-03-02
 
 All rights reserved
 ***********************************************/
@@ -20,10 +20,10 @@ All rights reserved
 #include "Lidar.h"
 #include <string.h>
 
-PointDataProcessDef PointDataProcess[420];//¸üĞÂ390¸öÊı¾İ
-PointDataProcessDef Dataprocess[420];      //ÓÃÓÚĞ¡³µ±ÜÕÏ¡¢¸úËæ¡¢×ßÖ±Ïß¡¢ELEÀ×´ï±ÜÕÏµÄÀ×´ïÊı¾İ
-PointDataProcessDef TempData[12]={0};  //³¬¹ıÁË0¶ÈµÄÏÂÒ»È¦Êı¾İÁÙÊ±´æ´¢
-LiDARFrameTypeDef Pack_Data;			//À×´ï½ÓÊÕµÄÊı¾İ´¢´æÔÚÕâ¸ö±äÁ¿Ö®ÖĞ
+PointDataProcessDef PointDataProcess[420];//æ›´æ–°390ä¸ªæ•°æ®
+PointDataProcessDef Dataprocess[420];      //ç”¨äºå°è½¦é¿éšœã€è·Ÿéšã€èµ°ç›´çº¿ã€ELEé›·è¾¾é¿éšœçš„é›·è¾¾æ•°æ®
+PointDataProcessDef TempData[12]={0};  //è¶…è¿‡äº†0åº¦çš„ä¸‹ä¸€åœˆæ•°æ®ä¸´æ—¶å­˜å‚¨
+LiDARFrameTypeDef Pack_Data;			//é›·è¾¾æ¥æ”¶çš„æ•°æ®å‚¨å­˜åœ¨è¿™ä¸ªå˜é‡ä¹‹ä¸­
 
 static const uint8_t CrcTable[256] =
 {
@@ -49,7 +49,7 @@ static const uint8_t CrcTable[256] =
  0xb7, 0x5d, 0x10, 0xc7, 0x8a, 0x24, 0x69, 0xbe, 0xf3, 0xaf, 0xe2, 0x35,
  0x78, 0xd6, 0x9b, 0x4c, 0x01, 0xf4, 0xb9, 0x6e, 0x23, 0x8d, 0xc0, 0x17,
  0x5a, 0x06, 0x4b, 0x9c, 0xd1, 0x7f, 0x32, 0xe5, 0xa8
-};//ÓÃÓÚcrcĞ£ÑéµÄÊı×é
+};//ç”¨äºcrcæ ¡éªŒçš„æ•°ç»„
 
 
 
@@ -57,19 +57,19 @@ static const uint8_t CrcTable[256] =
 Function: LIDAR_USART_IRQHandler
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£ºÀ×´ï½ÓÊÕÖĞ¶Ï
-Èë¿Ú²ÎÊı£ºÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šé›·è¾¾æ¥æ”¶ä¸­æ–­
+å…¥å£å‚æ•°ï¼šæ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
-//´®¿Ú5
-void LIDAR_USART_IRQHandler(void)//½ÓÊÕld14À×´ïÊı¾İ£¬Ò»Ö¡47¸ö×Ö½Ú
+//ä¸²å£5
+void LIDAR_USART_IRQHandler(void)//æ¥æ”¶ld14é›·è¾¾æ•°æ®ï¼Œä¸€å¸§47ä¸ªå­—èŠ‚
 {	
-	static u8 state = 0;//×´Ì¬Î»	£¬Ö¸Ê¾µ±Ç°Êı¾İÖ¡µÄÎ»ÖÃ
-	static u8 crc = 0;	//Ğ£ÑéºÍ
-	static u8 cnt = 0;	//ÓÃÓÚÒ»Ö¡12¸öµãµÄ¼ÆÊı
+	static u8 state = 0;//çŠ¶æ€ä½	ï¼ŒæŒ‡ç¤ºå½“å‰æ•°æ®å¸§çš„ä½ç½®
+	static u8 crc = 0;	//æ ¡éªŒå’Œ
+	static u8 cnt = 0;	//ç”¨äºä¸€å¸§12ä¸ªç‚¹çš„è®¡æ•°
 	
 	u8 temp_data;
-	if(USART_GetITStatus(LIDAR_USARTx, USART_IT_RXNE) != RESET) //½ÓÊÕµ½Êı¾İ
+	if(USART_GetITStatus(LIDAR_USARTx, USART_IT_RXNE) != RESET) //æ¥æ”¶åˆ°æ•°æ®
 	{	
 		
     USART_ClearITPendingBit(LIDAR_USARTx,USART_IT_RXNE);		
@@ -79,19 +79,19 @@ void LIDAR_USART_IRQHandler(void)//½ÓÊÕld14À×´ïÊı¾İ£¬Ò»Ö¡47¸ö×Ö½Ú
 		{
 			if(state < 42)
 			{
-				if(state%3 == 0)		//Ò»Ö¡Êı¾İÖĞµÄĞòºÅÎª6,9.....39µÄÊı¾İ£¬¾àÀëÖµµÍ8Î»
+				if(state%3 == 0)		//ä¸€å¸§æ•°æ®ä¸­çš„åºå·ä¸º6,9.....39çš„æ•°æ®ï¼Œè·ç¦»å€¼ä½8ä½
 				{
 					Pack_Data.point[cnt].distance = (u16)temp_data;
 					state++;
 					crc = CrcTable[(crc^temp_data) & 0xff];
 				}
-				else if(state%3 == 1)	//Ò»Ö¡Êı¾İÖĞµÄĞòºÅÎª7,10.....40µÄÊı¾İ£¬¾àÀëÖµ¸ß8Î»
+				else if(state%3 == 1)	//ä¸€å¸§æ•°æ®ä¸­çš„åºå·ä¸º7,10.....40çš„æ•°æ®ï¼Œè·ç¦»å€¼é«˜8ä½
 				{
 					Pack_Data.point[cnt].distance = ((u16)temp_data<<8)+Pack_Data.point[cnt].distance;
 					state++;
 					crc = CrcTable[(crc^temp_data) & 0xff];
 				}
-				else					//Ò»Ö¡Êı¾İÖĞµÄĞòºÅÎª8,11.....41µÄÊı¾İ£¬ÖÃĞÅ¶È
+				else					//ä¸€å¸§æ•°æ®ä¸­çš„åºå·ä¸º8,11.....41çš„æ•°æ®ï¼Œç½®ä¿¡åº¦
 				{
 					Pack_Data.point[cnt].confidence = temp_data;
 					cnt++;	
@@ -104,38 +104,38 @@ void LIDAR_USART_IRQHandler(void)//½ÓÊÕld14À×´ïÊı¾İ£¬Ò»Ö¡47¸ö×Ö½Ú
 				switch(state)
 				{
 					case 42:
-						Pack_Data.end_angle = (u16)temp_data;						//½áÊø½Ç¶ÈµÍ8Î»
+						Pack_Data.end_angle = (u16)temp_data;						//ç»“æŸè§’åº¦ä½8ä½
 						state++;
 						crc = CrcTable[(crc^temp_data) & 0xff];
 						break;
 					case 43:
-						Pack_Data.end_angle = ((u16)temp_data<<8)+Pack_Data.end_angle;//½áÊø½Ç¶È¸ß8Î»
+						Pack_Data.end_angle = ((u16)temp_data<<8)+Pack_Data.end_angle;//ç»“æŸè§’åº¦é«˜8ä½
 						state++;
 						crc = CrcTable[(crc^temp_data) & 0xff];
 						break;
 					case 44:
-						Pack_Data.timestamp = (u16)temp_data;						//Ê±¼ä´ÁµÍ8Î»
+						Pack_Data.timestamp = (u16)temp_data;						//æ—¶é—´æˆ³ä½8ä½
 						state++;
 						crc = CrcTable[(crc^temp_data) & 0xff];
 						break;
 					case 45:
-						Pack_Data.timestamp = ((u16)temp_data<<8)+Pack_Data.timestamp;//Ê±¼ä´Á¸ß8Î»
+						Pack_Data.timestamp = ((u16)temp_data<<8)+Pack_Data.timestamp;//æ—¶é—´æˆ³é«˜8ä½
 						state++;
 						crc = CrcTable[(crc^temp_data) & 0xff];
 						break;
 					case 46:
-						Pack_Data.crc8 = temp_data;		//À×´ï´«À´µÄĞ£ÑéºÍ
-						if(Pack_Data.crc8 == crc)		//Ğ£ÑéÕıÈ·
+						Pack_Data.crc8 = temp_data;		//é›·è¾¾ä¼ æ¥çš„æ ¡éªŒå’Œ
+						if(Pack_Data.crc8 == crc)		//æ ¡éªŒæ­£ç¡®
 						{
-							data_process();				//½ÓÊÕµ½Ò»Ö¡ÇÒĞ£ÑéÕıÈ·¿ÉÒÔ½øĞĞÊı¾İ´¦Àí
+							data_process();				//æ¥æ”¶åˆ°ä¸€å¸§ä¸”æ ¡éªŒæ­£ç¡®å¯ä»¥è¿›è¡Œæ•°æ®å¤„ç†
 						}
 						else
 						{
-							memset(&Pack_Data, 0, sizeof(LiDARFrameTypeDef));//ÇåÁã
+							memset(&Pack_Data, 0, sizeof(LiDARFrameTypeDef));//æ¸…é›¶
 						}
 						crc = 0;
 						state = 0;
-						cnt = 0;//¸´Î»
+						cnt = 0;//å¤ä½
 						break;
 					default: break;
 				}
@@ -146,15 +146,15 @@ void LIDAR_USART_IRQHandler(void)//½ÓÊÕld14À×´ïÊı¾İ£¬Ò»Ö¡47¸ö×Ö½Ú
 			switch(state)
 			{
 				case 0:
-					if(temp_data == HEADER)									//Í·¹Ì¶¨
+					if(temp_data == HEADER)									//å¤´å›ºå®š
 					{
 						Pack_Data.header = temp_data;
 						state++;
-						crc = CrcTable[(crc^temp_data) & 0xff];				//¿ªÊ¼½øĞĞĞ£Ñé
+						crc = CrcTable[(crc^temp_data) & 0xff];				//å¼€å§‹è¿›è¡Œæ ¡éªŒ
 					} else state = 0,crc = 0;
 					break;
 				case 1:
-					if(temp_data == LENGTH)									//²âÁ¿µÄµãÊı£¬Ä¿Ç°¹Ì¶¨
+					if(temp_data == LENGTH)									//æµ‹é‡çš„ç‚¹æ•°ï¼Œç›®å‰å›ºå®š
 					{
 						Pack_Data.ver_len = temp_data;
 						state++;
@@ -162,17 +162,17 @@ void LIDAR_USART_IRQHandler(void)//½ÓÊÕld14À×´ïÊı¾İ£¬Ò»Ö¡47¸ö×Ö½Ú
 					} else state = 0,crc = 0;
 					break;
 				case 2:
-					Pack_Data.speed = (u16)temp_data;						//À×´ïµÄ×ªËÙµÍ8Î»£¬µ¥Î»¶ÈÃ¿Ãë
+					Pack_Data.speed = (u16)temp_data;						//é›·è¾¾çš„è½¬é€Ÿä½8ä½ï¼Œå•ä½åº¦æ¯ç§’
 					state++;
 					crc = CrcTable[(crc^temp_data) & 0xff];
 					break;
 				case 3:
-					Pack_Data.speed = ((u16)temp_data<<8)+Pack_Data.speed;	//À×´ïµÄ×ªËÙ¸ß8Î»
+					Pack_Data.speed = ((u16)temp_data<<8)+Pack_Data.speed;	//é›·è¾¾çš„è½¬é€Ÿé«˜8ä½
 					state++;
 					crc = CrcTable[(crc^temp_data) & 0xff];
 					break;
 				case 4:
-					Pack_Data.start_angle = (u16)temp_data;					//¿ªÊ¼½Ç¶ÈµÍ8Î»£¬·Å´óÁË100±¶
+					Pack_Data.start_angle = (u16)temp_data;					//å¼€å§‹è§’åº¦ä½8ä½ï¼Œæ”¾å¤§äº†100å€
 					state++;
 					crc = CrcTable[(crc^temp_data) & 0xff];
 					break;
@@ -188,93 +188,93 @@ void LIDAR_USART_IRQHandler(void)//½ÓÊÕld14À×´ïÊı¾İ£¬Ò»Ö¡47¸ö×Ö½Ú
 	}	
 } 
 
-//Íê³ÉÒ»Ö¡½ÓÊÕºó½øĞĞ´¦Àí
+//å®Œæˆä¸€å¸§æ¥æ”¶åè¿›è¡Œå¤„ç†
 /**************************************************************************
 Function: data_process
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£ºÊı¾İ´¦Àíº¯Êı
-Èë¿Ú²ÎÊı£ºÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šæ•°æ®å¤„ç†å‡½æ•°
+å…¥å£å‚æ•°ï¼šæ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
 void data_process(void)
 {
-	//À×´ïÃ¿Ö¡Êı¾İÊÇ¹Ì¶¨12¸öµã£¬À×´ïÒ»È¦´óÔ¼ÓĞxx¸öµãµ«ÊÇ²»ÊÇÒ»¸ö¹Ì¶¨Öµ¡£À×´ïÒ»Ãë×ª´óÔ¼xxÈ¦£¬
-	//³ÌĞòÊÇµÈÀ×´ï×ªÍê1È¦ºóÔÙ½«Ò»ÕûÈ¦µÄÊı¾İÀ´Ê¹ÓÃ¶ø²»ÊÇÒ»Ö¡Ò»Ö¡Êı¾İµÄÊµÊ±¸üĞÂ¶øÊÇ»ñÈ¡µ½Ò»ÕûÈ¦À×´ïÊı¾İºóÔÙ¸üĞÂ¡£
-	//ÓÉÓÚÀ×´ïÃ¿Ò»È¦µÄµãÊı¶¼²»ÊÇ¹Ì¶¨µÄ£¨ÒòÎª×ªËÙ²»ÊÇºã¶¨»áÓĞÎ¢Î¢Ğ¡Æ«²î£©£¬ËùÒÔÃ¿Ò»È¦µÄµ¹ÊıµÚÒ»Ö¡Êı¾İºÜ´ó¸ÅÂÊÊÇ¡°Ç°°ë¶ÎÊı¾İÊÇµ±Ç°ÕâÒ»È¦µÄÄ©Î²£¬ºó°ë¶ÎÊı¾İÊÇÏÂÒ»È¦µÄ¿ªÍ·¡±£¬
-	//Òò´ËÀ×´ïÊı¾İ´¦ÀíµÄÊ±ºò»á¸ù¾İÕâÒ»Ö¡Êı¾İµÄ¿ªÊ¼½Ç¶ÈºÍ½áÊø½Ç¶ÈÅĞ¶ÏÊÇ·ñ¶ÔÊı¾İ½øĞĞÇĞ¸î¡£
+	//é›·è¾¾æ¯å¸§æ•°æ®æ˜¯å›ºå®š12ä¸ªç‚¹ï¼Œé›·è¾¾ä¸€åœˆå¤§çº¦æœ‰xxä¸ªç‚¹ä½†æ˜¯ä¸æ˜¯ä¸€ä¸ªå›ºå®šå€¼ã€‚é›·è¾¾ä¸€ç§’è½¬å¤§çº¦xxåœˆï¼Œ
+	//ç¨‹åºæ˜¯ç­‰é›·è¾¾è½¬å®Œ1åœˆåå†å°†ä¸€æ•´åœˆçš„æ•°æ®æ¥ä½¿ç”¨è€Œä¸æ˜¯ä¸€å¸§ä¸€å¸§æ•°æ®çš„å®æ—¶æ›´æ–°è€Œæ˜¯è·å–åˆ°ä¸€æ•´åœˆé›·è¾¾æ•°æ®åå†æ›´æ–°ã€‚
+	//ç”±äºé›·è¾¾æ¯ä¸€åœˆçš„ç‚¹æ•°éƒ½ä¸æ˜¯å›ºå®šçš„ï¼ˆå› ä¸ºè½¬é€Ÿä¸æ˜¯æ’å®šä¼šæœ‰å¾®å¾®å°åå·®ï¼‰ï¼Œæ‰€ä»¥æ¯ä¸€åœˆçš„å€’æ•°ç¬¬ä¸€å¸§æ•°æ®å¾ˆå¤§æ¦‚ç‡æ˜¯â€œå‰åŠæ®µæ•°æ®æ˜¯å½“å‰è¿™ä¸€åœˆçš„æœ«å°¾ï¼ŒååŠæ®µæ•°æ®æ˜¯ä¸‹ä¸€åœˆçš„å¼€å¤´â€ï¼Œ
+	//å› æ­¤é›·è¾¾æ•°æ®å¤„ç†çš„æ—¶å€™ä¼šæ ¹æ®è¿™ä¸€å¸§æ•°æ®çš„å¼€å§‹è§’åº¦å’Œç»“æŸè§’åº¦åˆ¤æ–­æ˜¯å¦å¯¹æ•°æ®è¿›è¡Œåˆ‡å‰²ã€‚
 	u16 i,j,m,k;
-	float start_angle = Pack_Data.start_angle/100.0;  //¼ÆËã12¸öµãµÄ¿ªÊ¼½Ç¶È£¬Êı×Ö´«ÊäÊ±·Å´óÁË100±¶
+	float start_angle = Pack_Data.start_angle/100.0;  //è®¡ç®—12ä¸ªç‚¹çš„å¼€å§‹è§’åº¦ï¼Œæ•°å­—ä¼ è¾“æ—¶æ”¾å¤§äº†100å€
 	float end_angle = Pack_Data.end_angle/100.0;
-	float area_angle[12]={0};//Ò»Ö¡Êı¾İµÄÆ½¾ù½Ç¶È	
-	//180¶ÈµÄµØ·½ÊÇ³µÍ·£¬×öÒ»¶¨µÄ×ª»»Ê¹³µÍ··½ÏòÊÇ0¶È
+	float area_angle[12]={0};//ä¸€å¸§æ•°æ®çš„å¹³å‡è§’åº¦	
+	//180åº¦çš„åœ°æ–¹æ˜¯è½¦å¤´ï¼Œåšä¸€å®šçš„è½¬æ¢ä½¿è½¦å¤´æ–¹å‘æ˜¯0åº¦
 	if((start_angle -= 180)<0)
 		start_angle += 360;
 	if((end_angle -= 180)<0)
 		end_angle += 360;
-	if(start_angle>end_angle)//¿ªÊ¼ºÍ½áÊø½Ç¶È±»0¶È¸ÕºÃ·Ö¿ªµÄÇé¿ö
+	if(start_angle>end_angle)//å¼€å§‹å’Œç»“æŸè§’åº¦è¢«0åº¦åˆšå¥½åˆ†å¼€çš„æƒ…å†µ
 	{
 	   end_angle +=360;	
 	}
-	for(m=0;m<12;m++) //»ñÈ¡Ã¿¸öµãµÄ½Ç¶ÈÖµ
+	for(m=0;m<12;m++) //è·å–æ¯ä¸ªç‚¹çš„è§’åº¦å€¼
 	{
 		area_angle[m]=start_angle+(end_angle-start_angle)/10.5*m;
-		if(area_angle[m]>360.0)  //Çé¿ö1£º¿ªÊ¼ºÍ½áÊø½Ç¶È±»0¶È¸ÕºÃ·Ö¿ªµÄÇé¿ö
+		if(area_angle[m]>360.0)  //æƒ…å†µ1ï¼šå¼€å§‹å’Œç»“æŸè§’åº¦è¢«0åº¦åˆšå¥½åˆ†å¼€çš„æƒ…å†µ
 		{		
-			if(test_once_flag==0) //ÕÒµ½µÚ¼¸¸öµãÊÇ·Ö½çµã
+			if(test_once_flag==0) //æ‰¾åˆ°ç¬¬å‡ ä¸ªç‚¹æ˜¯åˆ†ç•Œç‚¹
 		  {
-		    test_once_flag=1; //ÕÒµ½ÁË±êÖ¾Î»ÖÃ1
+		    test_once_flag=1; //æ‰¾åˆ°äº†æ ‡å¿—ä½ç½®1
 		    Dividing_point=m;  	
-			area_angle[m] -=360; //»¹Ô­µãµÄÕıÈ·½Ç¶ÈÖµ
+			area_angle[m] -=360; //è¿˜åŸç‚¹çš„æ­£ç¡®è§’åº¦å€¼
 		   }
-		  else area_angle[m] -=360; //»¹Ô­µãµÄÕıÈ·½Ç¶ÈÖµ
+		  else area_angle[m] -=360; //è¿˜åŸç‚¹çš„æ­£ç¡®è§’åº¦å€¼
 		}
 	}
 	Lidar_Success_Receive_flag=1,Lidar_flag_count=0;
-	if ((end_angle <= 360) && (end_angle >= 359) ) //Çé¿ö2£ºÌØÊâÇé¿ö£¬¸ÕºÃÊı¾İ²»±»0µãÇĞ¸î£¬0µãÊÇ±»Á½Ö¡Êı¾İ¶¼¼ĞÔÚÖĞ¼ä
+	if ((end_angle <= 360) && (end_angle >= 359) ) //æƒ…å†µ2ï¼šç‰¹æ®Šæƒ…å†µï¼Œåˆšå¥½æ•°æ®ä¸è¢«0ç‚¹åˆ‡å‰²ï¼Œ0ç‚¹æ˜¯è¢«ä¸¤å¸§æ•°æ®éƒ½å¤¹åœ¨ä¸­é—´
 	{
 	    test_once_flag=1;
 		Dividing_point=12;
 	  }
-	if(test_once_flag) //ÕâÖ¡Êı¾İÒª×öÊı¾İÇĞ¸îµÄÇé¿ö£¨ÕâÖ¡Êı¾İ°üº¬ÁËÕâÒ»È¦µÄÊı¾İºÍÏÂÒ»È¦µÄÊı¾İ£©
+	if(test_once_flag) //è¿™å¸§æ•°æ®è¦åšæ•°æ®åˆ‡å‰²çš„æƒ…å†µï¼ˆè¿™å¸§æ•°æ®åŒ…å«äº†è¿™ä¸€åœˆçš„æ•°æ®å’Œä¸‹ä¸€åœˆçš„æ•°æ®ï¼‰
 	{
 		
-		 for(i=0;i<Dividing_point;i++)    //ÕâÒ»Ö¡Êı¾İ360¶ÈÖ®Ç°µÄµãÕı³£±£Áô
+		 for(i=0;i<Dividing_point;i++)    //è¿™ä¸€å¸§æ•°æ®360åº¦ä¹‹å‰çš„ç‚¹æ­£å¸¸ä¿ç•™
 		 {
 			  PointDataProcess[PointDataProcess_count+i].angle = area_angle[i];
 			  PointDataProcess[PointDataProcess_count+i].distance = Pack_Data.point[i].distance;
 		 }
 		 PointDataProcess_count=PointDataProcess_count+Dividing_point;
-		  for(j=0;j<12-Dividing_point;j++)    //°ÑÏÂÒ»È¦Êı¾İ´æ·ÅÔÚÁÙÊ±´æ´¢Êı×éÀï
+		  for(j=0;j<12-Dividing_point;j++)    //æŠŠä¸‹ä¸€åœˆæ•°æ®å­˜æ”¾åœ¨ä¸´æ—¶å­˜å‚¨æ•°ç»„é‡Œ
 		 {
 			TempData[j].angle = area_angle[j+Dividing_point];
 			TempData[j].distance = Pack_Data.point[j+Dividing_point].distance;
 		 }
-		 memcpy(Dataprocess,PointDataProcess,sizeof(PointDataProcessDef)*420);//ÕâÊ±Ò»ÕûÈ¦µÄÊı¾İÒÑ¾­ÊÕ¼¯Íê³É£¬°ÑÒ»ÕûÈ¦Êı¾İ¸´ÖÆµ½ÁíÒ»¸öÊı×é½øĞĞÊ¹ÓÃ
-		 lap_count=PointDataProcess_count;//»ñÈ¡µ±Ç°µÄÕâÒ»È¦ÓĞ¶àÉÙ¸öµã
-		 one_lap_data_success_flag=1;//Ò»È¦Êı¾İ¸üĞÂÍê³É
-		 test_once_flag=0; //±êÖ¾Î»ÇåÁã£¬ÏÂÒ»Ö¡Êı¾İ±Ø¶¨²»ĞèÒª×öÊı¾İÇĞ¸î
-		 PointDataProcess_count=0;//¼ÆËãµÚ¼¸¸öµãµÄ¼ÆËã±äÁ¿ÇåÁã
+		 memcpy(Dataprocess,PointDataProcess,sizeof(PointDataProcessDef)*420);//è¿™æ—¶ä¸€æ•´åœˆçš„æ•°æ®å·²ç»æ”¶é›†å®Œæˆï¼ŒæŠŠä¸€æ•´åœˆæ•°æ®å¤åˆ¶åˆ°å¦ä¸€ä¸ªæ•°ç»„è¿›è¡Œä½¿ç”¨
+		 lap_count=PointDataProcess_count;//è·å–å½“å‰çš„è¿™ä¸€åœˆæœ‰å¤šå°‘ä¸ªç‚¹
+		 one_lap_data_success_flag=1;//ä¸€åœˆæ•°æ®æ›´æ–°å®Œæˆ
+		 test_once_flag=0; //æ ‡å¿—ä½æ¸…é›¶ï¼Œä¸‹ä¸€å¸§æ•°æ®å¿…å®šä¸éœ€è¦åšæ•°æ®åˆ‡å‰²
+		 PointDataProcess_count=0;//è®¡ç®—ç¬¬å‡ ä¸ªç‚¹çš„è®¡ç®—å˜é‡æ¸…é›¶
 	}
- else//Õâ×éÊı¾İ²»ĞèÒª×öÊı¾İÇĞ¸î
+ else//è¿™ç»„æ•°æ®ä¸éœ€è¦åšæ•°æ®åˆ‡å‰²
  {
-	  	for(k=0;k<12;k++)    //°ÑÒ»Ö¡Êı¾İ´æ·ÅÔÚdistance_sumÊı×éÀï
+	  	for(k=0;k<12;k++)    //æŠŠä¸€å¸§æ•°æ®å­˜æ”¾åœ¨distance_sumæ•°ç»„é‡Œ
 	    {
-			if(one_lap_data_success_flag) //Èç¹ûÉÏÒ»Ö¡Êı¾İ×öÁËÇĞ¸î£¬ÄÇÃ´¾ÍÒªÏÈ°ÑÖ®Ç°ÁÙÊ±´æ´¢µÄÊı¾İÈ¡³öÀ´·ÅÔÚÕâÒ»È¦Êı¾İµÄ×îÇ°Ãæ
+			if(one_lap_data_success_flag) //å¦‚æœä¸Šä¸€å¸§æ•°æ®åšäº†åˆ‡å‰²ï¼Œé‚£ä¹ˆå°±è¦å…ˆæŠŠä¹‹å‰ä¸´æ—¶å­˜å‚¨çš„æ•°æ®å–å‡ºæ¥æ”¾åœ¨è¿™ä¸€åœˆæ•°æ®çš„æœ€å‰é¢
 			 {
 				 for(j=0;j<12-Dividing_point;j++)    
 				 {
 					PointDataProcess[j].angle = TempData[j].angle;
 					PointDataProcess[j].distance = TempData[j].distance; 
 				 }
-				one_lap_data_success_flag=0;//ÏÖÔÚÊÇĞÂµÄÒ»È¦Êı¾İ£¬ÖÃÁã
-				PointDataProcess_count=PointDataProcess_count+(12-Dividing_point);//ÀÛ¼Ó
-				Dividing_point=0;//ÅĞ¶ÏÇĞ¸îµãµÄÊıÇåÁã
+				one_lap_data_success_flag=0;//ç°åœ¨æ˜¯æ–°çš„ä¸€åœˆæ•°æ®ï¼Œç½®é›¶
+				PointDataProcess_count=PointDataProcess_count+(12-Dividing_point);//ç´¯åŠ 
+				Dividing_point=0;//åˆ¤æ–­åˆ‡å‰²ç‚¹çš„æ•°æ¸…é›¶
 			 }
      	  PointDataProcess[PointDataProcess_count+k].angle = area_angle[k];
 		  PointDataProcess[PointDataProcess_count+k].distance = Pack_Data.point[k].distance;
 	   }
-	   PointDataProcess_count=PointDataProcess_count+12; //ÀÛ¼Ó12
+	   PointDataProcess_count=PointDataProcess_count+12; //ç´¯åŠ 12
  }
 }
 

@@ -9,18 +9,18 @@ static __IO u32 TimingDelay;
 Function: SysTick_Init
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£ºàÖàª¶¨Ê±Æ÷³õÊ¼»¯
-Èë¿Ú²ÎÊı: ÎŞ 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šå˜€å—’å®šæ—¶å™¨åˆå§‹åŒ–
+å…¥å£å‚æ•°: æ—  
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 void SysTick_Init(void)
 {
-	/* SystemFrequency / 1000    1msÖĞ¶ÏÒ»´Î
-	 * SystemFrequency / 100000	 10usÖĞ¶ÏÒ»´Î
-	 * SystemFrequency / 1000000 1usÖĞ¶ÏÒ»´Î
+	/* SystemFrequency / 1000    1msä¸­æ–­ä¸€æ¬¡
+	 * SystemFrequency / 100000	 10usä¸­æ–­ä¸€æ¬¡
+	 * SystemFrequency / 1000000 1usä¸­æ–­ä¸€æ¬¡
 	 */
-//	if (SysTick_Config(SystemFrequency / 100000))	// ST3.0.0¿â°æ±¾
-	if (SysTick_Config(SystemCoreClock / 100000))	// ST3.5.0¿â°æ±¾
+//	if (SysTick_Config(SystemFrequency / 100000))	// ST3.0.0åº“ç‰ˆæœ¬
+	if (SysTick_Config(SystemCoreClock / 100000))	// ST3.5.0åº“ç‰ˆæœ¬
 	{ 
 		/* Capture error */ 
 		while (1);
@@ -32,16 +32,16 @@ void SysTick_Init(void)
 Function: Delay_us
 Input   : nTime
 Output  : none
-º¯Êı¹¦ÄÜ£ºusÑÓÊ±³ÌĞò
-Èë¿Ú²ÎÊı: usÑÓÊ±³ÌĞò£¬10usÎªÒ»¸öµ¥Î» 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šuså»¶æ—¶ç¨‹åº
+å…¥å£å‚æ•°: uså»¶æ—¶ç¨‹åºï¼Œ10usä¸ºä¸€ä¸ªå•ä½ 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
-//Delay_us( 1 ) ÔòÊµÏÖµÄÑÓÊ±Îª 1 * 10us = 10us
+//Delay_us( 1 ) åˆ™å®ç°çš„å»¶æ—¶ä¸º 1 * 10us = 10us
 void Delay_us(__IO u32 nTime)
 { 
 	TimingDelay = nTime;	
 
-	// Ê¹ÄÜµÎ´ğ¶¨Ê±Æ÷  
+	// ä½¿èƒ½æ»´ç­”å®šæ—¶å™¨  
 	SysTick->CTRL |=  SysTick_CTRL_ENABLE_Msk;
 
 	while(TimingDelay != 0);
@@ -51,9 +51,9 @@ void Delay_us(__IO u32 nTime)
 Function: TimingDelay_Decrement
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º»ñÈ¡½ÚÅÄ³ÌĞò
-Èë¿Ú²ÎÊı: ÎŞ 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šè·å–èŠ‚æ‹ç¨‹åº
+å…¥å£å‚æ•°: æ—  
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 
 void TimingDelay_Decrement(void)
@@ -65,24 +65,24 @@ void TimingDelay_Decrement(void)
 }
 
 #if 0
-// Õâ¸ö ¹Ì¼ş¿âº¯Êı ÔÚ core_cm3.hÖĞ
+// è¿™ä¸ª å›ºä»¶åº“å‡½æ•° åœ¨ core_cm3.hä¸­
 static __INLINE uint32_t SysTick_Config(uint32_t ticks)
 { 
-  // reload ¼Ä´æÆ÷Îª24bit£¬×î´óÖµÎª2^24
+  // reload å¯„å­˜å™¨ä¸º24bitï¼Œæœ€å¤§å€¼ä¸º2^24
 	if (ticks > SysTick_LOAD_RELOAD_Msk)  return (1);
   
-  // ÅäÖÃ reload ¼Ä´æÆ÷µÄ³õÊ¼Öµ	
+  // é…ç½® reload å¯„å­˜å™¨çš„åˆå§‹å€¼	
   SysTick->LOAD  = (ticks & SysTick_LOAD_RELOAD_Msk) - 1;
 	
-	// ÅäÖÃÖĞ¶ÏÓÅÏÈ¼¶Îª 1<<4-1 = 15£¬ÓÅÏÈ¼¶Îª×îµÍ
+	// é…ç½®ä¸­æ–­ä¼˜å…ˆçº§ä¸º 1<<4-1 = 15ï¼Œä¼˜å…ˆçº§ä¸ºæœ€ä½
   NVIC_SetPriority (SysTick_IRQn, (1<<__NVIC_PRIO_BITS) - 1); 
 	
-	// ÅäÖÃ counter ¼ÆÊıÆ÷µÄÖµ
+	// é…ç½® counter è®¡æ•°å™¨çš„å€¼
   SysTick->VAL   = 0;
 	
-	// ÅäÖÃsystick µÄÊ±ÖÓÎª 72M
-	// Ê¹ÄÜÖĞ¶Ï
-	// Ê¹ÄÜsystick
+	// é…ç½®systick çš„æ—¶é’Ÿä¸º 72M
+	// ä½¿èƒ½ä¸­æ–­
+	// ä½¿èƒ½systick
   SysTick->CTRL  = SysTick_CTRL_CLKSOURCE_Msk | 
                    SysTick_CTRL_TICKINT_Msk   | 
                    SysTick_CTRL_ENABLE_Msk;                    
@@ -95,14 +95,14 @@ static __INLINE uint32_t SysTick_Config(uint32_t ticks)
 Function: SysTick_Delay_Us
 Input   : us 
 Output  : none
-º¯Êı¹¦ÄÜ£ºusÑÓÊ±³ÌĞò
-Èë¿Ú²ÎÊı: usÑÓÊ±Ê±¼ä 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šuså»¶æ—¶ç¨‹åº
+å…¥å£å‚æ•°: uså»¶æ—¶æ—¶é—´ 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
-// couter ¼õ1µÄÊ±¼ä µÈÓÚ 1/systick_clk
-// µ±counter ´Ó reload µÄÖµ¼õĞ¡µ½0µÄÊ±ºò£¬ÎªÒ»¸öÑ­»·£¬Èç¹û¿ªÆôÁËÖĞ¶ÏÔòÖ´ĞĞÖĞ¶Ï·şÎñ³ÌĞò£¬
-// Í¬Ê± CTRL µÄ countflag Î»»áÖÃ1
-// ÕâÒ»¸öÑ­»·µÄÊ±¼äÎª reload * (1/systick_clk)
+// couter å‡1çš„æ—¶é—´ ç­‰äº 1/systick_clk
+// å½“counter ä» reload çš„å€¼å‡å°åˆ°0çš„æ—¶å€™ï¼Œä¸ºä¸€ä¸ªå¾ªç¯ï¼Œå¦‚æœå¼€å¯äº†ä¸­æ–­åˆ™æ‰§è¡Œä¸­æ–­æœåŠ¡ç¨‹åºï¼Œ
+// åŒæ—¶ CTRL çš„ countflag ä½ä¼šç½®1
+// è¿™ä¸€ä¸ªå¾ªç¯çš„æ—¶é—´ä¸º reload * (1/systick_clk)
 
 void SysTick_Delay_Us( __IO uint32_t us)
 {
@@ -111,10 +111,10 @@ void SysTick_Delay_Us( __IO uint32_t us)
 	
 	for(i=0;i<us;i++)
 	{
-		// µ±¼ÆÊıÆ÷µÄÖµ¼õĞ¡µ½0µÄÊ±ºò£¬CRTL¼Ä´æÆ÷µÄÎ»16»áÖÃ1	
+		// å½“è®¡æ•°å™¨çš„å€¼å‡å°åˆ°0çš„æ—¶å€™ï¼ŒCRTLå¯„å­˜å™¨çš„ä½16ä¼šç½®1	
 		while( !((SysTick->CTRL)&(1<<16)) );
 	}
-	// ¹Ø±ÕSysTick¶¨Ê±Æ÷
+	// å…³é—­SysTickå®šæ—¶å™¨
 	SysTick->CTRL &=~SysTick_CTRL_ENABLE_Msk;
 }
 
@@ -123,9 +123,9 @@ void SysTick_Delay_Us( __IO uint32_t us)
 Function: SysTick_Delay_Ms
 Input   : ms 
 Output  : none
-º¯Êı¹¦ÄÜ£ºmsÑÓÊ±³ÌĞò
-Èë¿Ú²ÎÊı: msÑÓÊ±Ê±¼ä 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šmså»¶æ—¶ç¨‹åº
+å…¥å£å‚æ•°: mså»¶æ—¶æ—¶é—´ 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 
 void SysTick_Delay_Ms( __IO uint32_t ms)
@@ -135,11 +135,11 @@ void SysTick_Delay_Ms( __IO uint32_t ms)
 	
 	for(i=0;i<ms;i++)
 	{
-		// µ±¼ÆÊıÆ÷µÄÖµ¼õĞ¡µ½0µÄÊ±ºò£¬CRTL¼Ä´æÆ÷µÄÎ»16»áÖÃ1
-		// µ±ÖÃ1Ê±£¬¶ÁÈ¡¸ÃÎ»»áÇå0
+		// å½“è®¡æ•°å™¨çš„å€¼å‡å°åˆ°0çš„æ—¶å€™ï¼ŒCRTLå¯„å­˜å™¨çš„ä½16ä¼šç½®1
+		// å½“ç½®1æ—¶ï¼Œè¯»å–è¯¥ä½ä¼šæ¸…0
 		while( !((SysTick->CTRL)&(1<<16)) );
 	}
-	// ¹Ø±ÕSysTick¶¨Ê±Æ÷
+	// å…³é—­SysTickå®šæ—¶å™¨
 	SysTick->CTRL &=~ SysTick_CTRL_ENABLE_Msk;
 }
 

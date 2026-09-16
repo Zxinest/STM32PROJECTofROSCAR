@@ -1,18 +1,18 @@
 /***********************************************
-¹«Ë¾£ºÂÖÈ¤¿Æ¼¼£¨¶«İ¸£©ÓĞÏŞ¹«Ë¾
-Æ·ÅÆ£ºWHEELTEC
-¹ÙÍø£ºwheeltec.net
-ÌÔ±¦µêÆÌ£ºshop114407458.taobao.com 
-ËÙÂôÍ¨: https://minibalance.aliexpress.com/store/4455017
-°æ±¾£ºV1.0
-ĞŞ¸ÄÊ±¼ä£º2023-03-02
+å…¬å¸ï¼šè½®è¶£ç§‘æŠ€ï¼ˆä¸œèï¼‰æœ‰é™å…¬å¸
+å“ç‰Œï¼šWHEELTEC
+å®˜ç½‘ï¼šwheeltec.net
+æ·˜å®åº—é“ºï¼šshop114407458.taobao.com 
+é€Ÿå–é€š: https://minibalance.aliexpress.com/store/4455017
+ç‰ˆæœ¬ï¼šV1.0
+ä¿®æ”¹æ—¶é—´ï¼š2023-03-02
 
 Brand: WHEELTEC
 Website: wheeltec.net
 Taobao shop: shop114407458.taobao.com 
 Aliexpress: https://minibalance.aliexpress.com/store/4455017
 Version: V1.0
-Update£º2023-03-02
+Updateï¼š2023-03-02
 
 All rights reserved
 ***********************************************/
@@ -22,11 +22,11 @@ All rights reserved
 
 
 
-/*-------------³¬Éù²¨²â¾à³ÌĞòÊ¹ÓÃ-----------
-³¬Éù²¨³õÊ¼»¯Ö®ºó£¬ÔÚcontrol.cµÄÖĞ¶Ï·şÎñº¯ÊıÀïÃæ¿ÉÒÔÖ±½ÓÍ¨¹ıRead_Distaneº¯Êı¶ÁÈ¡
-·ÅÔÚÏÂÁĞµÄ±äÁ¿ÀïÃæ
-Distance_1,Distance_2,Distance_3,Distance_4;//³¬Éù²¨Ïà¹Ø±äÁ¿ 
------------³¬Éù²¨²â¾à³ÌĞòÊ¹ÓÃ-----------*/
+/*-------------è¶…å£°æ³¢æµ‹è·ç¨‹åºä½¿ç”¨-----------
+è¶…å£°æ³¢åˆå§‹åŒ–ä¹‹åï¼Œåœ¨control.cçš„ä¸­æ–­æœåŠ¡å‡½æ•°é‡Œé¢å¯ä»¥ç›´æ¥é€šè¿‡Read_Distaneå‡½æ•°è¯»å–
+æ”¾åœ¨ä¸‹åˆ—çš„å˜é‡é‡Œé¢
+Distance_1,Distance_2,Distance_3,Distance_4;//è¶…å£°æ³¢ç›¸å…³å˜é‡ 
+-----------è¶…å£°æ³¢æµ‹è·ç¨‹åºä½¿ç”¨-----------*/
 
 
 #include "stm32f10x.h"
@@ -36,14 +36,14 @@ Distance_1,Distance_2,Distance_3,Distance_4;//³¬Éù²¨Ïà¹Ø±äÁ¿
 
 
 
-//³¬Éù²¨ºÍº½Ä£Ò£¿ØµÄºê¶¨Òå£¬Ö»ÄÜÊ¹ÓÃÆäÒ»
-//Ñ¡Ôñ²»ĞèÒªÊ¹ÓÃµÄ×¢ÊÍµô
+//è¶…å£°æ³¢å’Œèˆªæ¨¡é¥æ§çš„å®å®šä¹‰ï¼Œåªèƒ½ä½¿ç”¨å…¶ä¸€
+//é€‰æ‹©ä¸éœ€è¦ä½¿ç”¨çš„æ³¨é‡Šæ‰
 //#define Distance_Capture
 #define PWM_Capture
 
 
-//³¬Éù²¨´¥·¢Òı½Å
-//Ê¹ÓÃ¶Ë¿ÚPC15´¥·¢£¨ÆÕÍ¨IO£©,³¬Éù²¨Ä£¿é²¶»ñÊÇ¶¨Ê±Æ÷2Í¨µÀ2//³¬Éù²¨Ä£¿é1
+//è¶…å£°æ³¢è§¦å‘å¼•è„š
+//ä½¿ç”¨ç«¯å£PC15è§¦å‘ï¼ˆæ™®é€šIOï¼‰,è¶…å£°æ³¢æ¨¡å—æ•è·æ˜¯å®šæ—¶å™¨2é€šé“2//è¶…å£°æ³¢æ¨¡å—1
 #define 			CAPTURE_TRIG_GPIO_CLK1			RCC_APB2Periph_GPIOC
 #define            	CAPTURE_TRIG_PORT1         		GPIOC
 #define            	CAPTURE_TRIG_PIN1           	GPIO_Pin_15
@@ -51,7 +51,7 @@ Distance_1,Distance_2,Distance_3,Distance_4;//³¬Éù²¨Ïà¹Ø±äÁ¿
 #define 			TRIG_HIGH1						PCout(15) = 1
 #define 			TRIG_LOW1						PCout(15) = 0
 
-//Ê¹ÓÃ¶Ë¿ÚPA12´¥·¢£¨ÆÕÍ¨IO£©,³¬Éù²¨Ä£¿é²¶»ñÊÇ¶¨Ê±Æ÷2Í¨µÀ3//³¬Éù²¨Ä£¿é2
+//ä½¿ç”¨ç«¯å£PA12è§¦å‘ï¼ˆæ™®é€šIOï¼‰,è¶…å£°æ³¢æ¨¡å—æ•è·æ˜¯å®šæ—¶å™¨2é€šé“3//è¶…å£°æ³¢æ¨¡å—2
 #define 			CAPTURE_TRIG_GPIO_CLK2			RCC_APB2Periph_GPIOA
 #define            	CAPTURE_TRIG_PORT2          	GPIOA
 #define            	CAPTURE_TRIG_PIN2          		GPIO_Pin_12
@@ -59,7 +59,7 @@ Distance_1,Distance_2,Distance_3,Distance_4;//³¬Éù²¨Ïà¹Ø±äÁ¿
 #define 			TRIG_HIGH2						PAout(12) = 1
 #define 			TRIG_LOW2						PAout(12) = 0
 
-//Ê¹ÓÃ¶Ë¿ÚPB13´¥·¢£¨ÆÕÍ¨IO£©,³¬Éù²¨Ä£¿é²¶»ñÊÇ¶¨Ê±Æ÷2Í¨µÀ4//³¬Éù²¨Ä£¿é3
+//ä½¿ç”¨ç«¯å£PB13è§¦å‘ï¼ˆæ™®é€šIOï¼‰,è¶…å£°æ³¢æ¨¡å—æ•è·æ˜¯å®šæ—¶å™¨2é€šé“4//è¶…å£°æ³¢æ¨¡å—3
 #define 			CAPTURE_TRIG_GPIO_CLK3			RCC_APB2Periph_GPIOB
 #define            	CAPTURE_TRIG_PORT3          	GPIOB
 #define            	CAPTURE_TRIG_PIN3          		GPIO_Pin_13
@@ -67,7 +67,7 @@ Distance_1,Distance_2,Distance_3,Distance_4;//³¬Éù²¨Ïà¹Ø±äÁ¿
 #define 			TRIG_HIGH3						PBout(13) = 1
 #define 			TRIG_LOW3						PBout(13) = 0
 
-//Ê¹ÓÃ¶Ë¿ÚPB12´¥·¢£¨ÆÕÍ¨IO£©,³¬Éù²¨Ä£¿é²¶»ñÊÇ¶¨Ê±Æ÷1Í¨µÀ4//³¬Éù²¨Ä£¿é4
+//ä½¿ç”¨ç«¯å£PB12è§¦å‘ï¼ˆæ™®é€šIOï¼‰,è¶…å£°æ³¢æ¨¡å—æ•è·æ˜¯å®šæ—¶å™¨1é€šé“4//è¶…å£°æ³¢æ¨¡å—4
 #define 			CAPTURE_TRIG_GPIO_CLK4			RCC_APB2Periph_GPIOB
 #define            	CAPTURE_TRIG_PORT4         		GPIOB
 #define            	CAPTURE_TRIG_PIN4          		GPIO_Pin_12
@@ -75,8 +75,8 @@ Distance_1,Distance_2,Distance_3,Distance_4;//³¬Éù²¨Ïà¹Ø±äÁ¿
 #define 			TRIG_HIGH4						PBout(12) = 1
 #define 			TRIG_LOW4						PBout(12) = 0
 
-//Ê¹ÓÃ¸ßµçÆ½²¶»ñ¹¦ÄÜ
-//¶¨Ê±Æ÷TIM2¡ªCH2,CH3,Ch4
+//ä½¿ç”¨é«˜ç”µå¹³æ•è·åŠŸèƒ½
+//å®šæ—¶å™¨TIM2â€”CH2,CH3,Ch4
 #define 			CAPTURE_TIM2_CH2_GPIO_CLK		RCC_APB2Periph_GPIOA
 #define            	CAPTURE_TIM2_CH2_PORT          	GPIOA
 #define            	CAPTURE_TIM2_CH2_PIN           	GPIO_Pin_1
@@ -96,9 +96,9 @@ Distance_1,Distance_2,Distance_3,Distance_4;//³¬Éù²¨Ïà¹Ø±äÁ¿
 #define            	CAPTURE_TIM2_IRQ               	TIM2_IRQn
 #define           	CAPTURE_TIM2_IRQHandler       	TIM2_IRQHandler
 //#define 			CAPTURE_TIM2_CHx					TIM_Channel_2
-//#define 			CAPTURE_TIM_IT_CCX 				TIM_IT_CC2//²¶»ñÍ¨µÀ
+//#define 			CAPTURE_TIM_IT_CCX 				TIM_IT_CC2//æ•è·é€šé“
 
-//Ê¹ÓÃTIM1_CH4
+//ä½¿ç”¨TIM1_CH4
 #define 			CAPTURE_TIM1_CH4_GPIO_CLK		RCC_APB2Periph_GPIOA
 #define            	CAPTURE_TIM1_CH4_PORT          	GPIOA
 #define            	CAPTURE_TIM1_CH4_PIN           	GPIO_Pin_11
@@ -117,9 +117,9 @@ Distance_1,Distance_2,Distance_3,Distance_4;//³¬Éù²¨Ïà¹Ø±äÁ¿
 
 
 
-//º½Ä£Ò£¿Ø³õÊ¼»¯
-//Ê¹ÓÃTIM2_CH4,CH3,TIM1_CH4,CH1·Ö±ğÊÇ4Â·º½Ä£
-//²¶»ñPWMµÄ¸ßµçÆ½
+//èˆªæ¨¡é¥æ§åˆå§‹åŒ–
+//ä½¿ç”¨TIM2_CH4,CH3,TIM1_CH4,CH1åˆ†åˆ«æ˜¯4è·¯èˆªæ¨¡
+//æ•è·PWMçš„é«˜ç”µå¹³
 #define 			PWM_TIM2_CH4_GPIO_CLK		RCC_APB2Periph_GPIOA
 #define            	PWM_TIM2_CH4_PORT          	GPIOA
 #define            	PWM_TIM2_CH4_PIN           	GPIO_Pin_3
@@ -152,31 +152,31 @@ Distance_1,Distance_2,Distance_3,Distance_4;//³¬Éù²¨Ïà¹Ø±äÁ¿
 
 
 
-//// »ñÈ¡²¶»ñ¼Ä´æÆ÷Öµº¯Êıºê¶¨Òå
+//// è·å–æ•è·å¯„å­˜å™¨å€¼å‡½æ•°å®å®šä¹‰
 //#define            CAPTURE_TIM_GetCapturex_FUN                 TIM_GetCapture2
-//// ²¶»ñĞÅºÅ¼«ĞÔº¯Êıºê¶¨Òå
+//// æ•è·ä¿¡å·ææ€§å‡½æ•°å®å®šä¹‰
 //#define            CAPTURE_TIM_OCxPolarityConfig_FUN           TIM_OC2PolarityConfig
-// ²âÁ¿µÄÆğÊ¼±ßÑØ
+// æµ‹é‡çš„èµ·å§‹è¾¹æ²¿
 #define            CAPTURE_TIM_STRAT_ICPolarity                TIM_ICPolarity_Rising
-// ²âÁ¿µÄ½áÊø±ßÑØ
+// æµ‹é‡çš„ç»“æŸè¾¹æ²¿
 #define            CAPTURE_TIM_END_ICPolarity                  TIM_ICPolarity_Falling
-//¹âËÙºê¶¨Òå
+//å…‰é€Ÿå®å®šä¹‰
 #define 			Light_Speed								   340
 
-// ¶¨Ê±Æ÷ÊäÈë²¶»ñÓÃ»§×Ô¶¨Òå±äÁ¿½á¹¹ÌåÉùÃ÷
+// å®šæ—¶å™¨è¾“å…¥æ•è·ç”¨æˆ·è‡ªå®šä¹‰å˜é‡ç»“æ„ä½“å£°æ˜
 typedef struct
 {   
-	uint8_t   Capture_FinishFlag;   // ²¶»ñ½áÊø±êÖ¾Î»
-	uint8_t   Capture_StartFlag;    // ²¶»ñ¿ªÊ¼±êÖ¾Î»
-	int  	  Capture_CcrValue;     // ²¶»ñ¼Ä´æÆ÷µÄÖµ
-	uint16_t  Capture_Period;       // ×Ô¶¯ÖØ×°ÔØ¼Ä´æÆ÷¸üĞÂ±êÖ¾ 
+	uint8_t   Capture_FinishFlag;   // æ•è·ç»“æŸæ ‡å¿—ä½
+	uint8_t   Capture_StartFlag;    // æ•è·å¼€å§‹æ ‡å¿—ä½
+	int  	  Capture_CcrValue;     // æ•è·å¯„å­˜å™¨çš„å€¼
+	uint16_t  Capture_Period;       // è‡ªåŠ¨é‡è£…è½½å¯„å­˜å™¨æ›´æ–°æ ‡å¿— 
 }TIM_ICUserValueTypeDef;
 
  //Variables related to remote control acquisition of model aircraft
-//º½Ä£Ò£¿Ø²É¼¯Ïà¹Ø±äÁ¿
+//èˆªæ¨¡é¥æ§é‡‡é›†ç›¸å…³å˜é‡
 extern int Remoter_Ch1,Remoter_Ch2,Remoter_Ch3;
 //Model aircraft remote control receiver variable
-//º½Ä£Ò£¿Ø½ÓÊÕ±äÁ¿
+//èˆªæ¨¡é¥æ§æ¥æ”¶å˜é‡
 extern int L_Remoter_Ch1,L_Remoter_Ch2,L_Remoter_Ch3; 
 extern u16 Distance1,Distance2,Distance3,Distance4;	
 

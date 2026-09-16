@@ -1,18 +1,18 @@
 /***********************************************
-¹«Ë¾£ºÂÖÈ¤¿Æ¼¼£¨¶«İ¸£©ÓĞÏŞ¹«Ë¾
-Æ·ÅÆ£ºWHEELTEC
-¹ÙÍø£ºwheeltec.net
-ÌÔ±¦µêÆÌ£ºshop114407458.taobao.com 
-ËÙÂôÍ¨: https://minibalance.aliexpress.com/store/4455017
-°æ±¾£ºV1.0
-ĞŞ¸ÄÊ±¼ä£º2023-03-02
+å…¬å¸ï¼šè½®è¶£ç§‘æŠ€ï¼ˆä¸œèï¼‰æœ‰é™å…¬å¸
+å“ç‰Œï¼šWHEELTEC
+å®˜ç½‘ï¼šwheeltec.net
+æ·˜å®åº—é“ºï¼šshop114407458.taobao.com 
+é€Ÿå–é€š: https://minibalance.aliexpress.com/store/4455017
+ç‰ˆæœ¬ï¼šV1.0
+ä¿®æ”¹æ—¶é—´ï¼š2023-03-02
 
 Brand: WHEELTEC
 Website: wheeltec.net
 Taobao shop: shop114407458.taobao.com 
 Aliexpress: https://minibalance.aliexpress.com/store/4455017
 Version: V1.0
-Update£º2023-03-02
+Updateï¼š2023-03-02
 
 All rights reserved
 ***********************************************/
@@ -23,9 +23,9 @@ All rights reserved
 
 #include "stm32f10x.h"
 #include "Header.h"
-extern float Velocity_KP,Velocity_KI;					//ÔöÁ¿Ê½PI²ÎÊı
-extern float Distance_KP,Distance_KD,Distance_KI;		//¾àÀëµ÷ÕûPID²ÎÊı
-extern float Follow_KP,Follow_KD,Follow_KI;				//¸úËæÄ£Ê½×ªÏòµÄPID¿ØÖÆ²ÎÊı
+extern float Velocity_KP,Velocity_KI;					//å¢é‡å¼PIå‚æ•°
+extern float Distance_KP,Distance_KD,Distance_KI;		//è·ç¦»è°ƒæ•´PIDå‚æ•°
+extern float Follow_KP,Follow_KD,Follow_KI;				//è·Ÿéšæ¨¡å¼è½¬å‘çš„PIDæ§åˆ¶å‚æ•°
 extern float Follow_KP_Akm,Follow_KD_Akm,Follow_KI_Akm;
 extern float Follow_KP_Diff ,Follow_KD_Diff ,Follow_KI_Diff ;	
 
@@ -55,8 +55,8 @@ extern float STank_Along_Distance_KP,STank_Along_Distance_KD,STank_Along_Distanc
 extern float BTank_Along_Distance_KP,BTank_Along_Distance_KD,BTank_Along_Distance_KI;
 
 
-int Incremental_PI_Left(float Encoder,float Target);//×óµç»úpid¿ØÖÆ
-int Incremental_PI_Right(float Encoder,float Target);//ÓÒµç»úpid¿ØÖÆ
+int Incremental_PI_Left(float Encoder,float Target);//å·¦ç”µæœºpidæ§åˆ¶
+int Incremental_PI_Right(float Encoder,float Target);//å³ç”µæœºpidæ§åˆ¶
 float Follow_Turn_PID(float Current_Angle,float Target_Angle);
 float Distance_Adjust_PID(float Current_Distance,float Target_Distance);
 float ELE_PID(int Current_ELE_ADC,int Target_ELE_ADC );

@@ -1,18 +1,18 @@
 /***********************************************
-¹«Ë¾£ºÂÖÈ¤¿Æ¼¼£¨¶«İ¸£©ÓĞÏŞ¹«Ë¾
-Æ·ÅÆ£ºWHEELTEC
-¹ÙÍø£ºwheeltec.net
-ÌÔ±¦µêÆÌ£ºshop114407458.taobao.com 
-ËÙÂôÍ¨: https://minibalance.aliexpress.com/store/4455017
-°æ±¾£ºV1.0
-ĞŞ¸ÄÊ±¼ä£º2023-03-02
+å…¬å¸ï¼šè½®è¶£ç§‘æŠ€ï¼ˆä¸œèï¼‰æœ‰é™å…¬å¸
+å“ç‰Œï¼šWHEELTEC
+å®˜ç½‘ï¼šwheeltec.net
+æ·˜å®åº—é“ºï¼šshop114407458.taobao.com 
+é€Ÿå–é€š: https://minibalance.aliexpress.com/store/4455017
+ç‰ˆæœ¬ï¼šV1.0
+ä¿®æ”¹æ—¶é—´ï¼š2023-03-02
 
 Brand: WHEELTEC
 Website: wheeltec.net
 Taobao shop: shop114407458.taobao.com 
 Aliexpress: https://minibalance.aliexpress.com/store/4455017
 Version: V1.0
-Update£º2023-03-02
+Updateï¼š2023-03-02
 
 All rights reserved
 ***********************************************/
@@ -25,32 +25,32 @@ All rights reserved
 #include "stm32f10x.h"
 #include "Header.h"
 
-/*******************************µç´ÅÑ²ÏßADC**************************/
-//PA4£¬PA5£¬PC5--IN4£¬IN5£¬IN15
+/*******************************ç”µç£å·¡çº¿ADC**************************/
+//PA4ï¼ŒPA5ï¼ŒPC5--IN4ï¼ŒIN5ï¼ŒIN15
 
 #define    ELE_ADC_APBxClock_FUN             	 RCC_APB2PeriphClockCmd
 #define    ELE_ADC                          	 ADC1
 #define    ELE_ADC_CLK                      	 RCC_APB2Periph_ADC1
 #define    ELE_ADC_GPIO_APBxClock_FUN       	 RCC_APB2PeriphClockCmd
 
-//×óÂ·µç´ÅÑ²Ïß¶Ë¿ÚA4
+//å·¦è·¯ç”µç£å·¡çº¿ç«¯å£A4
 #define    ELE_ADC_L_GPIO_CLK                	 RCC_APB2Periph_GPIOA  
 #define    ELE_ADC_L_PORT                     	 GPIOA
 #define    ELE_ADC_L_PIN                       	 GPIO_Pin_4
 
-//ÖĞ¼äµç´ÅÑ²Ïß¶Ë¿ÚA5
+//ä¸­é—´ç”µç£å·¡çº¿ç«¯å£A5
 #define    ELE_ADC_M_GPIO_CLK                	 RCC_APB2Periph_GPIOA  
 #define    ELE_ADC_M_PORT                     	 GPIOA
 #define    ELE_ADC_M_PIN                       	 GPIO_Pin_5
 
-//ÓÒÂ·µç´ÅÑ²Ïß¶Ë¿ÚC5
+//å³è·¯ç”µç£å·¡çº¿ç«¯å£C5
 #define    ELE_ADC_R_GPIO_CLK                	 RCC_APB2Periph_GPIOC  
 #define    ELE_ADC_R_PORT                     	 GPIOC
 #define    ELE_ADC_R_PIN                       	 GPIO_Pin_5
 
 
-/********************************CCDÑ²Ïß***************************/
-//PA4--TSL_SI£»PA5--TSL_CLK;PC5--ADC
+/********************************CCDå·¡çº¿***************************/
+//PA4--TSL_SIï¼›PA5--TSL_CLK;PC5--ADC
 
 //TSL_SI
 #define    TSL_SI_GPIO_CLK                	 	RCC_APB2Periph_GPIOA  

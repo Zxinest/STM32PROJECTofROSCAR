@@ -1,103 +1,103 @@
 /***********************************************
-¹«Ë¾£ºÂÖÈ¤¿Æ¼¼£¨¶«İ¸£©ÓĞÏŞ¹«Ë¾
-Æ·ÅÆ£ºWHEELTEC
-¹ÙÍø£ºwheeltec.net
-ÌÔ±¦µêÆÌ£ºshop114407458.taobao.com 
-ËÙÂôÍ¨: https://minibalance.aliexpress.com/store/4455017
-°æ±¾£ºV1.0
-ĞŞ¸ÄÊ±¼ä£º2023-03-02
+å…¬å¸ï¼šè½®è¶£ç§‘æŠ€ï¼ˆä¸œèï¼‰æœ‰é™å…¬å¸
+å“ç‰Œï¼šWHEELTEC
+å®˜ç½‘ï¼šwheeltec.net
+æ·˜å®åº—é“ºï¼šshop114407458.taobao.com 
+é€Ÿå–é€š: https://minibalance.aliexpress.com/store/4455017
+ç‰ˆæœ¬ï¼šV1.0
+ä¿®æ”¹æ—¶é—´ï¼š2023-03-02
 
 Brand: WHEELTEC
 Website: wheeltec.net
 Taobao shop: shop114407458.taobao.com 
 Aliexpress: https://minibalance.aliexpress.com/store/4455017
 Version: V1.0
-Update£º2023-03-02
+Updateï¼š2023-03-02
 
 All rights reserved
 ***********************************************/
 
-//Õâ¸öÄ£¿éÄ¬ÈÏ²»Ê¹ÓÃ
-//4Â·³¬Éù²¨Ä£¿é
-//»ò 4Â·º½Ä£Ò£¿Ø
+//è¿™ä¸ªæ¨¡å—é»˜è®¤ä¸ä½¿ç”¨
+//4è·¯è¶…å£°æ³¢æ¨¡å—
+//æˆ– 4è·¯èˆªæ¨¡é¥æ§
 #include "capture.h"
 
 //Variables related to remote control acquisition of model aircraft
-//º½Ä£Ò£¿Ø²É¼¯Ïà¹Ø±äÁ¿
+//èˆªæ¨¡é¥æ§é‡‡é›†ç›¸å…³å˜é‡
 int Remoter_Ch1=1500,Remoter_Ch2=1500,Remoter_Ch3=1500;
 //Model aircraft remote control receiver variable
-//º½Ä£Ò£¿Ø½ÓÊÕ±äÁ¿
+//èˆªæ¨¡é¥æ§æ¥æ”¶å˜é‡
 int L_Remoter_Ch1=1500,L_Remoter_Ch2=1500,L_Remoter_Ch3=1500;  
 
 
-u16 Distance1,Distance2,Distance3,Distance4;	//4¸ö³¬Éù²¨²â¾à¾àÀë±äÁ¿
+u16 Distance1,Distance2,Distance3,Distance4;	//4ä¸ªè¶…å£°æ³¢æµ‹è·è·ç¦»å˜é‡
 
-// ¶¨Ê±Æ÷ÊäÈë²¶»ñÓÃ»§×Ô¶¨Òå±äÁ¿½á¹¹Ìå¶¨Òå
-TIM_ICUserValueTypeDef Distance_TIM2_CH2_ICUserValueStructure = {0,0,0,0};//³¬Éù²¨Ä£¿é1²¶»ñÏàÓ¦µÄ±äÁ¿
-TIM_ICUserValueTypeDef Distance_TIM2_CH3_ICUserValueStructure = {0,0,0,0};//³¬Éù²¨Ä£¿é2²¶»ñÏàÓ¦µÄ±äÁ¿
-TIM_ICUserValueTypeDef Distance_TIM2_CH4_ICUserValueStructure = {0,0,0,0};//³¬Éù²¨Ä£¿é3²¶»ñÏàÓ¦µÄ±äÁ¿
-TIM_ICUserValueTypeDef Distance_TIM1_CH4_ICUserValueStructure = {0,0,0,0};//³¬Éù²¨Ä£¿é4²¶»ñÏàÓ¦µÄ±äÁ¿
+// å®šæ—¶å™¨è¾“å…¥æ•è·ç”¨æˆ·è‡ªå®šä¹‰å˜é‡ç»“æ„ä½“å®šä¹‰
+TIM_ICUserValueTypeDef Distance_TIM2_CH2_ICUserValueStructure = {0,0,0,0};//è¶…å£°æ³¢æ¨¡å—1æ•è·ç›¸åº”çš„å˜é‡
+TIM_ICUserValueTypeDef Distance_TIM2_CH3_ICUserValueStructure = {0,0,0,0};//è¶…å£°æ³¢æ¨¡å—2æ•è·ç›¸åº”çš„å˜é‡
+TIM_ICUserValueTypeDef Distance_TIM2_CH4_ICUserValueStructure = {0,0,0,0};//è¶…å£°æ³¢æ¨¡å—3æ•è·ç›¸åº”çš„å˜é‡
+TIM_ICUserValueTypeDef Distance_TIM1_CH4_ICUserValueStructure = {0,0,0,0};//è¶…å£°æ³¢æ¨¡å—4æ•è·ç›¸åº”çš„å˜é‡
 
 
-TIM_ICUserValueTypeDef PWM_TIM2_CH4_ICUserValueStructure = {0,0,0,0};//º½Ä£Ò£¿ØµÚÒ»Â·
-TIM_ICUserValueTypeDef PWM_TIM2_CH3_ICUserValueStructure = {0,0,0,0};//º½Ä£Ò£¿ØµÚ¶şÂ·
-TIM_ICUserValueTypeDef PWM_TIM1_CH4_ICUserValueStructure = {0,0,0,0};//º½Ä£Ò£¿ØµÚÈıÂ·
-TIM_ICUserValueTypeDef PWM_TIM1_CH1_ICUserValueStructure = {0,0,0,0};//º½Ä£Ò£¿ØµÚËÄÂ·
+TIM_ICUserValueTypeDef PWM_TIM2_CH4_ICUserValueStructure = {0,0,0,0};//èˆªæ¨¡é¥æ§ç¬¬ä¸€è·¯
+TIM_ICUserValueTypeDef PWM_TIM2_CH3_ICUserValueStructure = {0,0,0,0};//èˆªæ¨¡é¥æ§ç¬¬äºŒè·¯
+TIM_ICUserValueTypeDef PWM_TIM1_CH4_ICUserValueStructure = {0,0,0,0};//èˆªæ¨¡é¥æ§ç¬¬ä¸‰è·¯
+TIM_ICUserValueTypeDef PWM_TIM1_CH1_ICUserValueStructure = {0,0,0,0};//èˆªæ¨¡é¥æ§ç¬¬å››è·¯
 
 
 /**************************************************************************
 Function: Distance_Capture_GPIO_Config
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º³¬Éù²¨¶Ë¿Ú³õÊ¼»¯
-Èë¿Ú²ÎÊı: ÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šè¶…å£°æ³¢ç«¯å£åˆå§‹åŒ–
+å…¥å£å‚æ•°: æ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 void Distance_Capture_GPIO_Config(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
-	RCC_APB2PeriphClockCmd(CAPTURE_TIM2_CH2_GPIO_CLK|CAPTURE_TRIG_GPIO_CLK1,ENABLE);//³¬Éù²¨Ä£¿é1¶Ë¿ÚÊ¹ÄÜ
-	RCC_APB2PeriphClockCmd(CAPTURE_TIM2_CH3_GPIO_CLK|CAPTURE_TRIG_GPIO_CLK2,ENABLE);//³¬Éù²¨Ä£¿é2¶Ë¿ÚÊ¹ÄÜ
-	RCC_APB2PeriphClockCmd(CAPTURE_TIM2_CH4_GPIO_CLK|CAPTURE_TRIG_GPIO_CLK3,ENABLE);//³¬Éù²¨Ä£¿é3¶Ë¿ÚÊ¹ÄÜ
-	RCC_APB2PeriphClockCmd(CAPTURE_TIM1_CH4_GPIO_CLK|CAPTURE_TRIG_GPIO_CLK4,ENABLE);//³¬Éù²¨Ä£¿é4¶Ë¿ÚÊ¹ÄÜ
+	RCC_APB2PeriphClockCmd(CAPTURE_TIM2_CH2_GPIO_CLK|CAPTURE_TRIG_GPIO_CLK1,ENABLE);//è¶…å£°æ³¢æ¨¡å—1ç«¯å£ä½¿èƒ½
+	RCC_APB2PeriphClockCmd(CAPTURE_TIM2_CH3_GPIO_CLK|CAPTURE_TRIG_GPIO_CLK2,ENABLE);//è¶…å£°æ³¢æ¨¡å—2ç«¯å£ä½¿èƒ½
+	RCC_APB2PeriphClockCmd(CAPTURE_TIM2_CH4_GPIO_CLK|CAPTURE_TRIG_GPIO_CLK3,ENABLE);//è¶…å£°æ³¢æ¨¡å—3ç«¯å£ä½¿èƒ½
+	RCC_APB2PeriphClockCmd(CAPTURE_TIM1_CH4_GPIO_CLK|CAPTURE_TRIG_GPIO_CLK4,ENABLE);//è¶…å£°æ³¢æ¨¡å—4ç«¯å£ä½¿èƒ½
 
-	//³¬Éù²¨Ä£¿é1
+	//è¶…å£°æ³¢æ¨¡å—1
 	GPIO_InitStructure.GPIO_Pin  = CAPTURE_TIM2_CH2_PIN; 
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD; 				//PA1 ÊäÈë  
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD; 				//PA1 è¾“å…¥  
 	GPIO_Init(CAPTURE_TIM2_CH2_PORT, &GPIO_InitStructure);
 
 	GPIO_InitStructure.GPIO_Pin  = CAPTURE_TRIG_PIN1;     
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;     		//PC15Êä³ö 
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;     		//PC15è¾“å‡º 
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;    
 	GPIO_Init(CAPTURE_TRIG_PORT1, &GPIO_InitStructure);
 
-	//³¬Éù²¨Ä£¿é2
+	//è¶…å£°æ³¢æ¨¡å—2
 	GPIO_InitStructure.GPIO_Pin  = CAPTURE_TIM2_CH3_PIN; 
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD; 				//PA2 ÊäÈë  
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD; 				//PA2 è¾“å…¥  
 	GPIO_Init(CAPTURE_TIM2_CH3_PORT, &GPIO_InitStructure);
 
 	GPIO_InitStructure.GPIO_Pin  = CAPTURE_TRIG_PIN2;     
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;     		//PA12Êä³ö 
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;     		//PA12è¾“å‡º 
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;    
 	GPIO_Init(CAPTURE_TRIG_PORT2, &GPIO_InitStructure);
 	
-	//³¬Éù²¨Ä£¿é3
+	//è¶…å£°æ³¢æ¨¡å—3
 	GPIO_InitStructure.GPIO_Pin  = CAPTURE_TIM2_CH4_PIN; 
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD; 				//PA3 ÊäÈë  
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD; 				//PA3 è¾“å…¥  
 	GPIO_Init(CAPTURE_TIM2_CH4_PORT, &GPIO_InitStructure);
 
 	GPIO_InitStructure.GPIO_Pin  = CAPTURE_TRIG_PIN3;     
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;     		//PB13Êä³ö 
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;     		//PB13è¾“å‡º 
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;    
 	GPIO_Init(CAPTURE_TRIG_PORT3, &GPIO_InitStructure);
 	
-	//³¬Éù²¨Ä£¿é4
+	//è¶…å£°æ³¢æ¨¡å—4
 	GPIO_InitStructure.GPIO_Pin  = CAPTURE_TIM1_CH4_PIN; 
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD; 				//PA11 ÊäÈë  
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD; 				//PA11 è¾“å…¥  
 	GPIO_Init(CAPTURE_TIM1_CH4_PORT, &GPIO_InitStructure);
 
 	GPIO_InitStructure.GPIO_Pin  = CAPTURE_TRIG_PIN4;     
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;     		//PB12Êä³ö 
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;     		//PB12è¾“å‡º 
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;    
 	GPIO_Init(CAPTURE_TRIG_PORT4, &GPIO_InitStructure);
 }
@@ -107,76 +107,76 @@ void Distance_Capture_GPIO_Config(void)
 Function: Distance_Capture_Mode_Config
 Input   : TIM_Period,TIM_Prescaler
 Output  : none
-º¯Êı¹¦ÄÜ£º³¬Éù²¨¶Ë¿Ú³õÊ¼»¯
-Èë¿Ú²ÎÊı: Ô¤×°ÔØÖµºÍÔ¤·ÖÆµÆ÷ 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šè¶…å£°æ³¢ç«¯å£åˆå§‹åŒ–
+å…¥å£å‚æ•°: é¢„è£…è½½å€¼å’Œé¢„åˆ†é¢‘å™¨ 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 void Distance_Capture_Mode_Config(u16 arr,u16 psc)
 {
 	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
 	TIM_ICInitTypeDef  TIM_ICInitStructure;
 
-	//Ê¹ÄÜ¶¨Ê±Æ÷Ê±ÖÓ¡£TIM2
+	//ä½¿èƒ½å®šæ—¶å™¨æ—¶é’Ÿã€‚TIM2
 	CAPTURE_TIM2_APBxClock_FUN(CAPTURE_TIM2_CLK,ENABLE);				
-	//Ê¹ÄÜ¶¨Ê±Æ÷Ê±ÖÓ¡£TIM1
+	//ä½¿èƒ½å®šæ—¶å™¨æ—¶é’Ÿã€‚TIM1
 	CAPTURE_TIM1_APBxClock_FUN(CAPTURE_TIM1_CLK,ENABLE);
 	
-	/*Ê±»ù¶¨Ê±Æ÷³õÊ¼»¯*/
-	//¶¨Ê±Æ÷2
-	TIM_TimeBaseStructure.TIM_Period = arr; 					//Éè¶¨¼ÆÊıÆ÷×Ô¶¯ÖØ×°Öµ 
-	TIM_TimeBaseStructure.TIM_Prescaler =psc; 					//Ô¤·ÖÆµÆ÷   
-	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; 	//ÉèÖÃÊ±ÖÓ·Ö¸î:TDTS = Tck_tim
-	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up; //TIMÏòÉÏ¼ÆÊıÄ£Ê½
-	TIM_TimeBaseInit(CAPTURE_TIM2, &TIM_TimeBaseStructure); 	//¸ù¾İTIM_TimeBaseInitStructÖĞÖ¸¶¨µÄ²ÎÊı³õÊ¼»¯TIMxµÄÊ±¼ä»ùÊıµ¥Î»
+	/*æ—¶åŸºå®šæ—¶å™¨åˆå§‹åŒ–*/
+	//å®šæ—¶å™¨2
+	TIM_TimeBaseStructure.TIM_Period = arr; 					//è®¾å®šè®¡æ•°å™¨è‡ªåŠ¨é‡è£…å€¼ 
+	TIM_TimeBaseStructure.TIM_Prescaler =psc; 					//é¢„åˆ†é¢‘å™¨   
+	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; 	//è®¾ç½®æ—¶é’Ÿåˆ†å‰²:TDTS = Tck_tim
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up; //TIMå‘ä¸Šè®¡æ•°æ¨¡å¼
+	TIM_TimeBaseInit(CAPTURE_TIM2, &TIM_TimeBaseStructure); 	//æ ¹æ®TIM_TimeBaseInitStructä¸­æŒ‡å®šçš„å‚æ•°åˆå§‹åŒ–TIMxçš„æ—¶é—´åŸºæ•°å•ä½
 
-	//¶¨Ê±Æ÷1
-	TIM_TimeBaseStructure.TIM_Period = arr; 					//Éè¶¨¼ÆÊıÆ÷×Ô¶¯ÖØ×°Öµ 
-	TIM_TimeBaseStructure.TIM_Prescaler =psc; 					//Ô¤·ÖÆµÆ÷   
-	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; 	//ÉèÖÃÊ±ÖÓ·Ö¸î:TDTS = Tck_tim
-	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up; //TIMÏòÉÏ¼ÆÊıÄ£Ê½
-	TIM_TimeBaseInit(CAPTURE_TIM1, &TIM_TimeBaseStructure); 	//¸ù¾İTIM_TimeBaseInitStructÖĞÖ¸¶¨µÄ²ÎÊı³õÊ¼»¯TIMxµÄÊ±¼ä»ùÊıµ¥Î»
+	//å®šæ—¶å™¨1
+	TIM_TimeBaseStructure.TIM_Period = arr; 					//è®¾å®šè®¡æ•°å™¨è‡ªåŠ¨é‡è£…å€¼ 
+	TIM_TimeBaseStructure.TIM_Prescaler =psc; 					//é¢„åˆ†é¢‘å™¨   
+	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; 	//è®¾ç½®æ—¶é’Ÿåˆ†å‰²:TDTS = Tck_tim
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up; //TIMå‘ä¸Šè®¡æ•°æ¨¡å¼
+	TIM_TimeBaseInit(CAPTURE_TIM1, &TIM_TimeBaseStructure); 	//æ ¹æ®TIM_TimeBaseInitStructä¸­æŒ‡å®šçš„å‚æ•°åˆå§‹åŒ–TIMxçš„æ—¶é—´åŸºæ•°å•ä½
 
-	/*²¶»ñÍ¨µÀ³õÊ¼»¯*/
-	//¶¨Ê±Æ÷2£¬CH2£¬CH3£¬CH4
-	TIM_ICInitStructure.TIM_Channel = TIM_Channel_2; 			//Í¨µÀ2
-	TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;	//ÉÏÉıÑØ²¶»ñ
+	/*æ•è·é€šé“åˆå§‹åŒ–*/
+	//å®šæ—¶å™¨2ï¼ŒCH2ï¼ŒCH3ï¼ŒCH4
+	TIM_ICInitStructure.TIM_Channel = TIM_Channel_2; 			//é€šé“2
+	TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;	//ä¸Šå‡æ²¿æ•è·
 	TIM_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI;
-	TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	 	//ÅäÖÃÊäÈë·ÖÆµ,²»·ÖÆµ 
-	TIM_ICInitStructure.TIM_ICFilter = 0x00;					//ÅäÖÃÊäÈëÂË²¨Æ÷ ²»ÂË²¨
+	TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	 	//é…ç½®è¾“å…¥åˆ†é¢‘,ä¸åˆ†é¢‘ 
+	TIM_ICInitStructure.TIM_ICFilter = 0x00;					//é…ç½®è¾“å…¥æ»¤æ³¢å™¨ ä¸æ»¤æ³¢
 	TIM_ICInit(CAPTURE_TIM2, &TIM_ICInitStructure);
 
-	TIM_ICInitStructure.TIM_Channel = TIM_Channel_3; 			//Í¨µÀ3
-	TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;	//ÉÏÉıÑØ²¶»ñ
+	TIM_ICInitStructure.TIM_Channel = TIM_Channel_3; 			//é€šé“3
+	TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;	//ä¸Šå‡æ²¿æ•è·
 	TIM_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI;
-	TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	 	//ÅäÖÃÊäÈë·ÖÆµ,²»·ÖÆµ 
-	TIM_ICInitStructure.TIM_ICFilter = 0x00;					//ÅäÖÃÊäÈëÂË²¨Æ÷ ²»ÂË²¨
+	TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	 	//é…ç½®è¾“å…¥åˆ†é¢‘,ä¸åˆ†é¢‘ 
+	TIM_ICInitStructure.TIM_ICFilter = 0x00;					//é…ç½®è¾“å…¥æ»¤æ³¢å™¨ ä¸æ»¤æ³¢
 	TIM_ICInit(CAPTURE_TIM2, &TIM_ICInitStructure);
 
-	TIM_ICInitStructure.TIM_Channel = TIM_Channel_4; 			//Í¨µÀ4
-	TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;	//ÉÏÉıÑØ²¶»ñ
+	TIM_ICInitStructure.TIM_Channel = TIM_Channel_4; 			//é€šé“4
+	TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;	//ä¸Šå‡æ²¿æ•è·
 	TIM_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI;
-	TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	 	//ÅäÖÃÊäÈë·ÖÆµ,²»·ÖÆµ 
-	TIM_ICInitStructure.TIM_ICFilter = 0x00;					//ÅäÖÃÊäÈëÂË²¨Æ÷ ²»ÂË²¨
+	TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	 	//é…ç½®è¾“å…¥åˆ†é¢‘,ä¸åˆ†é¢‘ 
+	TIM_ICInitStructure.TIM_ICFilter = 0x00;					//é…ç½®è¾“å…¥æ»¤æ³¢å™¨ ä¸æ»¤æ³¢
 	TIM_ICInit(CAPTURE_TIM2, &TIM_ICInitStructure);
 
-	//¶¨Ê±Æ÷1£¬CH4
-	TIM_ICInitStructure.TIM_Channel = TIM_Channel_4; 			//Í¨µÀ4
-	TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;	//ÉÏÉıÑØ²¶»ñ
+	//å®šæ—¶å™¨1ï¼ŒCH4
+	TIM_ICInitStructure.TIM_Channel = TIM_Channel_4; 			//é€šé“4
+	TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;	//ä¸Šå‡æ²¿æ•è·
 	TIM_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI;
-	TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	 	//ÅäÖÃÊäÈë·ÖÆµ,²»·ÖÆµ 
-	TIM_ICInitStructure.TIM_ICFilter = 0x00;					//ÅäÖÃÊäÈëÂË²¨Æ÷ ²»ÂË²¨
+	TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	 	//é…ç½®è¾“å…¥åˆ†é¢‘,ä¸åˆ†é¢‘ 
+	TIM_ICInitStructure.TIM_ICFilter = 0x00;					//é…ç½®è¾“å…¥æ»¤æ³¢å™¨ ä¸æ»¤æ³¢
 	TIM_ICInit(CAPTURE_TIM1, &TIM_ICInitStructure);
 
-	//Ê¹ÄÜÖĞ¶ÏÉèÖÃ
+	//ä½¿èƒ½ä¸­æ–­è®¾ç½®
 	//TIM2_CH2,CH3,CH4
-	TIM_ITConfig(CAPTURE_TIM2,TIM_IT_Update|TIM_IT_CC2|TIM_IT_CC3|TIM_IT_CC4,ENABLE);	//ÔÊĞí¸üĞÂÖĞ¶ÏºÍ²¶»ñÖĞ¶Ï	
+	TIM_ITConfig(CAPTURE_TIM2,TIM_IT_Update|TIM_IT_CC2|TIM_IT_CC3|TIM_IT_CC4,ENABLE);	//å…è®¸æ›´æ–°ä¸­æ–­å’Œæ•è·ä¸­æ–­	
 	//TIM1_CH4
-	TIM_ITConfig(CAPTURE_TIM1,TIM_IT_Update|TIM_IT_CC4,ENABLE);	//ÔÊĞí¸üĞÂÖĞ¶Ï ,ÔÊĞíCC4IE²¶»ñÖĞ¶Ï	
+	TIM_ITConfig(CAPTURE_TIM1,TIM_IT_Update|TIM_IT_CC4,ENABLE);	//å…è®¸æ›´æ–°ä¸­æ–­ ,å…è®¸CC4IEæ•è·ä¸­æ–­	
 
-	//¶¨Ê±Æ÷Ê¹ÄÜ
-	TIM_Cmd(CAPTURE_TIM2,ENABLE); 										//Ê¹ÄÜ¶¨Ê±Æ÷2
+	//å®šæ—¶å™¨ä½¿èƒ½
+	TIM_Cmd(CAPTURE_TIM2,ENABLE); 										//ä½¿èƒ½å®šæ—¶å™¨2
 	
-	TIM_Cmd(CAPTURE_TIM1,ENABLE); 										//Ê¹ÄÜ¶¨Ê±Æ÷1
+	TIM_Cmd(CAPTURE_TIM1,ENABLE); 										//ä½¿èƒ½å®šæ—¶å™¨1
 	
 }
 
@@ -184,35 +184,35 @@ void Distance_Capture_Mode_Config(u16 arr,u16 psc)
 Function: Distance_Capture_NVIC_Config
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º³¬Éù²¨ÖĞ¶Ï³õÊ¼»¯
-Èë¿Ú²ÎÊı: ÎŞ 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šè¶…å£°æ³¢ä¸­æ–­åˆå§‹åŒ–
+å…¥å£å‚æ•°: æ—  
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 
 void Distance_Capture_NVIC_Config(void)
 {
 	NVIC_InitTypeDef NVIC_InitStructure;
 
-	//ÖĞ¶ÏÓÅÏÈ¼¶ÉèÖÃ
-	//TIM2×ÜÖĞ¶Ï
-	NVIC_InitStructure.NVIC_IRQChannel = CAPTURE_TIM2_IRQ;  	//TIM2ÖĞ¶Ï
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;  	//ÏÈÕ¼ÓÅÏÈ¼¶2¼¶
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;  		//´ÓÓÅÏÈ¼¶2¼¶
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; 			//IRQÍ¨µÀ±»Ê¹ÄÜ
-	NVIC_Init(&NVIC_InitStructure);  							//¸ù¾İNVIC_InitStructÖĞÖ¸¶¨µÄ²ÎÊı³õÊ¼»¯ÍâÉèNVIC¼Ä´æÆ÷ 
+	//ä¸­æ–­ä¼˜å…ˆçº§è®¾ç½®
+	//TIM2æ€»ä¸­æ–­
+	NVIC_InitStructure.NVIC_IRQChannel = CAPTURE_TIM2_IRQ;  	//TIM2ä¸­æ–­
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;  	//å…ˆå ä¼˜å…ˆçº§2çº§
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;  		//ä»ä¼˜å…ˆçº§2çº§
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; 			//IRQé€šé“è¢«ä½¿èƒ½
+	NVIC_Init(&NVIC_InitStructure);  							//æ ¹æ®NVIC_InitStructä¸­æŒ‡å®šçš„å‚æ•°åˆå§‹åŒ–å¤–è®¾NVICå¯„å­˜å™¨ 
 
-	//TIM1¸üĞÂÖĞ¶ÏºÍ²¶»ñÖĞ¶Ï
-	NVIC_InitStructure.NVIC_IRQChannel = CAPTURE_TIM1_CC_IRQn;  //TIM1²¶»ñÖĞ¶Ï
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;  	//ÏÈÕ¼ÓÅÏÈ¼¶2¼¶
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;  		//´ÓÓÅÏÈ¼¶2¼¶
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; 			//IRQÍ¨µÀ±»Ê¹ÄÜ
-	NVIC_Init(&NVIC_InitStructure);  							//¸ù¾İNVIC_InitStructÖĞÖ¸¶¨µÄ²ÎÊı³õÊ¼»¯ÍâÉèNVIC¼Ä´æÆ÷ 
+	//TIM1æ›´æ–°ä¸­æ–­å’Œæ•è·ä¸­æ–­
+	NVIC_InitStructure.NVIC_IRQChannel = CAPTURE_TIM1_CC_IRQn;  //TIM1æ•è·ä¸­æ–­
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;  	//å…ˆå ä¼˜å…ˆçº§2çº§
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;  		//ä»ä¼˜å…ˆçº§2çº§
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; 			//IRQé€šé“è¢«ä½¿èƒ½
+	NVIC_Init(&NVIC_InitStructure);  							//æ ¹æ®NVIC_InitStructä¸­æŒ‡å®šçš„å‚æ•°åˆå§‹åŒ–å¤–è®¾NVICå¯„å­˜å™¨ 
 
-	NVIC_InitStructure.NVIC_IRQChannel = PWM_TIM1_UP_IRQn;  	//TIM1¸üĞÂÖĞ¶Ï
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;  	//ÏÈÕ¼ÓÅÏÈ¼¶2¼¶
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;  		//´ÓÓÅÏÈ¼¶2¼¶
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; 			//IRQÍ¨µÀ±»Ê¹ÄÜ
-	NVIC_Init(&NVIC_InitStructure);  							//¸ù¾İNVIC_InitStructÖĞÖ¸¶¨µÄ²ÎÊı³õÊ¼»¯ÍâÉèNVIC¼Ä´æÆ÷ 
+	NVIC_InitStructure.NVIC_IRQChannel = PWM_TIM1_UP_IRQn;  	//TIM1æ›´æ–°ä¸­æ–­
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;  	//å…ˆå ä¼˜å…ˆçº§2çº§
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;  		//ä»ä¼˜å…ˆçº§2çº§
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; 			//IRQé€šé“è¢«ä½¿èƒ½
+	NVIC_Init(&NVIC_InitStructure);  							//æ ¹æ®NVIC_InitStructä¸­æŒ‡å®šçš„å‚æ•°åˆå§‹åŒ–å¤–è®¾NVICå¯„å­˜å™¨ 
 
 }
 
@@ -223,9 +223,9 @@ void Distance_Capture_NVIC_Config(void)
 Function: Distance_Cap_Init
 Input   : TIM_Period,TIM_Prescaler
 Output  : none
-º¯Êı¹¦ÄÜ£º³¬Éù²¨³õÊ¼»¯
-Èë¿Ú²ÎÊı: Ô¤×°ÔØÖµºÍÔ¤·ÖÆµÆ÷ 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šè¶…å£°æ³¢åˆå§‹åŒ–
+å…¥å£å‚æ•°: é¢„è£…è½½å€¼å’Œé¢„åˆ†é¢‘å™¨ 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 void Distance_Cap_Init(u16 arr,u16 psc)
 {
@@ -242,37 +242,37 @@ void Distance_Cap_Init(u16 arr,u16 psc)
 Function: PWM_Capture_GPIO_Config
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£ºº½Ä£Ò£¿Ø¶Ë¿Ú³õÊ¼»¯
-Èë¿Ú²ÎÊı: ÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šèˆªæ¨¡é¥æ§ç«¯å£åˆå§‹åŒ–
+å…¥å£å‚æ•°: æ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 void PWM_Capture_GPIO_Config(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
-	RCC_APB2PeriphClockCmd(PWM_TIM2_CH4_GPIO_CLK,ENABLE);//º½Ä£Ò£¿ØµÚÒ»Â·½Ó¿Ú
-	RCC_APB2PeriphClockCmd(PWM_TIM2_CH3_GPIO_CLK,ENABLE);//º½Ä£Ò£¿ØµÚ¶şÂ·½Ó¿Ú
-//	RCC_APB2PeriphClockCmd(PWM_TIM1_CH4_GPIO_CLK,ENABLE);//º½Ä£Ò£¿ØµÚÈıÂ·½Ó¿Ú
-//	RCC_APB2PeriphClockCmd(PWM_TIM1_CH1_GPIO_CLK,ENABLE);//º½Ä£Ò£¿ØµÚËÄÂ·½Ó¿Ú
+	RCC_APB2PeriphClockCmd(PWM_TIM2_CH4_GPIO_CLK,ENABLE);//èˆªæ¨¡é¥æ§ç¬¬ä¸€è·¯æ¥å£
+	RCC_APB2PeriphClockCmd(PWM_TIM2_CH3_GPIO_CLK,ENABLE);//èˆªæ¨¡é¥æ§ç¬¬äºŒè·¯æ¥å£
+//	RCC_APB2PeriphClockCmd(PWM_TIM1_CH4_GPIO_CLK,ENABLE);//èˆªæ¨¡é¥æ§ç¬¬ä¸‰è·¯æ¥å£
+//	RCC_APB2PeriphClockCmd(PWM_TIM1_CH1_GPIO_CLK,ENABLE);//èˆªæ¨¡é¥æ§ç¬¬å››è·¯æ¥å£
 
-	//µÚÒ»Â·
+	//ç¬¬ä¸€è·¯
 	GPIO_InitStructure.GPIO_Pin  = PWM_TIM2_CH4_PIN; 
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD; 				//PA3 ÊäÈë  
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD; 				//PA3 è¾“å…¥  
 	GPIO_Init(PWM_TIM2_CH4_PORT, &GPIO_InitStructure);
 
 
-	//µÚ¶şÂ·
+	//ç¬¬äºŒè·¯
 	GPIO_InitStructure.GPIO_Pin  = PWM_TIM2_CH3_PIN; 
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD; 				//PA2 ÊäÈë  
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD; 				//PA2 è¾“å…¥  
 	GPIO_Init(PWM_TIM2_CH3_PORT, &GPIO_InitStructure);
 
-//	//µÚÈıÂ·
+//	//ç¬¬ä¸‰è·¯
 //	GPIO_InitStructure.GPIO_Pin  = PWM_TIM1_CH4_PIN; 
-//	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD; 				//PA11 ÊäÈë  
+//	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD; 				//PA11 è¾“å…¥  
 //	GPIO_Init(PWM_TIM1_CH4_PORT, &GPIO_InitStructure);
 //	
-//	//µÚËÄÂ·
+//	//ç¬¬å››è·¯
 //	GPIO_InitStructure.GPIO_Pin  = PWM_TIM1_CH1_PIN; 
-//	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD; 				//PA8 ÊäÈë  
+//	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD; 				//PA8 è¾“å…¥  
 //	GPIO_Init(PWM_TIM1_CH1_PORT, &GPIO_InitStructure);
 }
 
@@ -280,111 +280,111 @@ void PWM_Capture_GPIO_Config(void)
 Function: PWM_Capture_Mode_Config
 Input   : TIM_Period,TIM_Prescaler
 Output  : none
-º¯Êı¹¦ÄÜ£ºº½Ä£Ò£¿Ø²¶»ñPWM¸ßµçÆ½³õÊ¼»¯
-Èë¿Ú²ÎÊı: Ô¤×°ÔØÖµºÍÔ¤·ÖÆµÆ÷ 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šèˆªæ¨¡é¥æ§æ•è·PWMé«˜ç”µå¹³åˆå§‹åŒ–
+å…¥å£å‚æ•°: é¢„è£…è½½å€¼å’Œé¢„åˆ†é¢‘å™¨ 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 void PWM_Capture_Mode_Config(u16 arr,u16 psc)
 {
 	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
 	TIM_ICInitTypeDef  TIM_ICInitStructure;
 
-	//Ê¹ÄÜ¶¨Ê±Æ÷Ê±ÖÓ¡£TIM2
+	//ä½¿èƒ½å®šæ—¶å™¨æ—¶é’Ÿã€‚TIM2
 	PWM_TIM2_APBxClock_FUN(PWM_TIM2_CLK,ENABLE);				
-	//Ê¹ÄÜ¶¨Ê±Æ÷Ê±ÖÓ¡£TIM1
+	//ä½¿èƒ½å®šæ—¶å™¨æ—¶é’Ÿã€‚TIM1
 //	PWM_TIM1_APBxClock_FUN(PWM_TIM1_CLK,ENABLE);
 	
-	/*Ê±»ù¶¨Ê±Æ÷³õÊ¼»¯*/
-	//¶¨Ê±Æ÷2
-	TIM_TimeBaseStructure.TIM_Period = arr; 					//Éè¶¨¼ÆÊıÆ÷×Ô¶¯ÖØ×°Öµ 
-	TIM_TimeBaseStructure.TIM_Prescaler =psc; 					//Ô¤·ÖÆµÆ÷   
-	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; 	//ÉèÖÃÊ±ÖÓ·Ö¸î:TDTS = Tck_tim
-	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up; //TIMÏòÉÏ¼ÆÊıÄ£Ê½
-	TIM_TimeBaseInit(PWM_TIM2, &TIM_TimeBaseStructure); 		//¸ù¾İTIM_TimeBaseInitStructÖĞÖ¸¶¨µÄ²ÎÊı³õÊ¼»¯TIMxµÄÊ±¼ä»ùÊıµ¥Î»
+	/*æ—¶åŸºå®šæ—¶å™¨åˆå§‹åŒ–*/
+	//å®šæ—¶å™¨2
+	TIM_TimeBaseStructure.TIM_Period = arr; 					//è®¾å®šè®¡æ•°å™¨è‡ªåŠ¨é‡è£…å€¼ 
+	TIM_TimeBaseStructure.TIM_Prescaler =psc; 					//é¢„åˆ†é¢‘å™¨   
+	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; 	//è®¾ç½®æ—¶é’Ÿåˆ†å‰²:TDTS = Tck_tim
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up; //TIMå‘ä¸Šè®¡æ•°æ¨¡å¼
+	TIM_TimeBaseInit(PWM_TIM2, &TIM_TimeBaseStructure); 		//æ ¹æ®TIM_TimeBaseInitStructä¸­æŒ‡å®šçš„å‚æ•°åˆå§‹åŒ–TIMxçš„æ—¶é—´åŸºæ•°å•ä½
 
-//	//¶¨Ê±Æ÷1
-//	TIM_TimeBaseStructure.TIM_Period = arr; 					//Éè¶¨¼ÆÊıÆ÷×Ô¶¯ÖØ×°Öµ 
-//	TIM_TimeBaseStructure.TIM_Prescaler =psc; 					//Ô¤·ÖÆµÆ÷   
-//	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; 	//ÉèÖÃÊ±ÖÓ·Ö¸î:TDTS = Tck_tim
-//	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up; //TIMÏòÉÏ¼ÆÊıÄ£Ê½
-//	TIM_TimeBaseInit(PWM_TIM1, &TIM_TimeBaseStructure); 		//¸ù¾İTIM_TimeBaseInitStructÖĞÖ¸¶¨µÄ²ÎÊı³õÊ¼»¯TIMxµÄÊ±¼ä»ùÊıµ¥Î»
+//	//å®šæ—¶å™¨1
+//	TIM_TimeBaseStructure.TIM_Period = arr; 					//è®¾å®šè®¡æ•°å™¨è‡ªåŠ¨é‡è£…å€¼ 
+//	TIM_TimeBaseStructure.TIM_Prescaler =psc; 					//é¢„åˆ†é¢‘å™¨   
+//	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; 	//è®¾ç½®æ—¶é’Ÿåˆ†å‰²:TDTS = Tck_tim
+//	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up; //TIMå‘ä¸Šè®¡æ•°æ¨¡å¼
+//	TIM_TimeBaseInit(PWM_TIM1, &TIM_TimeBaseStructure); 		//æ ¹æ®TIM_TimeBaseInitStructä¸­æŒ‡å®šçš„å‚æ•°åˆå§‹åŒ–TIMxçš„æ—¶é—´åŸºæ•°å•ä½
 
-	/*²¶»ñÍ¨µÀ³õÊ¼»¯*/
-	//¶¨Ê±Æ÷2CH3£¬CH4
-	TIM_ICInitStructure.TIM_Channel = TIM_Channel_3; 			//Í¨µÀ3
-	TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;	//ÉÏÉıÑØ²¶»ñ
+	/*æ•è·é€šé“åˆå§‹åŒ–*/
+	//å®šæ—¶å™¨2CH3ï¼ŒCH4
+	TIM_ICInitStructure.TIM_Channel = TIM_Channel_3; 			//é€šé“3
+	TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;	//ä¸Šå‡æ²¿æ•è·
 	TIM_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI;
-	TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	 	//ÅäÖÃÊäÈë·ÖÆµ,²»·ÖÆµ 
-	TIM_ICInitStructure.TIM_ICFilter = 0x00;					//ÅäÖÃÊäÈëÂË²¨Æ÷ ²»ÂË²¨
+	TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	 	//é…ç½®è¾“å…¥åˆ†é¢‘,ä¸åˆ†é¢‘ 
+	TIM_ICInitStructure.TIM_ICFilter = 0x00;					//é…ç½®è¾“å…¥æ»¤æ³¢å™¨ ä¸æ»¤æ³¢
 	TIM_ICInit(PWM_TIM2, &TIM_ICInitStructure);
 
-	TIM_ICInitStructure.TIM_Channel = TIM_Channel_4; 			//Í¨µÀ4
-	TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;	//ÉÏÉıÑØ²¶»ñ
+	TIM_ICInitStructure.TIM_Channel = TIM_Channel_4; 			//é€šé“4
+	TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;	//ä¸Šå‡æ²¿æ•è·
 	TIM_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI;
-	TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	 	//ÅäÖÃÊäÈë·ÖÆµ,²»·ÖÆµ 
-	TIM_ICInitStructure.TIM_ICFilter = 0x00;					//ÅäÖÃÊäÈëÂË²¨Æ÷ ²»ÂË²¨
+	TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	 	//é…ç½®è¾“å…¥åˆ†é¢‘,ä¸åˆ†é¢‘ 
+	TIM_ICInitStructure.TIM_ICFilter = 0x00;					//é…ç½®è¾“å…¥æ»¤æ³¢å™¨ ä¸æ»¤æ³¢
 	TIM_ICInit(PWM_TIM2, &TIM_ICInitStructure);
 
-//	//¶¨Ê±Æ÷1CH4
-//	TIM_ICInitStructure.TIM_Channel = TIM_Channel_4; 			//Í¨µÀ4
-//	TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;	//ÉÏÉıÑØ²¶»ñ
+//	//å®šæ—¶å™¨1CH4
+//	TIM_ICInitStructure.TIM_Channel = TIM_Channel_4; 			//é€šé“4
+//	TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;	//ä¸Šå‡æ²¿æ•è·
 //	TIM_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI;
-//	TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	 	//ÅäÖÃÊäÈë·ÖÆµ,²»·ÖÆµ 
-//	TIM_ICInitStructure.TIM_ICFilter = 0x00;					//ÅäÖÃÊäÈëÂË²¨Æ÷ ²»ÂË²¨
+//	TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	 	//é…ç½®è¾“å…¥åˆ†é¢‘,ä¸åˆ†é¢‘ 
+//	TIM_ICInitStructure.TIM_ICFilter = 0x00;					//é…ç½®è¾“å…¥æ»¤æ³¢å™¨ ä¸æ»¤æ³¢
 //	TIM_ICInit(PWM_TIM1, &TIM_ICInitStructure);
 
-//	TIM_ICInitStructure.TIM_Channel = TIM_Channel_3; 			//Í¨µÀ4
-//	TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;	//ÉÏÉıÑØ²¶»ñ
+//	TIM_ICInitStructure.TIM_Channel = TIM_Channel_3; 			//é€šé“4
+//	TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;	//ä¸Šå‡æ²¿æ•è·
 //	TIM_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI;
-//	TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	 	//ÅäÖÃÊäÈë·ÖÆµ,²»·ÖÆµ 
-//	TIM_ICInitStructure.TIM_ICFilter = 0x00;					//ÅäÖÃÊäÈëÂË²¨Æ÷ ²»ÂË²¨
+//	TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	 	//é…ç½®è¾“å…¥åˆ†é¢‘,ä¸åˆ†é¢‘ 
+//	TIM_ICInitStructure.TIM_ICFilter = 0x00;					//é…ç½®è¾“å…¥æ»¤æ³¢å™¨ ä¸æ»¤æ³¢
 //	TIM_ICInit(PWM_TIM1, &TIM_ICInitStructure);
 
-	//Ê¹ÄÜÖĞ¶ÏÉèÖÃ
+	//ä½¿èƒ½ä¸­æ–­è®¾ç½®
 	//TIM2_CH3,CH4
-	TIM_ITConfig(PWM_TIM2,TIM_IT_Update|TIM_IT_CC3|TIM_IT_CC4,ENABLE);	//ÔÊĞí¸üĞÂÖĞ¶ÏºÍ²¶»ñÖĞ¶Ï	
-	//TIM1_CH3£¬CH4
-//	TIM_ITConfig(PWM_TIM1,TIM_IT_Update|TIM_IT_CC4,ENABLE);	//ÔÊĞí¸üĞÂÖĞ¶Ï ,ÔÊĞíCC4IE²¶»ñÖĞ¶Ï	
+	TIM_ITConfig(PWM_TIM2,TIM_IT_Update|TIM_IT_CC3|TIM_IT_CC4,ENABLE);	//å…è®¸æ›´æ–°ä¸­æ–­å’Œæ•è·ä¸­æ–­	
+	//TIM1_CH3ï¼ŒCH4
+//	TIM_ITConfig(PWM_TIM1,TIM_IT_Update|TIM_IT_CC4,ENABLE);	//å…è®¸æ›´æ–°ä¸­æ–­ ,å…è®¸CC4IEæ•è·ä¸­æ–­	
 
-	//¶¨Ê±Æ÷Ê¹ÄÜ
-	TIM_Cmd(PWM_TIM2,ENABLE); 										//Ê¹ÄÜ¶¨Ê±Æ÷2
+	//å®šæ—¶å™¨ä½¿èƒ½
+	TIM_Cmd(PWM_TIM2,ENABLE); 										//ä½¿èƒ½å®šæ—¶å™¨2
 	
-//	TIM_Cmd(PWM_TIM1,ENABLE); 										//Ê¹ÄÜ¶¨Ê±Æ÷1
+//	TIM_Cmd(PWM_TIM1,ENABLE); 										//ä½¿èƒ½å®šæ—¶å™¨1
 	
 }
 /**************************************************************************
 Function: PWM_Capture_Mode_Config
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£ºº½Ä£Ò£¿Ø²¶»ñPWM¸ßµçÆ½³õÊ¼»¯
-Èë¿Ú²ÎÊı: ÎŞ 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šèˆªæ¨¡é¥æ§æ•è·PWMé«˜ç”µå¹³åˆå§‹åŒ–
+å…¥å£å‚æ•°: æ—  
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 
 void PWM_Capture_NVIC_Config(void)
 {
 	NVIC_InitTypeDef NVIC_InitStructure;
 
-	//ÖĞ¶ÏÓÅÏÈ¼¶ÉèÖÃ
-	//TIM2×ÜÖĞ¶Ï
-	NVIC_InitStructure.NVIC_IRQChannel = PWM_TIM2_IRQ;  		//TIM2ÖĞ¶Ï
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;  	//ÏÈÕ¼ÓÅÏÈ¼¶1¼¶
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;  		//´ÓÓÅÏÈ¼¶1¼¶
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; 			//IRQÍ¨µÀ±»Ê¹ÄÜ
-	NVIC_Init(&NVIC_InitStructure);  							//¸ù¾İNVIC_InitStructÖĞÖ¸¶¨µÄ²ÎÊı³õÊ¼»¯ÍâÉèNVIC¼Ä´æÆ÷ 
+	//ä¸­æ–­ä¼˜å…ˆçº§è®¾ç½®
+	//TIM2æ€»ä¸­æ–­
+	NVIC_InitStructure.NVIC_IRQChannel = PWM_TIM2_IRQ;  		//TIM2ä¸­æ–­
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;  	//å…ˆå ä¼˜å…ˆçº§1çº§
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;  		//ä»ä¼˜å…ˆçº§1çº§
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; 			//IRQé€šé“è¢«ä½¿èƒ½
+	NVIC_Init(&NVIC_InitStructure);  							//æ ¹æ®NVIC_InitStructä¸­æŒ‡å®šçš„å‚æ•°åˆå§‹åŒ–å¤–è®¾NVICå¯„å­˜å™¨ 
 
-//	//TIM1¸üĞÂÖĞ¶ÏºÍ²¶»ñÖĞ¶Ï
-//	NVIC_InitStructure.NVIC_IRQChannel = PWM_TIM1_CC_IRQn;  	//TIM1²¶»ñÖĞ¶Ï
-//	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;  	//ÏÈÕ¼ÓÅÏÈ¼¶2¼¶
-//	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;  		//´ÓÓÅÏÈ¼¶2¼¶
-//	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; 			//IRQÍ¨µÀ±»Ê¹ÄÜ
-//	NVIC_Init(&NVIC_InitStructure);  							//¸ù¾İNVIC_InitStructÖĞÖ¸¶¨µÄ²ÎÊı³õÊ¼»¯ÍâÉèNVIC¼Ä´æÆ÷ 
+//	//TIM1æ›´æ–°ä¸­æ–­å’Œæ•è·ä¸­æ–­
+//	NVIC_InitStructure.NVIC_IRQChannel = PWM_TIM1_CC_IRQn;  	//TIM1æ•è·ä¸­æ–­
+//	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;  	//å…ˆå ä¼˜å…ˆçº§2çº§
+//	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;  		//ä»ä¼˜å…ˆçº§2çº§
+//	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; 			//IRQé€šé“è¢«ä½¿èƒ½
+//	NVIC_Init(&NVIC_InitStructure);  							//æ ¹æ®NVIC_InitStructä¸­æŒ‡å®šçš„å‚æ•°åˆå§‹åŒ–å¤–è®¾NVICå¯„å­˜å™¨ 
 
-//	NVIC_InitStructure.NVIC_IRQChannel = CAPTURE_TIM1_UP_IRQn;  //TIM1¸üĞÂÖĞ¶Ï
-//	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;  	//ÏÈÕ¼ÓÅÏÈ¼¶2¼¶
-//	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;  		//´ÓÓÅÏÈ¼¶2¼¶
-//	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; 			//IRQÍ¨µÀ±»Ê¹ÄÜ
-//	NVIC_Init(&NVIC_InitStructure);  							//¸ù¾İNVIC_InitStructÖĞÖ¸¶¨µÄ²ÎÊı³õÊ¼»¯ÍâÉèNVIC¼Ä´æÆ÷ 
+//	NVIC_InitStructure.NVIC_IRQChannel = CAPTURE_TIM1_UP_IRQn;  //TIM1æ›´æ–°ä¸­æ–­
+//	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;  	//å…ˆå ä¼˜å…ˆçº§2çº§
+//	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;  		//ä»ä¼˜å…ˆçº§2çº§
+//	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; 			//IRQé€šé“è¢«ä½¿èƒ½
+//	NVIC_Init(&NVIC_InitStructure);  							//æ ¹æ®NVIC_InitStructä¸­æŒ‡å®šçš„å‚æ•°åˆå§‹åŒ–å¤–è®¾NVICå¯„å­˜å™¨ 
 
 }
 
@@ -395,9 +395,9 @@ void PWM_Capture_NVIC_Config(void)
 Function: PWM_Capture_Mode_Config
 Input   : TIM_Period,TIM_Prescaler
 Output  : none
-º¯Êı¹¦ÄÜ£ºº½Ä£Ò£¿Ø²¶»ñPWM¸ßµçÆ½³õÊ¼»¯
-Èë¿Ú²ÎÊı: Ô¤×°ÔØÖµºÍÔ¤·ÖÆµÆ÷ 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šèˆªæ¨¡é¥æ§æ•è·PWMé«˜ç”µå¹³åˆå§‹åŒ–
+å…¥å£å‚æ•°: é¢„è£…è½½å€¼å’Œé¢„åˆ†é¢‘å™¨ 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 void PWM_Cap_Init(u16 arr,u16 psc)
 {
@@ -413,24 +413,24 @@ void PWM_Cap_Init(u16 arr,u16 psc)
 Function: Read_Distane
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º»ñÈ¡³¬Éù²¨²â¾à¾àÀë
-Èë¿Ú²ÎÊı: ÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šè·å–è¶…å£°æ³¢æµ‹è·è·ç¦»
+å…¥å£å‚æ•°: æ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
-//ÔÚ5ms¶¨Ê±ÖĞ¶ÏÖĞµ÷ÓÃ
+//åœ¨5mså®šæ—¶ä¸­æ–­ä¸­è°ƒç”¨
 void Read_Distane(void)        
 {   
 	
-	static u16 cnt = 0;	 //¼ÆÊı£¬³¬Éù²¨´¥·¢²»ÒªÌ«Æµ·±£¬»á¶Ô¾àÀëµÄ»ñÈ¡ÓĞÒ»¶¨µÄÓ°Ïì
+	static u16 cnt = 0;	 //è®¡æ•°ï¼Œè¶…å£°æ³¢è§¦å‘ä¸è¦å¤ªé¢‘ç¹ï¼Œä¼šå¯¹è·ç¦»çš„è·å–æœ‰ä¸€å®šçš„å½±å“
 	u32 temp_distance;
 	cnt++;
-	if(cnt == 20)		 //µ÷½Ú´¥·¢µÄËÙ¶È
+	if(cnt == 20)		 //è°ƒèŠ‚è§¦å‘çš„é€Ÿåº¦
 	{
-		TRIG_HIGH1;      //³¬Éù²¨Ä£¿é1´¥·¢   
+		TRIG_HIGH1;      //è¶…å£°æ³¢æ¨¡å—1è§¦å‘   
 		delay_us(15);  
 		TRIG_LOW1;	
 		
-		TRIG_HIGH2;      //³¬Éù²¨Ä£¿é2´¥·¢   
+		TRIG_HIGH2;      //è¶…å£°æ³¢æ¨¡å—2è§¦å‘   
 		delay_us(15);  
 		TRIG_LOW2;	
 
@@ -438,48 +438,48 @@ void Read_Distane(void)
 	if(cnt == 40)
 	{
 		cnt =0;
-		TRIG_HIGH3;      //³¬Éù²¨Ä£¿é3´¥·¢   
+		TRIG_HIGH3;      //è¶…å£°æ³¢æ¨¡å—3è§¦å‘   
 		delay_us(15);  
 		TRIG_LOW3;	
 		
-		TRIG_HIGH4;      //³¬Éù²¨Ä£¿é4´¥·¢   
+		TRIG_HIGH4;      //è¶…å£°æ³¢æ¨¡å—4è§¦å‘   
 		delay_us(15);  
 		TRIG_LOW4;	
 	}
 
-	//³¬Éù²¨Ä£¿é1
-	if(Distance_TIM2_CH2_ICUserValueStructure.Capture_FinishFlag)//³É¹¦²¶»ñµ½ÁËÒ»´Î¸ßµçÆ½
+	//è¶…å£°æ³¢æ¨¡å—1
+	if(Distance_TIM2_CH2_ICUserValueStructure.Capture_FinishFlag)//æˆåŠŸæ•è·åˆ°äº†ä¸€æ¬¡é«˜ç”µå¹³
 	{
-		temp_distance=Distance_TIM2_CH2_ICUserValueStructure.Capture_CcrValue+Distance_TIM2_CH2_ICUserValueStructure.Capture_Period*65536; //Ò»¹²¼ÆÊı¶àÉÙ´Î
-		Distance1=temp_distance*Light_Speed/2/1000;  						//Ê±¼ä*ÉùËÙ/2£¨À´»Ø£© Ò»¸ö¼ÆÊı0.001ms
-		Distance_TIM2_CH2_ICUserValueStructure.Capture_FinishFlag = 0;			//¿ªÆôÏÂÒ»´Î²¶»ñ
+		temp_distance=Distance_TIM2_CH2_ICUserValueStructure.Capture_CcrValue+Distance_TIM2_CH2_ICUserValueStructure.Capture_Period*65536; //ä¸€å…±è®¡æ•°å¤šå°‘æ¬¡
+		Distance1=temp_distance*Light_Speed/2/1000;  						//æ—¶é—´*å£°é€Ÿ/2ï¼ˆæ¥å›ï¼‰ ä¸€ä¸ªè®¡æ•°0.001ms
+		Distance_TIM2_CH2_ICUserValueStructure.Capture_FinishFlag = 0;			//å¼€å¯ä¸‹ä¸€æ¬¡æ•è·
 	}
-	//³¬Éù²¨Ä£¿é2
-	if(Distance_TIM2_CH3_ICUserValueStructure.Capture_FinishFlag)//³É¹¦²¶»ñµ½ÁËÒ»´Î¸ßµçÆ½
+	//è¶…å£°æ³¢æ¨¡å—2
+	if(Distance_TIM2_CH3_ICUserValueStructure.Capture_FinishFlag)//æˆåŠŸæ•è·åˆ°äº†ä¸€æ¬¡é«˜ç”µå¹³
 	{
-		temp_distance=Distance_TIM2_CH3_ICUserValueStructure.Capture_CcrValue+Distance_TIM2_CH3_ICUserValueStructure.Capture_Period*65536; //Ò»¹²¼ÆÊı¶àÉÙ´Î
-		Distance2=temp_distance*Light_Speed/2/1000;  						//Ê±¼ä*ÉùËÙ/2£¨À´»Ø£© Ò»¸ö¼ÆÊı0.001ms
-		Distance_TIM2_CH3_ICUserValueStructure.Capture_FinishFlag = 0;			//¿ªÆôÏÂÒ»´Î²¶»ñ
+		temp_distance=Distance_TIM2_CH3_ICUserValueStructure.Capture_CcrValue+Distance_TIM2_CH3_ICUserValueStructure.Capture_Period*65536; //ä¸€å…±è®¡æ•°å¤šå°‘æ¬¡
+		Distance2=temp_distance*Light_Speed/2/1000;  						//æ—¶é—´*å£°é€Ÿ/2ï¼ˆæ¥å›ï¼‰ ä¸€ä¸ªè®¡æ•°0.001ms
+		Distance_TIM2_CH3_ICUserValueStructure.Capture_FinishFlag = 0;			//å¼€å¯ä¸‹ä¸€æ¬¡æ•è·
 	}
-	//³¬Éù²¨Ä£¿é3
-	if(Distance_TIM2_CH4_ICUserValueStructure.Capture_FinishFlag)//³É¹¦²¶»ñµ½ÁËÒ»´Î¸ßµçÆ½
+	//è¶…å£°æ³¢æ¨¡å—3
+	if(Distance_TIM2_CH4_ICUserValueStructure.Capture_FinishFlag)//æˆåŠŸæ•è·åˆ°äº†ä¸€æ¬¡é«˜ç”µå¹³
 	{
-		temp_distance=Distance_TIM2_CH4_ICUserValueStructure.Capture_CcrValue+Distance_TIM2_CH4_ICUserValueStructure.Capture_Period*65536; //Ò»¹²¼ÆÊı¶àÉÙ´Î
-		Distance3=temp_distance*Light_Speed/2/1000;  						//Ê±¼ä*ÉùËÙ/2£¨À´»Ø£© Ò»¸ö¼ÆÊı0.001ms
-		Distance_TIM2_CH4_ICUserValueStructure.Capture_FinishFlag = 0;			//¿ªÆôÏÂÒ»´Î²¶»ñ
+		temp_distance=Distance_TIM2_CH4_ICUserValueStructure.Capture_CcrValue+Distance_TIM2_CH4_ICUserValueStructure.Capture_Period*65536; //ä¸€å…±è®¡æ•°å¤šå°‘æ¬¡
+		Distance3=temp_distance*Light_Speed/2/1000;  						//æ—¶é—´*å£°é€Ÿ/2ï¼ˆæ¥å›ï¼‰ ä¸€ä¸ªè®¡æ•°0.001ms
+		Distance_TIM2_CH4_ICUserValueStructure.Capture_FinishFlag = 0;			//å¼€å¯ä¸‹ä¸€æ¬¡æ•è·
 	}
-	//³¬Éù²¨Ä£¿é4
-	if(Distance_TIM1_CH4_ICUserValueStructure.Capture_FinishFlag)//³É¹¦²¶»ñµ½ÁËÒ»´Î¸ßµçÆ½
+	//è¶…å£°æ³¢æ¨¡å—4
+	if(Distance_TIM1_CH4_ICUserValueStructure.Capture_FinishFlag)//æˆåŠŸæ•è·åˆ°äº†ä¸€æ¬¡é«˜ç”µå¹³
 	{
-		temp_distance=Distance_TIM1_CH4_ICUserValueStructure.Capture_CcrValue+Distance_TIM1_CH4_ICUserValueStructure.Capture_Period*65536; //Ò»¹²¼ÆÊı¶àÉÙ´Î
-		Distance4=temp_distance*Light_Speed/2/1000;  						//Ê±¼ä*ÉùËÙ/2£¨À´»Ø£© Ò»¸ö¼ÆÊı0.001ms
-		Distance_TIM1_CH4_ICUserValueStructure.Capture_FinishFlag = 0;			//¿ªÆôÏÂÒ»´Î²¶»ñ
+		temp_distance=Distance_TIM1_CH4_ICUserValueStructure.Capture_CcrValue+Distance_TIM1_CH4_ICUserValueStructure.Capture_Period*65536; //ä¸€å…±è®¡æ•°å¤šå°‘æ¬¡
+		Distance4=temp_distance*Light_Speed/2/1000;  						//æ—¶é—´*å£°é€Ÿ/2ï¼ˆæ¥å›ï¼‰ ä¸€ä¸ªè®¡æ•°0.001ms
+		Distance_TIM1_CH4_ICUserValueStructure.Capture_FinishFlag = 0;			//å¼€å¯ä¸‹ä¸€æ¬¡æ•è·
 	}
 
 }
 
 
-//Ê¹ÓÃ³¬Éù²¨
+//ä½¿ç”¨è¶…å£°æ³¢
 #ifdef Distance_Capture
 
 
@@ -487,143 +487,143 @@ void Read_Distane(void)
 Function: CAPTURE_TIM2_IRQHandler
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º¸ßµçÆ½²¶»ñÖĞ¶Ïº¯Êı
-Èë¿Ú²ÎÊı: ÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šé«˜ç”µå¹³æ•è·ä¸­æ–­å‡½æ•°
+å…¥å£å‚æ•°: æ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 void CAPTURE_TIM2_IRQHandler(void)
 { 	
-	// µ±Òª±»²¶»ñµÄĞÅºÅµÄÖÜÆÚ´óÓÚ¶¨Ê±Æ÷µÄ×î³¤¶¨Ê±Ê±£¬¶¨Ê±Æ÷¾Í»áÒç³ö£¬²úÉú¸üĞÂÖĞ¶Ï
-	// Õâ¸öÊ±ºòÎÒÃÇĞèÒª°ÑÕâ¸ö×î³¤µÄ¶¨Ê±ÖÜÆÚ¼Óµ½²¶»ñĞÅºÅµÄÊ±¼äÀïÃæÈ¥
+	// å½“è¦è¢«æ•è·çš„ä¿¡å·çš„å‘¨æœŸå¤§äºå®šæ—¶å™¨çš„æœ€é•¿å®šæ—¶æ—¶ï¼Œå®šæ—¶å™¨å°±ä¼šæº¢å‡ºï¼Œäº§ç”Ÿæ›´æ–°ä¸­æ–­
+	// è¿™ä¸ªæ—¶å€™æˆ‘ä»¬éœ€è¦æŠŠè¿™ä¸ªæœ€é•¿çš„å®šæ—¶å‘¨æœŸåŠ åˆ°æ•è·ä¿¡å·çš„æ—¶é—´é‡Œé¢å»
 	
-	/*************************************Í¨µÀ2*******************************************/
+	/*************************************é€šé“2*******************************************/
 	
-	if(Distance_TIM2_CH2_ICUserValueStructure.Capture_FinishFlag == 0)//Ã»ÓĞÍê³ÉÒ»´ÎµÄÊ±ºò²¶»ñ²ÅÄÜ½øÈ¥£¬·ÀÖ¹Òç³ö´ÎÊı´íÎó
+	if(Distance_TIM2_CH2_ICUserValueStructure.Capture_FinishFlag == 0)//æ²¡æœ‰å®Œæˆä¸€æ¬¡çš„æ—¶å€™æ•è·æ‰èƒ½è¿›å»ï¼Œé˜²æ­¢æº¢å‡ºæ¬¡æ•°é”™è¯¯
 	{
 		if ( TIM_GetITStatus ( CAPTURE_TIM2, TIM_IT_Update) != RESET )               
 			Distance_TIM2_CH2_ICUserValueStructure.Capture_Period ++;
 		
-		// ²¶»ñÖĞ¶Ï£¬µÚÒ»´ÎÊÇÉÏÉıÑØÖĞ¶Ï£¬µÚ¶ş´ÎÊÇÏÂ½µÑØÖĞ¶Ï
+		// æ•è·ä¸­æ–­ï¼Œç¬¬ä¸€æ¬¡æ˜¯ä¸Šå‡æ²¿ä¸­æ–­ï¼Œç¬¬äºŒæ¬¡æ˜¯ä¸‹é™æ²¿ä¸­æ–­
 		if ( TIM_GetITStatus (CAPTURE_TIM2, TIM_IT_CC2 ) != RESET)
 		{
-			// µÚÒ»´Î²¶»ñ
+			// ç¬¬ä¸€æ¬¡æ•è·
 			if ( Distance_TIM2_CH2_ICUserValueStructure.Capture_StartFlag == 0 )
 			{
-				//µÚÒ»´Î²¶»ñÊ±£¬°Ñ²¶»ñÖµ´¢´æÆğÀ´
+				//ç¬¬ä¸€æ¬¡æ•è·æ—¶ï¼ŒæŠŠæ•è·å€¼å‚¨å­˜èµ·æ¥
 				Distance_TIM2_CH2_ICUserValueStructure.Capture_CcrValue = 
 				TIM_GetCapture2 (CAPTURE_TIM2);
-				// ×Ô¶¯ÖØ×°ÔØ¼Ä´æÆ÷¸üĞÂ±êÖ¾Çå0
+				// è‡ªåŠ¨é‡è£…è½½å¯„å­˜å™¨æ›´æ–°æ ‡å¿—æ¸…0
 				Distance_TIM2_CH2_ICUserValueStructure.Capture_Period = 0;
-//				// ´æ²¶»ñ±È½Ï¼Ä´æÆ÷µÄÖµµÄ±äÁ¿µÄÖµÇå0			
+//				// å­˜æ•è·æ¯”è¾ƒå¯„å­˜å™¨çš„å€¼çš„å˜é‡çš„å€¼æ¸…0			
 //				Distance_TIM2_CH2_ICUserValueStructure.Capture_CcrValue = 0;
 
-				// µ±µÚÒ»´Î²¶»ñµ½ÉÏÉıÑØÖ®ºó£¬¾Í°Ñ²¶»ñ±ßÑØÅäÖÃÎªÏÂ½µÑØ
+				// å½“ç¬¬ä¸€æ¬¡æ•è·åˆ°ä¸Šå‡æ²¿ä¹‹åï¼Œå°±æŠŠæ•è·è¾¹æ²¿é…ç½®ä¸ºä¸‹é™æ²¿
 				TIM_OC2PolarityConfig(CAPTURE_TIM2, CAPTURE_TIM_END_ICPolarity);
-				// ¿ªÊ¼²¶»ñ±êÖ¾Î»ÖÃ1			
+				// å¼€å§‹æ•è·æ ‡å¿—ä½ç½®1			
 				Distance_TIM2_CH2_ICUserValueStructure.Capture_StartFlag = 1;			
 			}
-			// ÏÂ½µÑØ²¶»ñÖĞ¶Ï
-			else // µÚ¶ş´Î²¶»ñ
+			// ä¸‹é™æ²¿æ•è·ä¸­æ–­
+			else // ç¬¬äºŒæ¬¡æ•è·
 			{
-				// »ñÈ¡²¶»ñ±È½Ï¼Ä´æÆ÷µÄÖµ£¬Õâ¸öÖµ¾ÍÊÇ²¶»ñµ½µÄ¸ßµçÆ½µÄÊ±¼äµÄÖµ
+				// è·å–æ•è·æ¯”è¾ƒå¯„å­˜å™¨çš„å€¼ï¼Œè¿™ä¸ªå€¼å°±æ˜¯æ•è·åˆ°çš„é«˜ç”µå¹³çš„æ—¶é—´çš„å€¼
 				Distance_TIM2_CH2_ICUserValueStructure.Capture_CcrValue = 
 				TIM_GetCapture2 (CAPTURE_TIM2)-Distance_TIM2_CH2_ICUserValueStructure.Capture_CcrValue;
 
-				// µ±µÚ¶ş´Î²¶»ñµ½ÏÂ½µÑØÖ®ºó£¬¾Í°Ñ²¶»ñ±ßÑØÅäÖÃÎªÉÏÉıÑØ£¬ºÃ¿ªÆôĞÂµÄÒ»ÂÖ²¶»ñ
+				// å½“ç¬¬äºŒæ¬¡æ•è·åˆ°ä¸‹é™æ²¿ä¹‹åï¼Œå°±æŠŠæ•è·è¾¹æ²¿é…ç½®ä¸ºä¸Šå‡æ²¿ï¼Œå¥½å¼€å¯æ–°çš„ä¸€è½®æ•è·
 				TIM_OC2PolarityConfig(CAPTURE_TIM2, CAPTURE_TIM_STRAT_ICPolarity);
-				// ¿ªÊ¼²¶»ñ±êÖ¾Çå0		
+				// å¼€å§‹æ•è·æ ‡å¿—æ¸…0		
 				Distance_TIM2_CH2_ICUserValueStructure.Capture_StartFlag = 0;
-				// ²¶»ñÍê³É±êÖ¾ÖÃ1			
+				// æ•è·å®Œæˆæ ‡å¿—ç½®1			
 				Distance_TIM2_CH2_ICUserValueStructure.Capture_FinishFlag = 1;		
 			}
-			//Çå³ıÖĞ¶Ï
+			//æ¸…é™¤ä¸­æ–­
 			TIM_ClearITPendingBit (CAPTURE_TIM2,TIM_IT_CC2);	
 		}		
 	}
 
-	/*************************************Í¨µÀ3*******************************************/
-	if(Distance_TIM2_CH3_ICUserValueStructure.Capture_FinishFlag == 0)//Ã»ÓĞÍê³ÉÒ»´ÎµÄÊ±ºò²¶»ñ²ÅÄÜ½øÈ¥£¬·ÀÖ¹Òç³ö´ÎÊı´íÎó
+	/*************************************é€šé“3*******************************************/
+	if(Distance_TIM2_CH3_ICUserValueStructure.Capture_FinishFlag == 0)//æ²¡æœ‰å®Œæˆä¸€æ¬¡çš„æ—¶å€™æ•è·æ‰èƒ½è¿›å»ï¼Œé˜²æ­¢æº¢å‡ºæ¬¡æ•°é”™è¯¯
 	{
 		if ( TIM_GetITStatus ( CAPTURE_TIM2, TIM_IT_Update) != RESET )               
 			Distance_TIM2_CH3_ICUserValueStructure.Capture_Period ++;
 		
-		// ²¶»ñÖĞ¶Ï£¬µÚÒ»´ÎÊÇÉÏÉıÑØÖĞ¶Ï£¬µÚ¶ş´ÎÊÇÏÂ½µÑØÖĞ¶Ï
+		// æ•è·ä¸­æ–­ï¼Œç¬¬ä¸€æ¬¡æ˜¯ä¸Šå‡æ²¿ä¸­æ–­ï¼Œç¬¬äºŒæ¬¡æ˜¯ä¸‹é™æ²¿ä¸­æ–­
 		if ( TIM_GetITStatus (CAPTURE_TIM2, TIM_IT_CC3 ) != RESET)
 		{
-			// µÚÒ»´Î²¶»ñ
+			// ç¬¬ä¸€æ¬¡æ•è·
 			if ( Distance_TIM2_CH3_ICUserValueStructure.Capture_StartFlag == 0 )
 			{
-				//µÚÒ»´Î²¶»ñÊ±£¬°Ñ²¶»ñÖµ´¢´æÆğÀ´
+				//ç¬¬ä¸€æ¬¡æ•è·æ—¶ï¼ŒæŠŠæ•è·å€¼å‚¨å­˜èµ·æ¥
 				Distance_TIM2_CH3_ICUserValueStructure.Capture_CcrValue = 
 				TIM_GetCapture3 (CAPTURE_TIM2);
-				// ×Ô¶¯ÖØ×°ÔØ¼Ä´æÆ÷¸üĞÂ±êÖ¾Çå0
+				// è‡ªåŠ¨é‡è£…è½½å¯„å­˜å™¨æ›´æ–°æ ‡å¿—æ¸…0
 				Distance_TIM2_CH3_ICUserValueStructure.Capture_Period = 0;
-//				// ´æ²¶»ñ±È½Ï¼Ä´æÆ÷µÄÖµµÄ±äÁ¿µÄÖµÇå0			
+//				// å­˜æ•è·æ¯”è¾ƒå¯„å­˜å™¨çš„å€¼çš„å˜é‡çš„å€¼æ¸…0			
 //				Distance_TIM2_CH2_ICUserValueStructure.Capture_CcrValue = 0;
 
-				// µ±µÚÒ»´Î²¶»ñµ½ÉÏÉıÑØÖ®ºó£¬¾Í°Ñ²¶»ñ±ßÑØÅäÖÃÎªÏÂ½µÑØ
+				// å½“ç¬¬ä¸€æ¬¡æ•è·åˆ°ä¸Šå‡æ²¿ä¹‹åï¼Œå°±æŠŠæ•è·è¾¹æ²¿é…ç½®ä¸ºä¸‹é™æ²¿
 				TIM_OC3PolarityConfig(CAPTURE_TIM2, CAPTURE_TIM_END_ICPolarity);
-				// ¿ªÊ¼²¶»ñ±êÖ¾Î»ÖÃ1			
+				// å¼€å§‹æ•è·æ ‡å¿—ä½ç½®1			
 				Distance_TIM2_CH3_ICUserValueStructure.Capture_StartFlag = 1;			
 			}
-			// ÏÂ½µÑØ²¶»ñÖĞ¶Ï
-			else // µÚ¶ş´Î²¶»ñ
+			// ä¸‹é™æ²¿æ•è·ä¸­æ–­
+			else // ç¬¬äºŒæ¬¡æ•è·
 			{
-				// »ñÈ¡²¶»ñ±È½Ï¼Ä´æÆ÷µÄÖµ£¬Õâ¸öÖµ¾ÍÊÇ²¶»ñµ½µÄ¸ßµçÆ½µÄÊ±¼äµÄÖµ
+				// è·å–æ•è·æ¯”è¾ƒå¯„å­˜å™¨çš„å€¼ï¼Œè¿™ä¸ªå€¼å°±æ˜¯æ•è·åˆ°çš„é«˜ç”µå¹³çš„æ—¶é—´çš„å€¼
 				Distance_TIM2_CH3_ICUserValueStructure.Capture_CcrValue = 
 				TIM_GetCapture3 (CAPTURE_TIM2)-Distance_TIM2_CH3_ICUserValueStructure.Capture_CcrValue;
 
-				// µ±µÚ¶ş´Î²¶»ñµ½ÏÂ½µÑØÖ®ºó£¬¾Í°Ñ²¶»ñ±ßÑØÅäÖÃÎªÉÏÉıÑØ£¬ºÃ¿ªÆôĞÂµÄÒ»ÂÖ²¶»ñ
+				// å½“ç¬¬äºŒæ¬¡æ•è·åˆ°ä¸‹é™æ²¿ä¹‹åï¼Œå°±æŠŠæ•è·è¾¹æ²¿é…ç½®ä¸ºä¸Šå‡æ²¿ï¼Œå¥½å¼€å¯æ–°çš„ä¸€è½®æ•è·
 				TIM_OC3PolarityConfig(CAPTURE_TIM2, CAPTURE_TIM_STRAT_ICPolarity);
-				// ¿ªÊ¼²¶»ñ±êÖ¾Çå0		
+				// å¼€å§‹æ•è·æ ‡å¿—æ¸…0		
 				Distance_TIM2_CH3_ICUserValueStructure.Capture_StartFlag = 0;
-				// ²¶»ñÍê³É±êÖ¾ÖÃ1			
+				// æ•è·å®Œæˆæ ‡å¿—ç½®1			
 				Distance_TIM2_CH3_ICUserValueStructure.Capture_FinishFlag = 1;		
 			}
-			//Çå³ıÖĞ¶Ï
+			//æ¸…é™¤ä¸­æ–­
 			TIM_ClearITPendingBit (CAPTURE_TIM2,TIM_IT_CC3);	
 		}		
 	}
-	/*************************************Í¨µÀ4*******************************************/
-	if(Distance_TIM2_CH4_ICUserValueStructure.Capture_FinishFlag == 0)//Ã»ÓĞÍê³ÉÒ»´ÎµÄÊ±ºò²¶»ñ²ÅÄÜ½øÈ¥£¬·ÀÖ¹Òç³ö´ÎÊı´íÎó
+	/*************************************é€šé“4*******************************************/
+	if(Distance_TIM2_CH4_ICUserValueStructure.Capture_FinishFlag == 0)//æ²¡æœ‰å®Œæˆä¸€æ¬¡çš„æ—¶å€™æ•è·æ‰èƒ½è¿›å»ï¼Œé˜²æ­¢æº¢å‡ºæ¬¡æ•°é”™è¯¯
 	{
 		if ( TIM_GetITStatus ( CAPTURE_TIM2, TIM_IT_Update) != RESET )               
 			Distance_TIM2_CH4_ICUserValueStructure.Capture_Period ++;
 
-		// ²¶»ñÖĞ¶Ï£¬µÚÒ»´ÎÊÇÉÏÉıÑØÖĞ¶Ï£¬µÚ¶ş´ÎÊÇÏÂ½µÑØÖĞ¶Ï
+		// æ•è·ä¸­æ–­ï¼Œç¬¬ä¸€æ¬¡æ˜¯ä¸Šå‡æ²¿ä¸­æ–­ï¼Œç¬¬äºŒæ¬¡æ˜¯ä¸‹é™æ²¿ä¸­æ–­
 		if ( TIM_GetITStatus (CAPTURE_TIM2, TIM_IT_CC4 ) != RESET)
 		{
-			// µÚÒ»´Î²¶»ñ
+			// ç¬¬ä¸€æ¬¡æ•è·
 			if ( Distance_TIM2_CH4_ICUserValueStructure.Capture_StartFlag == 0 )
 			{
-				//µÚÒ»´Î²¶»ñÊ±£¬°Ñ²¶»ñÖµ´¢´æÆğÀ´
+				//ç¬¬ä¸€æ¬¡æ•è·æ—¶ï¼ŒæŠŠæ•è·å€¼å‚¨å­˜èµ·æ¥
 				Distance_TIM2_CH4_ICUserValueStructure.Capture_CcrValue = 
 				TIM_GetCapture4 (CAPTURE_TIM2);
-				// ×Ô¶¯ÖØ×°ÔØ¼Ä´æÆ÷¸üĞÂ±êÖ¾Çå0
+				// è‡ªåŠ¨é‡è£…è½½å¯„å­˜å™¨æ›´æ–°æ ‡å¿—æ¸…0
 				Distance_TIM2_CH4_ICUserValueStructure.Capture_Period = 0;
-//				// ´æ²¶»ñ±È½Ï¼Ä´æÆ÷µÄÖµµÄ±äÁ¿µÄÖµÇå0			
+//				// å­˜æ•è·æ¯”è¾ƒå¯„å­˜å™¨çš„å€¼çš„å˜é‡çš„å€¼æ¸…0			
 //				Distance_TIM2_CH2_ICUserValueStructure.Capture_CcrValue = 0;
 
-				// µ±µÚÒ»´Î²¶»ñµ½ÉÏÉıÑØÖ®ºó£¬¾Í°Ñ²¶»ñ±ßÑØÅäÖÃÎªÏÂ½µÑØ
+				// å½“ç¬¬ä¸€æ¬¡æ•è·åˆ°ä¸Šå‡æ²¿ä¹‹åï¼Œå°±æŠŠæ•è·è¾¹æ²¿é…ç½®ä¸ºä¸‹é™æ²¿
 				TIM_OC4PolarityConfig(CAPTURE_TIM2, CAPTURE_TIM_END_ICPolarity);
-				// ¿ªÊ¼²¶»ñ±êÖ¾Î»ÖÃ1			
+				// å¼€å§‹æ•è·æ ‡å¿—ä½ç½®1			
 				Distance_TIM2_CH4_ICUserValueStructure.Capture_StartFlag = 1;			
 			}
-			// ÏÂ½µÑØ²¶»ñÖĞ¶Ï
-			else // µÚ¶ş´Î²¶»ñ
+			// ä¸‹é™æ²¿æ•è·ä¸­æ–­
+			else // ç¬¬äºŒæ¬¡æ•è·
 			{
-				// »ñÈ¡²¶»ñ±È½Ï¼Ä´æÆ÷µÄÖµ£¬Õâ¸öÖµ¾ÍÊÇ²¶»ñµ½µÄ¸ßµçÆ½µÄÊ±¼äµÄÖµ
+				// è·å–æ•è·æ¯”è¾ƒå¯„å­˜å™¨çš„å€¼ï¼Œè¿™ä¸ªå€¼å°±æ˜¯æ•è·åˆ°çš„é«˜ç”µå¹³çš„æ—¶é—´çš„å€¼
 				Distance_TIM2_CH4_ICUserValueStructure.Capture_CcrValue = 
 				TIM_GetCapture4(CAPTURE_TIM2)-Distance_TIM2_CH4_ICUserValueStructure.Capture_CcrValue;
 
-				// µ±µÚ¶ş´Î²¶»ñµ½ÏÂ½µÑØÖ®ºó£¬¾Í°Ñ²¶»ñ±ßÑØÅäÖÃÎªÉÏÉıÑØ£¬ºÃ¿ªÆôĞÂµÄÒ»ÂÖ²¶»ñ
+				// å½“ç¬¬äºŒæ¬¡æ•è·åˆ°ä¸‹é™æ²¿ä¹‹åï¼Œå°±æŠŠæ•è·è¾¹æ²¿é…ç½®ä¸ºä¸Šå‡æ²¿ï¼Œå¥½å¼€å¯æ–°çš„ä¸€è½®æ•è·
 				TIM_OC4PolarityConfig(CAPTURE_TIM2, CAPTURE_TIM_STRAT_ICPolarity);
-				// ¿ªÊ¼²¶»ñ±êÖ¾Çå0		
+				// å¼€å§‹æ•è·æ ‡å¿—æ¸…0		
 				Distance_TIM2_CH4_ICUserValueStructure.Capture_StartFlag = 0;
-				// ²¶»ñÍê³É±êÖ¾ÖÃ1			
+				// æ•è·å®Œæˆæ ‡å¿—ç½®1			
 				Distance_TIM2_CH4_ICUserValueStructure.Capture_FinishFlag = 1;		
 			}
-			//Çå³ıÖĞ¶Ï
+			//æ¸…é™¤ä¸­æ–­
 			TIM_ClearITPendingBit (CAPTURE_TIM2,TIM_IT_CC4);	
 		}		
 	}
@@ -634,50 +634,50 @@ void CAPTURE_TIM2_IRQHandler(void)
 Function: CAPTURE_TIM1_CC_IRQHandler
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º¸ßµçÆ½²¶»ñÖĞ¶Ïº¯Êı
-Èë¿Ú²ÎÊı: ÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šé«˜ç”µå¹³æ•è·ä¸­æ–­å‡½æ•°
+å…¥å£å‚æ•°: æ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
-//³¬Éù²¨Ä£¿é4²¶»ñÖĞ¶Ï
+//è¶…å£°æ³¢æ¨¡å—4æ•è·ä¸­æ–­
 void CAPTURE_TIM1_CC_IRQHandler(void)
 {
-	/*************************************Í¨µÀ4*******************************************/
-	if(Distance_TIM1_CH4_ICUserValueStructure.Capture_FinishFlag == 0)//Ã»ÓĞÍê³ÉÒ»´ÎµÄÊ±ºò²¶»ñ²ÅÄÜ½øÈ¥£¬·ÀÖ¹Òç³ö´ÎÊı´íÎó
+	/*************************************é€šé“4*******************************************/
+	if(Distance_TIM1_CH4_ICUserValueStructure.Capture_FinishFlag == 0)//æ²¡æœ‰å®Œæˆä¸€æ¬¡çš„æ—¶å€™æ•è·æ‰èƒ½è¿›å»ï¼Œé˜²æ­¢æº¢å‡ºæ¬¡æ•°é”™è¯¯
 	{
-		// ²¶»ñÖĞ¶Ï£¬µÚÒ»´ÎÊÇÉÏÉıÑØÖĞ¶Ï£¬µÚ¶ş´ÎÊÇÏÂ½µÑØÖĞ¶Ï
+		// æ•è·ä¸­æ–­ï¼Œç¬¬ä¸€æ¬¡æ˜¯ä¸Šå‡æ²¿ä¸­æ–­ï¼Œç¬¬äºŒæ¬¡æ˜¯ä¸‹é™æ²¿ä¸­æ–­
 		if ( TIM_GetITStatus (CAPTURE_TIM1, TIM_IT_CC4 ) != RESET)
 		{
-			// µÚÒ»´Î²¶»ñ
+			// ç¬¬ä¸€æ¬¡æ•è·
 			if ( Distance_TIM1_CH4_ICUserValueStructure.Capture_StartFlag == 0 )
 			{
-				//µÚÒ»´Î²¶»ñÊ±£¬°Ñ²¶»ñÖµ´¢´æÆğÀ´
+				//ç¬¬ä¸€æ¬¡æ•è·æ—¶ï¼ŒæŠŠæ•è·å€¼å‚¨å­˜èµ·æ¥
 				Distance_TIM1_CH4_ICUserValueStructure.Capture_CcrValue = 
 				TIM_GetCapture4 (CAPTURE_TIM1);
-				// ×Ô¶¯ÖØ×°ÔØ¼Ä´æÆ÷¸üĞÂ±êÖ¾Çå0
+				// è‡ªåŠ¨é‡è£…è½½å¯„å­˜å™¨æ›´æ–°æ ‡å¿—æ¸…0
 				Distance_TIM1_CH4_ICUserValueStructure.Capture_Period = 0;
-//				// ´æ²¶»ñ±È½Ï¼Ä´æÆ÷µÄÖµµÄ±äÁ¿µÄÖµÇå0			
+//				// å­˜æ•è·æ¯”è¾ƒå¯„å­˜å™¨çš„å€¼çš„å˜é‡çš„å€¼æ¸…0			
 //				Distance_TIM2_CH2_ICUserValueStructure.Capture_CcrValue = 0;
 
-				// µ±µÚÒ»´Î²¶»ñµ½ÉÏÉıÑØÖ®ºó£¬¾Í°Ñ²¶»ñ±ßÑØÅäÖÃÎªÏÂ½µÑØ
+				// å½“ç¬¬ä¸€æ¬¡æ•è·åˆ°ä¸Šå‡æ²¿ä¹‹åï¼Œå°±æŠŠæ•è·è¾¹æ²¿é…ç½®ä¸ºä¸‹é™æ²¿
 				TIM_OC4PolarityConfig(CAPTURE_TIM1, CAPTURE_TIM_END_ICPolarity);
-				// ¿ªÊ¼²¶»ñ±êÖ¾Î»ÖÃ1			
+				// å¼€å§‹æ•è·æ ‡å¿—ä½ç½®1			
 				Distance_TIM1_CH4_ICUserValueStructure.Capture_StartFlag = 1;			
 			}
-			// ÏÂ½µÑØ²¶»ñÖĞ¶Ï
-			else // µÚ¶ş´Î²¶»ñ
+			// ä¸‹é™æ²¿æ•è·ä¸­æ–­
+			else // ç¬¬äºŒæ¬¡æ•è·
 			{
-				// »ñÈ¡²¶»ñ±È½Ï¼Ä´æÆ÷µÄÖµ£¬Õâ¸öÖµ¾ÍÊÇ²¶»ñµ½µÄ¸ßµçÆ½µÄÊ±¼äµÄÖµ
+				// è·å–æ•è·æ¯”è¾ƒå¯„å­˜å™¨çš„å€¼ï¼Œè¿™ä¸ªå€¼å°±æ˜¯æ•è·åˆ°çš„é«˜ç”µå¹³çš„æ—¶é—´çš„å€¼
 				Distance_TIM1_CH4_ICUserValueStructure.Capture_CcrValue = 
 				TIM_GetCapture4(CAPTURE_TIM1)-Distance_TIM1_CH4_ICUserValueStructure.Capture_CcrValue;
 
-				// µ±µÚ¶ş´Î²¶»ñµ½ÏÂ½µÑØÖ®ºó£¬¾Í°Ñ²¶»ñ±ßÑØÅäÖÃÎªÉÏÉıÑØ£¬ºÃ¿ªÆôĞÂµÄÒ»ÂÖ²¶»ñ
+				// å½“ç¬¬äºŒæ¬¡æ•è·åˆ°ä¸‹é™æ²¿ä¹‹åï¼Œå°±æŠŠæ•è·è¾¹æ²¿é…ç½®ä¸ºä¸Šå‡æ²¿ï¼Œå¥½å¼€å¯æ–°çš„ä¸€è½®æ•è·
 				TIM_OC4PolarityConfig(CAPTURE_TIM1, CAPTURE_TIM_STRAT_ICPolarity);
-				// ¿ªÊ¼²¶»ñ±êÖ¾Çå0		
+				// å¼€å§‹æ•è·æ ‡å¿—æ¸…0		
 				Distance_TIM1_CH4_ICUserValueStructure.Capture_StartFlag = 0;
-				// ²¶»ñÍê³É±êÖ¾ÖÃ1			
+				// æ•è·å®Œæˆæ ‡å¿—ç½®1			
 				Distance_TIM1_CH4_ICUserValueStructure.Capture_FinishFlag = 1;		
 			}
-			//Çå³ıÖĞ¶Ï
+			//æ¸…é™¤ä¸­æ–­
 			TIM_ClearITPendingBit (CAPTURE_TIM1,TIM_IT_CC4);	
 		}		
 	}
@@ -689,20 +689,20 @@ void CAPTURE_TIM1_CC_IRQHandler(void)
 Function: CAPTURE_TIM1_UP_IRQHandler
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º¸ßµçÆ½²¶»ñÖĞ¶Ïº¯Êı
-Èë¿Ú²ÎÊı: ÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šé«˜ç”µå¹³æ•è·ä¸­æ–­å‡½æ•°
+å…¥å£å‚æ•°: æ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 
-//³¬Éù²¨Ä£¿é4¸üĞÂÖĞ¶Ï
+//è¶…å£°æ³¢æ¨¡å—4æ›´æ–°ä¸­æ–­
 void CAPTURE_TIM1_UP_IRQHandler(void)
 {
-	if(Distance_TIM1_CH4_ICUserValueStructure.Capture_FinishFlag == 0)//Ã»ÓĞÍê³ÉÒ»´ÎµÄÊ±ºò²¶»ñ²ÅÄÜ½øÈ¥£¬·ÀÖ¹Òç³ö´ÎÊı´íÎó
+	if(Distance_TIM1_CH4_ICUserValueStructure.Capture_FinishFlag == 0)//æ²¡æœ‰å®Œæˆä¸€æ¬¡çš„æ—¶å€™æ•è·æ‰èƒ½è¿›å»ï¼Œé˜²æ­¢æº¢å‡ºæ¬¡æ•°é”™è¯¯
 	{
 		if ( TIM_GetITStatus ( CAPTURE_TIM1, TIM_IT_Update) != RESET )               
 		{	
 			Distance_TIM1_CH4_ICUserValueStructure.Capture_Period ++;
-			//Çå³ıÖĞ¶Ï
+			//æ¸…é™¤ä¸­æ–­
 			TIM_ClearITPendingBit (CAPTURE_TIM1,TIM_IT_Update);	    
 		}
 	}
@@ -715,61 +715,61 @@ void CAPTURE_TIM1_UP_IRQHandler(void)
 #endif
 
 
-//Ê¹ÓÃº½Ä£Ò£¿Ø
+//ä½¿ç”¨èˆªæ¨¡é¥æ§
 #ifdef PWM_Capture
 /**************************************************************************
 Function: PWM_TIM2_IRQHandler
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º¸ßµçÆ½²¶»ñÖĞ¶Ïº¯Êı
-Èë¿Ú²ÎÊı: ÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šé«˜ç”µå¹³æ•è·ä¸­æ–­å‡½æ•°
+å…¥å£å‚æ•°: æ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 void PWM_TIM2_IRQHandler(void)
 {
 	static u8 ch1_filter_times=0,ch2_filter_times=0;
-	//Á¬½Óº½Ä£Ò£Ò£¿ØÆ÷ºó£¬ĞèÒªÍÆÏÂÇ°½ø¸Ë£¬²Å¿ÉÒÔÕıÊ½º½Ä£¿ØÖÆĞ¡³µ
+	//è¿æ¥èˆªæ¨¡é¥é¥æ§å™¨åï¼Œéœ€è¦æ¨ä¸‹å‰è¿›æ†ï¼Œæ‰å¯ä»¥æ­£å¼èˆªæ¨¡æ§åˆ¶å°è½¦
 	//After connecting the remote controller of the model aircraft, 
 	//you need to push down the forward lever to officially control the car of the model aircraft
   if(Remoter_Ch2>1600&&Remote_ON_Flag==0)
   {
 		//Model aircraft remote control mark position 1, other marks position 0
-		//º½Ä£Ò£¿Ø±êÖ¾Î»ÖÃ1£¬ÆäËü±êÖ¾Î»ÖÃ0
+		//èˆªæ¨¡é¥æ§æ ‡å¿—ä½ç½®1ï¼Œå…¶å®ƒæ ‡å¿—ä½ç½®0
 		Remote_ON_Flag=1;
 	    APP_ON_Flag=0;
 		PS2_ON_Flag=0;
 	    ROS_ON_Flag=0;
 	}
-	/*************************************Í¨µÀ3*******************************************/
-	if(PWM_TIM2_CH3_ICUserValueStructure.Capture_FinishFlag == 0)//Ã»ÓĞÍê³ÉÒ»´ÎµÄÊ±ºò²¶»ñ²ÅÄÜ½øÈ¥£¬·ÀÖ¹Òç³ö´ÎÊı´íÎó
+	/*************************************é€šé“3*******************************************/
+	if(PWM_TIM2_CH3_ICUserValueStructure.Capture_FinishFlag == 0)//æ²¡æœ‰å®Œæˆä¸€æ¬¡çš„æ—¶å€™æ•è·æ‰èƒ½è¿›å»ï¼Œé˜²æ­¢æº¢å‡ºæ¬¡æ•°é”™è¯¯
 	{
 		
 		if ( TIM_GetITStatus ( PWM_TIM2, TIM_IT_Update) != RESET )               
 			PWM_TIM2_CH3_ICUserValueStructure.Capture_Period ++;
 			
-		// ²¶»ñÖĞ¶Ï£¬µÚÒ»´ÎÊÇÉÏÉıÑØÖĞ¶Ï£¬µÚ¶ş´ÎÊÇÏÂ½µÑØÖĞ¶Ï
+		// æ•è·ä¸­æ–­ï¼Œç¬¬ä¸€æ¬¡æ˜¯ä¸Šå‡æ²¿ä¸­æ–­ï¼Œç¬¬äºŒæ¬¡æ˜¯ä¸‹é™æ²¿ä¸­æ–­
 		if ( TIM_GetITStatus (PWM_TIM2, TIM_IT_CC3 ) != RESET)
 		{
-			// µÚÒ»´Î²¶»ñ
+			// ç¬¬ä¸€æ¬¡æ•è·
 			if ( PWM_TIM2_CH3_ICUserValueStructure.Capture_StartFlag == 0 )
 			{
-				//µÚÒ»´Î²¶»ñÊ±£¬°Ñ²¶»ñÖµ´¢´æÆğÀ´
+				//ç¬¬ä¸€æ¬¡æ•è·æ—¶ï¼ŒæŠŠæ•è·å€¼å‚¨å­˜èµ·æ¥
 				PWM_TIM2_CH3_ICUserValueStructure.Capture_CcrValue = TIM_GetCapture3 (PWM_TIM2);
-				// ×Ô¶¯ÖØ×°ÔØ¼Ä´æÆ÷¸üĞÂ±êÖ¾Çå0
+				// è‡ªåŠ¨é‡è£…è½½å¯„å­˜å™¨æ›´æ–°æ ‡å¿—æ¸…0
 				PWM_TIM2_CH3_ICUserValueStructure.Capture_Period = 0;
-//				// ´æ²¶»ñ±È½Ï¼Ä´æÆ÷µÄÖµµÄ±äÁ¿µÄÖµÇå0			
+//				// å­˜æ•è·æ¯”è¾ƒå¯„å­˜å™¨çš„å€¼çš„å˜é‡çš„å€¼æ¸…0			
 //				Distance_TIM2_CH2_ICUserValueStructure.Capture_CcrValue = 0;
 
-				// µ±µÚÒ»´Î²¶»ñµ½ÉÏÉıÑØÖ®ºó£¬¾Í°Ñ²¶»ñ±ßÑØÅäÖÃÎªÏÂ½µÑØ
+				// å½“ç¬¬ä¸€æ¬¡æ•è·åˆ°ä¸Šå‡æ²¿ä¹‹åï¼Œå°±æŠŠæ•è·è¾¹æ²¿é…ç½®ä¸ºä¸‹é™æ²¿
 				TIM_OC3PolarityConfig(PWM_TIM2, CAPTURE_TIM_END_ICPolarity);
-				// ¿ªÊ¼²¶»ñ±êÖ¾Î»ÖÃ1			
+				// å¼€å§‹æ•è·æ ‡å¿—ä½ç½®1			
 				PWM_TIM2_CH3_ICUserValueStructure.Capture_StartFlag = 1;			
 			}
-			// ÏÂ½µÑØ²¶»ñÖĞ¶Ï
-			else // µÚ¶ş´Î²¶»ñ
+			// ä¸‹é™æ²¿æ•è·ä¸­æ–­
+			else // ç¬¬äºŒæ¬¡æ•è·
 			{
 				
-				// »ñÈ¡²¶»ñ±È½Ï¼Ä´æÆ÷µÄÖµ£¬Õâ¸öÖµ¾ÍÊÇ²¶»ñµ½µÄ¸ßµçÆ½µÄÊ±¼äµÄÖµ
+				// è·å–æ•è·æ¯”è¾ƒå¯„å­˜å™¨çš„å€¼ï¼Œè¿™ä¸ªå€¼å°±æ˜¯æ•è·åˆ°çš„é«˜ç”µå¹³çš„æ—¶é—´çš„å€¼
 				Remoter_Ch1 = TIM_GetCapture3 (PWM_TIM2)-PWM_TIM2_CH3_ICUserValueStructure.Capture_CcrValue;
 				if(abs(Remoter_Ch1-L_Remoter_Ch1)>500)
 				{
@@ -781,45 +781,45 @@ void PWM_TIM2_IRQHandler(void)
 					ch1_filter_times=0;
 				L_Remoter_Ch1 = Remoter_Ch1;
 
-				// µ±µÚ¶ş´Î²¶»ñµ½ÏÂ½µÑØÖ®ºó£¬¾Í°Ñ²¶»ñ±ßÑØÅäÖÃÎªÉÏÉıÑØ£¬ºÃ¿ªÆôĞÂµÄÒ»ÂÖ²¶»ñ
+				// å½“ç¬¬äºŒæ¬¡æ•è·åˆ°ä¸‹é™æ²¿ä¹‹åï¼Œå°±æŠŠæ•è·è¾¹æ²¿é…ç½®ä¸ºä¸Šå‡æ²¿ï¼Œå¥½å¼€å¯æ–°çš„ä¸€è½®æ•è·
 				TIM_OC3PolarityConfig(PWM_TIM2, CAPTURE_TIM_STRAT_ICPolarity);
-				// ¿ªÊ¼²¶»ñ±êÖ¾Çå0		
+				// å¼€å§‹æ•è·æ ‡å¿—æ¸…0		
 				PWM_TIM2_CH3_ICUserValueStructure.Capture_StartFlag = 0;
-				// ²¶»ñÍê³É±êÖ¾ÖÃ1			
+				// æ•è·å®Œæˆæ ‡å¿—ç½®1			
 //				PWM_TIM2_CH3_ICUserValueStructure.Capture_FinishFlag = 1;		
 			}
-			//Çå³ıÖĞ¶Ï
+			//æ¸…é™¤ä¸­æ–­
 			TIM_ClearITPendingBit (PWM_TIM2,TIM_IT_CC3);	
 		}		
 	}
-	/*************************************Í¨µÀ4*******************************************/
-	if(PWM_TIM2_CH4_ICUserValueStructure.Capture_FinishFlag == 0)//Ã»ÓĞÍê³ÉÒ»´ÎµÄÊ±ºò²¶»ñ²ÅÄÜ½øÈ¥£¬·ÀÖ¹Òç³ö´ÎÊı´íÎó
+	/*************************************é€šé“4*******************************************/
+	if(PWM_TIM2_CH4_ICUserValueStructure.Capture_FinishFlag == 0)//æ²¡æœ‰å®Œæˆä¸€æ¬¡çš„æ—¶å€™æ•è·æ‰èƒ½è¿›å»ï¼Œé˜²æ­¢æº¢å‡ºæ¬¡æ•°é”™è¯¯
 	{
 		if ( TIM_GetITStatus ( PWM_TIM2, TIM_IT_Update) != RESET )               
 			PWM_TIM2_CH4_ICUserValueStructure.Capture_Period ++;
 			
-		// ²¶»ñÖĞ¶Ï£¬µÚÒ»´ÎÊÇÉÏÉıÑØÖĞ¶Ï£¬µÚ¶ş´ÎÊÇÏÂ½µÑØÖĞ¶Ï
+		// æ•è·ä¸­æ–­ï¼Œç¬¬ä¸€æ¬¡æ˜¯ä¸Šå‡æ²¿ä¸­æ–­ï¼Œç¬¬äºŒæ¬¡æ˜¯ä¸‹é™æ²¿ä¸­æ–­
 		if ( TIM_GetITStatus (PWM_TIM2, TIM_IT_CC4 ) != RESET)
 		{
-			// µÚÒ»´Î²¶»ñ
+			// ç¬¬ä¸€æ¬¡æ•è·
 			if ( PWM_TIM2_CH4_ICUserValueStructure.Capture_StartFlag == 0 )
 			{
-				//µÚÒ»´Î²¶»ñÊ±£¬°Ñ²¶»ñÖµ´¢´æÆğÀ´
+				//ç¬¬ä¸€æ¬¡æ•è·æ—¶ï¼ŒæŠŠæ•è·å€¼å‚¨å­˜èµ·æ¥
 				PWM_TIM2_CH4_ICUserValueStructure.Capture_CcrValue = TIM_GetCapture4 (PWM_TIM2);
-				// ×Ô¶¯ÖØ×°ÔØ¼Ä´æÆ÷¸üĞÂ±êÖ¾Çå0
+				// è‡ªåŠ¨é‡è£…è½½å¯„å­˜å™¨æ›´æ–°æ ‡å¿—æ¸…0
 				PWM_TIM2_CH4_ICUserValueStructure.Capture_Period = 0;
-//				// ´æ²¶»ñ±È½Ï¼Ä´æÆ÷µÄÖµµÄ±äÁ¿µÄÖµÇå0			
+//				// å­˜æ•è·æ¯”è¾ƒå¯„å­˜å™¨çš„å€¼çš„å˜é‡çš„å€¼æ¸…0			
 //				Distance_TIM2_CH2_ICUserValueStructure.Capture_CcrValue = 0;
 
-				// µ±µÚÒ»´Î²¶»ñµ½ÉÏÉıÑØÖ®ºó£¬¾Í°Ñ²¶»ñ±ßÑØÅäÖÃÎªÏÂ½µÑØ
+				// å½“ç¬¬ä¸€æ¬¡æ•è·åˆ°ä¸Šå‡æ²¿ä¹‹åï¼Œå°±æŠŠæ•è·è¾¹æ²¿é…ç½®ä¸ºä¸‹é™æ²¿
 				TIM_OC4PolarityConfig(PWM_TIM2, CAPTURE_TIM_END_ICPolarity);
-				// ¿ªÊ¼²¶»ñ±êÖ¾Î»ÖÃ1			
+				// å¼€å§‹æ•è·æ ‡å¿—ä½ç½®1			
 				PWM_TIM2_CH4_ICUserValueStructure.Capture_StartFlag = 1;			
 			}
-			// ÏÂ½µÑØ²¶»ñÖĞ¶Ï
-			else // µÚ¶ş´Î²¶»ñ
+			// ä¸‹é™æ²¿æ•è·ä¸­æ–­
+			else // ç¬¬äºŒæ¬¡æ•è·
 			{
-				// »ñÈ¡²¶»ñ±È½Ï¼Ä´æÆ÷µÄÖµ£¬Õâ¸öÖµ¾ÍÊÇ²¶»ñµ½µÄ¸ßµçÆ½µÄÊ±¼äµÄÖµ
+				// è·å–æ•è·æ¯”è¾ƒå¯„å­˜å™¨çš„å€¼ï¼Œè¿™ä¸ªå€¼å°±æ˜¯æ•è·åˆ°çš„é«˜ç”µå¹³çš„æ—¶é—´çš„å€¼
 				Remoter_Ch2 = TIM_GetCapture4(PWM_TIM2)-PWM_TIM2_CH4_ICUserValueStructure.Capture_CcrValue;
                 if(abs(Remoter_Ch2-L_Remoter_Ch2)>500)
 				{
@@ -830,14 +830,14 @@ void PWM_TIM2_IRQHandler(void)
 				else
 					ch2_filter_times=0;
 				L_Remoter_Ch2 = Remoter_Ch2;
-				// µ±µÚ¶ş´Î²¶»ñµ½ÏÂ½µÑØÖ®ºó£¬¾Í°Ñ²¶»ñ±ßÑØÅäÖÃÎªÉÏÉıÑØ£¬ºÃ¿ªÆôĞÂµÄÒ»ÂÖ²¶»ñ
+				// å½“ç¬¬äºŒæ¬¡æ•è·åˆ°ä¸‹é™æ²¿ä¹‹åï¼Œå°±æŠŠæ•è·è¾¹æ²¿é…ç½®ä¸ºä¸Šå‡æ²¿ï¼Œå¥½å¼€å¯æ–°çš„ä¸€è½®æ•è·
 				TIM_OC4PolarityConfig(PWM_TIM2, CAPTURE_TIM_STRAT_ICPolarity);
-				// ¿ªÊ¼²¶»ñ±êÖ¾Çå0		
+				// å¼€å§‹æ•è·æ ‡å¿—æ¸…0		
 				PWM_TIM2_CH4_ICUserValueStructure.Capture_StartFlag = 0;
-				// ²¶»ñÍê³É±êÖ¾ÖÃ1			
+				// æ•è·å®Œæˆæ ‡å¿—ç½®1			
 //				PWM_TIM2_CH4_ICUserValueStructure.Capture_FinishFlag = 1;		
 			}
-			//Çå³ıÖĞ¶Ï
+			//æ¸…é™¤ä¸­æ–­
 			TIM_ClearITPendingBit (PWM_TIM2,TIM_IT_CC4);	
 		}		
 	}
@@ -849,40 +849,40 @@ void PWM_TIM2_IRQHandler(void)
 Function: PWM_TIM1_CC_IRQHandler
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º¸ßµçÆ½²¶»ñÖĞ¶Ïº¯Êı
-Èë¿Ú²ÎÊı: ÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šé«˜ç”µå¹³æ•è·ä¸­æ–­å‡½æ•°
+å…¥å£å‚æ•°: æ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 
 void PWM_TIM1_CC_IRQHandler(void)
 {
 	static u8 ch3_filter_times=0;
-	/*************************************Í¨µÀ4*******************************************/
-	if(PWM_TIM1_CH4_ICUserValueStructure.Capture_FinishFlag == 0)//Ã»ÓĞÍê³ÉÒ»´ÎµÄÊ±ºò²¶»ñ²ÅÄÜ½øÈ¥£¬·ÀÖ¹Òç³ö´ÎÊı´íÎó
+	/*************************************é€šé“4*******************************************/
+	if(PWM_TIM1_CH4_ICUserValueStructure.Capture_FinishFlag == 0)//æ²¡æœ‰å®Œæˆä¸€æ¬¡çš„æ—¶å€™æ•è·æ‰èƒ½è¿›å»ï¼Œé˜²æ­¢æº¢å‡ºæ¬¡æ•°é”™è¯¯
 	{
-		// ²¶»ñÖĞ¶Ï£¬µÚÒ»´ÎÊÇÉÏÉıÑØÖĞ¶Ï£¬µÚ¶ş´ÎÊÇÏÂ½µÑØÖĞ¶Ï
+		// æ•è·ä¸­æ–­ï¼Œç¬¬ä¸€æ¬¡æ˜¯ä¸Šå‡æ²¿ä¸­æ–­ï¼Œç¬¬äºŒæ¬¡æ˜¯ä¸‹é™æ²¿ä¸­æ–­
 		if ( TIM_GetITStatus (PWM_TIM1, TIM_IT_CC4 ) != RESET)
 		{
-			// µÚÒ»´Î²¶»ñ
+			// ç¬¬ä¸€æ¬¡æ•è·
 			if ( PWM_TIM1_CH4_ICUserValueStructure.Capture_StartFlag == 0 )
 			{
-				//µÚÒ»´Î²¶»ñÊ±£¬°Ñ²¶»ñÖµ´¢´æÆğÀ´
+				//ç¬¬ä¸€æ¬¡æ•è·æ—¶ï¼ŒæŠŠæ•è·å€¼å‚¨å­˜èµ·æ¥
 				PWM_TIM1_CH4_ICUserValueStructure.Capture_CcrValue = 
 				TIM_GetCapture4 (PWM_TIM1);
-				// ×Ô¶¯ÖØ×°ÔØ¼Ä´æÆ÷¸üĞÂ±êÖ¾Çå0
+				// è‡ªåŠ¨é‡è£…è½½å¯„å­˜å™¨æ›´æ–°æ ‡å¿—æ¸…0
 				PWM_TIM1_CH4_ICUserValueStructure.Capture_Period = 0;
-//				// ´æ²¶»ñ±È½Ï¼Ä´æÆ÷µÄÖµµÄ±äÁ¿µÄÖµÇå0			
+//				// å­˜æ•è·æ¯”è¾ƒå¯„å­˜å™¨çš„å€¼çš„å˜é‡çš„å€¼æ¸…0			
 //				Distance_TIM2_CH2_ICUserValueStructure.Capture_CcrValue = 0;
 
-				// µ±µÚÒ»´Î²¶»ñµ½ÉÏÉıÑØÖ®ºó£¬¾Í°Ñ²¶»ñ±ßÑØÅäÖÃÎªÏÂ½µÑØ
+				// å½“ç¬¬ä¸€æ¬¡æ•è·åˆ°ä¸Šå‡æ²¿ä¹‹åï¼Œå°±æŠŠæ•è·è¾¹æ²¿é…ç½®ä¸ºä¸‹é™æ²¿
 				TIM_OC4PolarityConfig(PWM_TIM1, CAPTURE_TIM_END_ICPolarity);
-				// ¿ªÊ¼²¶»ñ±êÖ¾Î»ÖÃ1			
+				// å¼€å§‹æ•è·æ ‡å¿—ä½ç½®1			
 				PWM_TIM1_CH4_ICUserValueStructure.Capture_StartFlag = 1;			
 			}
-			// ÏÂ½µÑØ²¶»ñÖĞ¶Ï
-			else // µÚ¶ş´Î²¶»ñ
+			// ä¸‹é™æ²¿æ•è·ä¸­æ–­
+			else // ç¬¬äºŒæ¬¡æ•è·
 			{
-				// »ñÈ¡²¶»ñ±È½Ï¼Ä´æÆ÷µÄÖµ£¬Õâ¸öÖµ¾ÍÊÇ²¶»ñµ½µÄ¸ßµçÆ½µÄÊ±¼äµÄÖµ
+				// è·å–æ•è·æ¯”è¾ƒå¯„å­˜å™¨çš„å€¼ï¼Œè¿™ä¸ªå€¼å°±æ˜¯æ•è·åˆ°çš„é«˜ç”µå¹³çš„æ—¶é—´çš„å€¼
 				Remoter_Ch3 = TIM_GetCapture4(PWM_TIM1)-PWM_TIM1_CH4_ICUserValueStructure.Capture_CcrValue;
                 if(abs(Remoter_Ch3-L_Remoter_Ch3)>500)
 				{
@@ -893,14 +893,14 @@ void PWM_TIM1_CC_IRQHandler(void)
 				else
 					ch3_filter_times=0;
 				L_Remoter_Ch3 = Remoter_Ch3;
-				// µ±µÚ¶ş´Î²¶»ñµ½ÏÂ½µÑØÖ®ºó£¬¾Í°Ñ²¶»ñ±ßÑØÅäÖÃÎªÉÏÉıÑØ£¬ºÃ¿ªÆôĞÂµÄÒ»ÂÖ²¶»ñ
+				// å½“ç¬¬äºŒæ¬¡æ•è·åˆ°ä¸‹é™æ²¿ä¹‹åï¼Œå°±æŠŠæ•è·è¾¹æ²¿é…ç½®ä¸ºä¸Šå‡æ²¿ï¼Œå¥½å¼€å¯æ–°çš„ä¸€è½®æ•è·
 				TIM_OC4PolarityConfig(PWM_TIM1, CAPTURE_TIM_STRAT_ICPolarity);
-				// ¿ªÊ¼²¶»ñ±êÖ¾Çå0		
+				// å¼€å§‹æ•è·æ ‡å¿—æ¸…0		
 				PWM_TIM1_CH4_ICUserValueStructure.Capture_StartFlag = 0;
 				PWM_TIM1_CH4_ICUserValueStructure.Capture_FinishFlag = 0;
-				// ²¶»ñÍê³É±êÖ¾ÖÃ1			
+				// æ•è·å®Œæˆæ ‡å¿—ç½®1			
 			}
-			//Çå³ıÖĞ¶Ï
+			//æ¸…é™¤ä¸­æ–­
 			TIM_ClearITPendingBit (PWM_TIM1,TIM_IT_CC4);	
 		}		
 	}
@@ -912,21 +912,21 @@ void PWM_TIM1_CC_IRQHandler(void)
 Function: PWM_TIM1_UP_IRQHandler
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º¸ßµçÆ½²¶»ñÖĞ¶Ïº¯Êı
-Èë¿Ú²ÎÊı: ÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šé«˜ç”µå¹³æ•è·ä¸­æ–­å‡½æ•°
+å…¥å£å‚æ•°: æ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 
 void PWM_TIM1_UP_IRQHandler(void)
 {
-	//Í¨µÀ4
-	if(PWM_TIM1_CH4_ICUserValueStructure.Capture_FinishFlag == 0)//Ã»ÓĞÍê³ÉÒ»´ÎµÄÊ±ºò²¶»ñ²ÅÄÜ½øÈ¥£¬·ÀÖ¹Òç³ö´ÎÊı´íÎó
+	//é€šé“4
+	if(PWM_TIM1_CH4_ICUserValueStructure.Capture_FinishFlag == 0)//æ²¡æœ‰å®Œæˆä¸€æ¬¡çš„æ—¶å€™æ•è·æ‰èƒ½è¿›å»ï¼Œé˜²æ­¢æº¢å‡ºæ¬¡æ•°é”™è¯¯
 	{
 		if ( TIM_GetITStatus ( PWM_TIM1, TIM_IT_Update) != RESET )               
 			PWM_TIM1_CH4_ICUserValueStructure.Capture_Period ++;
 	}
-	//Í¨µÀ1
-	if(PWM_TIM1_CH1_ICUserValueStructure.Capture_FinishFlag == 0)//Ã»ÓĞÍê³ÉÒ»´ÎµÄÊ±ºò²¶»ñ²ÅÄÜ½øÈ¥£¬·ÀÖ¹Òç³ö´ÎÊı´íÎó
+	//é€šé“1
+	if(PWM_TIM1_CH1_ICUserValueStructure.Capture_FinishFlag == 0)//æ²¡æœ‰å®Œæˆä¸€æ¬¡çš„æ—¶å€™æ•è·æ‰èƒ½è¿›å»ï¼Œé˜²æ­¢æº¢å‡ºæ¬¡æ•°é”™è¯¯
 	{
 		if ( TIM_GetITStatus ( PWM_TIM1, TIM_IT_Update) != RESET )               
 			PWM_TIM1_CH1_ICUserValueStructure.Capture_Period ++;

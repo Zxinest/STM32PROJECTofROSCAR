@@ -1,18 +1,18 @@
 /***********************************************
-¹«Ë¾£ºÂÖÈ¤¿Æ¼¼£¨¶«İ¸£©ÓĞÏŞ¹«Ë¾
-Æ·ÅÆ£ºWHEELTEC
-¹ÙÍø£ºwheeltec.net
-ÌÔ±¦µêÆÌ£ºshop114407458.taobao.com 
-ËÙÂôÍ¨: https://minibalance.aliexpress.com/store/4455017
-°æ±¾£ºV1.0
-ĞŞ¸ÄÊ±¼ä£º2023-03-02
+å…¬å¸ï¼šè½®è¶£ç§‘æŠ€ï¼ˆä¸œèï¼‰æœ‰é™å…¬å¸
+å“ç‰Œï¼šWHEELTEC
+å®˜ç½‘ï¼šwheeltec.net
+æ·˜å®åº—é“ºï¼šshop114407458.taobao.com 
+é€Ÿå–é€š: https://minibalance.aliexpress.com/store/4455017
+ç‰ˆæœ¬ï¼šV1.0
+ä¿®æ”¹æ—¶é—´ï¼š2023-03-02
 
 Brand: WHEELTEC
 Website: wheeltec.net
 Taobao shop: shop114407458.taobao.com 
 Aliexpress: https://minibalance.aliexpress.com/store/4455017
 Version: V1.0
-Update£º2023-03-02
+Updateï¼š2023-03-02
 
 All rights reserved
 ***********************************************/
@@ -23,7 +23,7 @@ All rights reserved
 #include "stm32f10x.h"
 #include "Header.h"
 
-//  Òı½Å¶¨Òå
+//  å¼•è„šå®šä¹‰
 #define    KEY1_GPIO_CLK     RCC_APB2Periph_GPIOA
 #define    KEY1_GPIO_PORT    GPIOA			   
 #define    KEY1_GPIO_PIN	 GPIO_Pin_0
@@ -36,15 +36,15 @@ All rights reserved
 
 #define KEY2_STATE  		 PCin(13)
 
- /** °´¼ü°´ÏÂ±êÖÃºê
-	*  °´¼ü°´ÏÂÎª¸ßµçÆ½£¬ÉèÖÃ KEY_ON=1£¬ KEY_OFF=0
-	*  Èô°´¼ü°´ÏÂÎªµÍµçÆ½£¬°ÑºêÉèÖÃ³ÉKEY_ON=0 £¬KEY_OFF=1 ¼´¿É
+ /** æŒ‰é”®æŒ‰ä¸‹æ ‡ç½®å®
+	*  æŒ‰é”®æŒ‰ä¸‹ä¸ºé«˜ç”µå¹³ï¼Œè®¾ç½® KEY_ON=1ï¼Œ KEY_OFF=0
+	*  è‹¥æŒ‰é”®æŒ‰ä¸‹ä¸ºä½ç”µå¹³ï¼ŒæŠŠå®è®¾ç½®æˆKEY_ON=0 ï¼ŒKEY_OFF=1 å³å¯
 	*/
 #define KEY_ON	1
 #define KEY_OFF	0
 
 
-//ÓÃ»§°´¼ü·µ»ØÖµ×´Ì¬
+//ç”¨æˆ·æŒ‰é”®è¿”å›å€¼çŠ¶æ€
 #define No_Action 					0
 #define Click 						1
 #define Long_Press 					2

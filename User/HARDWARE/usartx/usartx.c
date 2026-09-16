@@ -1,18 +1,18 @@
 /***********************************************
-¹«Ë¾£ºÂÖÈ¤¿Æ¼¼£¨¶«İ¸£©ÓĞÏŞ¹«Ë¾
-Æ·ÅÆ£ºWHEELTEC
-¹ÙÍø£ºwheeltec.net
-ÌÔ±¦µêÆÌ£ºshop114407458.taobao.com 
-ËÙÂôÍ¨: https://minibalance.aliexpress.com/store/4455017
-°æ±¾£ºV1.0
-ĞŞ¸ÄÊ±¼ä£º2023-03-02
+å…¬å¸ï¼šè½®è¶£ç§‘æŠ€ï¼ˆä¸œèï¼‰æœ‰é™å…¬å¸
+å“ç‰Œï¼šWHEELTEC
+å®˜ç½‘ï¼šwheeltec.net
+æ·˜å®åº—é“ºï¼šshop114407458.taobao.com 
+é€Ÿå–é€š: https://minibalance.aliexpress.com/store/4455017
+ç‰ˆæœ¬ï¼šV1.0
+ä¿®æ”¹æ—¶é—´ï¼š2023-03-02
 
 Brand: WHEELTEC
 Website: wheeltec.net
 Taobao shop: shop114407458.taobao.com 
 Aliexpress: https://minibalance.aliexpress.com/store/4455017
 Version: V1.0
-Update£º2023-03-02
+Updateï¼š2023-03-02
 
 All rights reserved
 ***********************************************/
@@ -26,18 +26,18 @@ int Time_count;
 Function: The data sent by the serial port is assigned
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º´®¿Ú·¢ËÍµÄÊı¾İ½øĞĞ¸³Öµ
-Èë¿Ú²ÎÊı£ºÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šä¸²å£å‘é€çš„æ•°æ®è¿›è¡Œèµ‹å€¼
+å…¥å£å‚æ•°ï¼šæ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
 void data_transition(void)
 {
-	Send_Data.Sensor_Str.Frame_Header = FRAME_HEADER; //Frame_header //Ö¡Í·
-	Send_Data.Sensor_Str.Frame_Tail = FRAME_TAIL;     //Frame_tail //Ö¡Î²
+	Send_Data.Sensor_Str.Frame_Header = FRAME_HEADER; //Frame_header //å¸§å¤´
+	Send_Data.Sensor_Str.Frame_Tail = FRAME_TAIL;     //Frame_tail //å¸§å°¾
 	
 	//According to different vehicle types, different kinematics algorithms were selected to carry out the forward kinematics solution, 
 	//and the three-axis velocity was obtained from each wheel velocity
-	//¸ù¾İ²»Í¬³µĞÍÑ¡Ôñ²»Í¬ÔË¶¯Ñ§Ëã·¨½øĞĞÔË¶¯Ñ§Õı½â£¬´Ó¸÷³µÂÖËÙ¶ÈÇó³öÈıÖáËÙ¶È
+	//æ ¹æ®ä¸åŒè½¦å‹é€‰æ‹©ä¸åŒè¿åŠ¨å­¦ç®—æ³•è¿›è¡Œè¿åŠ¨å­¦æ­£è§£ï¼Œä»å„è½¦è½®é€Ÿåº¦æ±‚å‡ºä¸‰è½´é€Ÿåº¦
 	switch(Car_Num)
 	{	
 		case Akm_Car:  
@@ -65,32 +65,32 @@ void data_transition(void)
 			break; 
 	}
 	
-	//The acceleration of the triaxial acceleration //¼ÓËÙ¶È¼ÆÈıÖá¼ÓËÙ¶È
-	Send_Data.Sensor_Str.Accelerometer.X_data= Accel_Y; //The accelerometer Y-axis is converted to the ros coordinate X axis //¼ÓËÙ¶È¼ÆYÖá×ª»»µ½ROS×ø±êXÖá
-	Send_Data.Sensor_Str.Accelerometer.Y_data=-Accel_X; //The accelerometer X-axis is converted to the ros coordinate y axis //¼ÓËÙ¶È¼ÆXÖá×ª»»µ½ROS×ø±êYÖá
-	Send_Data.Sensor_Str.Accelerometer.Z_data= Accel_Z; //The accelerometer Z-axis is converted to the ros coordinate Z axis //¼ÓËÙ¶È¼ÆZÖá×ª»»µ½ROS×ø±êZÖá
+	//The acceleration of the triaxial acceleration //åŠ é€Ÿåº¦è®¡ä¸‰è½´åŠ é€Ÿåº¦
+	Send_Data.Sensor_Str.Accelerometer.X_data= Accel_Y; //The accelerometer Y-axis is converted to the ros coordinate X axis //åŠ é€Ÿåº¦è®¡Yè½´è½¬æ¢åˆ°ROSåæ ‡Xè½´
+	Send_Data.Sensor_Str.Accelerometer.Y_data=-Accel_X; //The accelerometer X-axis is converted to the ros coordinate y axis //åŠ é€Ÿåº¦è®¡Xè½´è½¬æ¢åˆ°ROSåæ ‡Yè½´
+	Send_Data.Sensor_Str.Accelerometer.Z_data= Accel_Z; //The accelerometer Z-axis is converted to the ros coordinate Z axis //åŠ é€Ÿåº¦è®¡Zè½´è½¬æ¢åˆ°ROSåæ ‡Zè½´
 	
-	//The Angle velocity of the triaxial velocity //½ÇËÙ¶È¼ÆÈıÖá½ÇËÙ¶È
-	Send_Data.Sensor_Str.Gyroscope.X_data= Gyro_Y; //The Y-axis is converted to the ros coordinate X axis //½ÇËÙ¶È¼ÆYÖá×ª»»µ½ROS×ø±êXÖá
-	Send_Data.Sensor_Str.Gyroscope.Y_data=-Gyro_X; //The X-axis is converted to the ros coordinate y axis //½ÇËÙ¶È¼ÆXÖá×ª»»µ½ROS×ø±êYÖá
+	//The Angle velocity of the triaxial velocity //è§’é€Ÿåº¦è®¡ä¸‰è½´è§’é€Ÿåº¦
+	Send_Data.Sensor_Str.Gyroscope.X_data= Gyro_Y; //The Y-axis is converted to the ros coordinate X axis //è§’é€Ÿåº¦è®¡Yè½´è½¬æ¢åˆ°ROSåæ ‡Xè½´
+	Send_Data.Sensor_Str.Gyroscope.Y_data=-Gyro_X; //The X-axis is converted to the ros coordinate y axis //è§’é€Ÿåº¦è®¡Xè½´è½¬æ¢åˆ°ROSåæ ‡Yè½´
 	if(Flag_Stop==0) 
 		//If the motor control bit makes energy state, the z-axis velocity is sent normall
-	  //Èç¹ûµç»ú¿ØÖÆÎ»Ê¹ÄÜ×´Ì¬£¬ÄÇÃ´Õı³£·¢ËÍZÖá½ÇËÙ¶È
+	  //å¦‚æœç”µæœºæ§åˆ¶ä½ä½¿èƒ½çŠ¶æ€ï¼Œé‚£ä¹ˆæ­£å¸¸å‘é€Zè½´è§’é€Ÿåº¦
 		Send_Data.Sensor_Str.Gyroscope.Z_data=Gyro_Z;  
 	else  
 		//If the robot is static (motor control dislocation), the z-axis is 0
-    //Èç¹û»úÆ÷ÈËÊÇ¾²Ö¹µÄ£¨µç»ú¿ØÖÆÎ»Ê§ÄÜ£©£¬ÄÇÃ´·¢ËÍµÄZÖá½ÇËÙ¶ÈÎª0		
+    //å¦‚æœæœºå™¨äººæ˜¯é™æ­¢çš„ï¼ˆç”µæœºæ§åˆ¶ä½å¤±èƒ½ï¼‰ï¼Œé‚£ä¹ˆå‘é€çš„Zè½´è§’é€Ÿåº¦ä¸º0		
 		Send_Data.Sensor_Str.Gyroscope.Z_data=0;        
 	
 	//Battery voltage (this is a thousand times larger floating point number, which will be reduced by a thousand times as well as receiving the data).
-	//µç³ØµçÑ¹(ÕâÀï½«¸¡µãÊı·Å´óÒ»Ç§±¶´«Êä£¬ÏàÓ¦µÄÔÚ½ÓÊÕ¶ËÔÚ½ÓÊÕµ½Êı¾İºóÒ²»áËõĞ¡Ò»Ç§±¶)
+	//ç”µæ± ç”µå‹(è¿™é‡Œå°†æµ®ç‚¹æ•°æ”¾å¤§ä¸€åƒå€ä¼ è¾“ï¼Œç›¸åº”çš„åœ¨æ¥æ”¶ç«¯åœ¨æ¥æ”¶åˆ°æ•°æ®åä¹Ÿä¼šç¼©å°ä¸€åƒå€)
 	Send_Data.Sensor_Str.Power_Voltage = Voltage*1000; 
 	
-	Send_Data.buffer[0]=Send_Data.Sensor_Str.Frame_Header; //Frame_heade //Ö¡Í·
-  Send_Data.buffer[1]=Flag_Stop; //Car software loss marker //Ğ¡³µÈí¼şÊ§ÄÜ±êÖ¾Î»
+	Send_Data.buffer[0]=Send_Data.Sensor_Str.Frame_Header; //Frame_heade //å¸§å¤´
+  Send_Data.buffer[1]=Flag_Stop; //Car software loss marker //å°è½¦è½¯ä»¶å¤±èƒ½æ ‡å¿—ä½
 	
 	//The three-axis speed of / / car is split into two eight digit Numbers
-	//Ğ¡³µÈıÖáËÙ¶È,¸÷Öá¶¼²ğ·ÖÎªÁ½¸ö8Î»Êı¾İÔÙ·¢ËÍ
+	//å°è½¦ä¸‰è½´é€Ÿåº¦,å„è½´éƒ½æ‹†åˆ†ä¸ºä¸¤ä¸ª8ä½æ•°æ®å†å‘é€
 	Send_Data.buffer[2]=Send_Data.Sensor_Str.X_speed >>8; 
 	Send_Data.buffer[3]=Send_Data.Sensor_Str.X_speed ;    
 	Send_Data.buffer[4]=Send_Data.Sensor_Str.Y_speed>>8;  
@@ -99,7 +99,7 @@ void data_transition(void)
 	Send_Data.buffer[7]=Send_Data.Sensor_Str.Z_speed ;    
 	
 	//The acceleration of the triaxial axis of / / imu accelerometer is divided into two eight digit reams
-	//IMU¼ÓËÙ¶È¼ÆÈıÖá¼ÓËÙ¶È,¸÷Öá¶¼²ğ·ÖÎªÁ½¸ö8Î»Êı¾İÔÙ·¢ËÍ
+	//IMUåŠ é€Ÿåº¦è®¡ä¸‰è½´åŠ é€Ÿåº¦,å„è½´éƒ½æ‹†åˆ†ä¸ºä¸¤ä¸ª8ä½æ•°æ®å†å‘é€
 	Send_Data.buffer[8]=Send_Data.Sensor_Str.Accelerometer.X_data>>8; 
 	Send_Data.buffer[9]=Send_Data.Sensor_Str.Accelerometer.X_data;   
 	Send_Data.buffer[10]=Send_Data.Sensor_Str.Accelerometer.Y_data>>8;
@@ -108,7 +108,7 @@ void data_transition(void)
 	Send_Data.buffer[13]=Send_Data.Sensor_Str.Accelerometer.Z_data;
 	
 	//The axis of the triaxial velocity of the / /imu is divided into two eight digits
-	//IMU½ÇËÙ¶È¼ÆÈıÖá½ÇËÙ¶È,¸÷Öá¶¼²ğ·ÖÎªÁ½¸ö8Î»Êı¾İÔÙ·¢ËÍ
+	//IMUè§’é€Ÿåº¦è®¡ä¸‰è½´è§’é€Ÿåº¦,å„è½´éƒ½æ‹†åˆ†ä¸ºä¸¤ä¸ª8ä½æ•°æ®å†å‘é€
 	Send_Data.buffer[14]=Send_Data.Sensor_Str.Gyroscope.X_data>>8;
 	Send_Data.buffer[15]=Send_Data.Sensor_Str.Gyroscope.X_data;
 	Send_Data.buffer[16]=Send_Data.Sensor_Str.Gyroscope.Y_data>>8;
@@ -117,15 +117,15 @@ void data_transition(void)
 	Send_Data.buffer[19]=Send_Data.Sensor_Str.Gyroscope.Z_data;
 	
 	//Battery voltage, split into two 8 digit Numbers
-	//µç³ØµçÑ¹,²ğ·ÖÎªÁ½¸ö8Î»Êı¾İ·¢ËÍ
+	//ç”µæ± ç”µå‹,æ‹†åˆ†ä¸ºä¸¤ä¸ª8ä½æ•°æ®å‘é€
 	Send_Data.buffer[20]=Send_Data.Sensor_Str.Power_Voltage >>8; 
 	Send_Data.buffer[21]=Send_Data.Sensor_Str.Power_Voltage; 
 
   //Data check digit calculation, Pattern 1 is a data check
-  //Êı¾İĞ£ÑéÎ»¼ÆËã£¬Ä£Ê½1ÊÇ·¢ËÍÊı¾İĞ£Ñé
+  //æ•°æ®æ ¡éªŒä½è®¡ç®—ï¼Œæ¨¡å¼1æ˜¯å‘é€æ•°æ®æ ¡éªŒ
 	Send_Data.buffer[22]=Check_Sum(22,1); 
 	
-	Send_Data.buffer[23]=Send_Data.Sensor_Str.Frame_Tail; //Frame_tail //Ö¡Î²
+	Send_Data.buffer[23]=Send_Data.Sensor_Str.Frame_Tail; //Frame_tail //å¸§å°¾
 }
 
 
@@ -133,9 +133,9 @@ void data_transition(void)
 Function: Serial port 1 sends data
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º´®¿Ú1·¢ËÍÊı¾İ
-Èë¿Ú²ÎÊı£ºÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šä¸²å£1å‘é€æ•°æ®
+å…¥å£å‚æ•°ï¼šæ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
 void USART1_SEND(void)
 {
@@ -150,51 +150,51 @@ void USART1_SEND(void)
 Function: Refresh the OLED screen
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º´®¿Ú1½ÓÊÕÖĞ¶Ï
-Èë¿Ú²ÎÊı£ºÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šä¸²å£1æ¥æ”¶ä¸­æ–­
+å…¥å£å‚æ•°ï¼šæ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
 int USART1_IRQHandler(void)
 {	
 		static u8 Count=0;
 	  u8 Usart_Receive;
 
-	if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET) //Check if data is received //ÅĞ¶ÏÊÇ·ñ½ÓÊÕµ½Êı¾İ
+	if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET) //Check if data is received //åˆ¤æ–­æ˜¯å¦æ¥æ”¶åˆ°æ•°æ®
 	{
 		USART_ClearITPendingBit(USART1,USART_IT_RXNE);
-		Usart_Receive = USART_ReceiveData(USART1);//Read the data //¶ÁÈ¡Êı¾İ
-		ROS_ON_Flag = RC_ON;//ros¿ØÖÆÊ±£¬½«Ğ¡³µÄ£Ê½ÉèÎªROSÄ£Ê½
+		Usart_Receive = USART_ReceiveData(USART1);//Read the data //è¯»å–æ•°æ®
+		ROS_ON_Flag = RC_ON;//rosæ§åˆ¶æ—¶ï¼Œå°†å°è½¦æ¨¡å¼è®¾ä¸ºROSæ¨¡å¼
 		APP_ON_Flag = RC_OFF;		
 		PS2_ON_Flag = RC_OFF;
 		Remote_ON_Flag = RC_OFF;
 //		if(Time_count<CONTROL_DELAY)
 //			// Data is not processed until 10 seconds after startup
-//		  //¿ª»ú10ÃëÇ°²»´¦ÀíÊı¾İ
+//		  //å¼€æœº10ç§’å‰ä¸å¤„ç†æ•°æ®
 //		  return 0;	
 		
 		//Fill the array with serial data
-		//´®¿ÚÊı¾İÌîÈëÊı×é
+		//ä¸²å£æ•°æ®å¡«å…¥æ•°ç»„
     Receive_Data.buffer[Count]=Usart_Receive;
 		
 		// Ensure that the first data in the array is FRAME_HEADER
-		//È·±£Êı×éµÚÒ»¸öÊı¾İÎªFRAME_HEADER
+		//ç¡®ä¿æ•°ç»„ç¬¬ä¸€ä¸ªæ•°æ®ä¸ºFRAME_HEADER
 		if(Usart_Receive == FRAME_HEADER||Count>0) 
 			Count++; 
 		else			
 			Count=0;
 		
-		if (Count == 11) //Verify the length of the packet //ÑéÖ¤Êı¾İ°üµÄ³¤¶È
+		if (Count == 11) //Verify the length of the packet //éªŒè¯æ•°æ®åŒ…çš„é•¿åº¦
 		{   
-				Count=0; //Prepare for the serial port data to be refill into the array //Îª´®¿ÚÊı¾İÖØĞÂÌîÈëÊı×é×ö×¼±¸
-				if(Receive_Data.buffer[10] == FRAME_TAIL) //Verify the frame tail of the packet //ÑéÖ¤Êı¾İ°üµÄÖ¡Î²
+				Count=0; //Prepare for the serial port data to be refill into the array //ä¸ºä¸²å£æ•°æ®é‡æ–°å¡«å…¥æ•°ç»„åšå‡†å¤‡
+				if(Receive_Data.buffer[10] == FRAME_TAIL) //Verify the frame tail of the packet //éªŒè¯æ•°æ®åŒ…çš„å¸§å°¾
 				{
 					//Data exclusionary or bit check calculation, mode 0 is sent data check
-					//Êı¾İÒì»òÎ»Ğ£Ñé¼ÆËã£¬Ä£Ê½0ÊÇ·¢ËÍÊı¾İĞ£Ñé
+					//æ•°æ®å¼‚æˆ–ä½æ ¡éªŒè®¡ç®—ï¼Œæ¨¡å¼0æ˜¯å‘é€æ•°æ®æ ¡éªŒ
 					if(Receive_Data.buffer[9] ==Check_Sum(9,0))	 
 				  {	
 						float Vz;						
 						//All modes flag position 0, USART3 control mode
-            //ËùÓĞÄ£Ê½±êÖ¾Î»ÖÃ0£¬ÎªUsart3¿ØÖÆÄ£Ê½						
+            //æ‰€æœ‰æ¨¡å¼æ ‡å¿—ä½ç½®0ï¼Œä¸ºUsart3æ§åˆ¶æ¨¡å¼						
 //						PS2_ON_Flag=0;
 //						Remote_ON_Flag=0;
 //						APP_ON_Flag=0;
@@ -202,19 +202,19 @@ int USART1_IRQHandler(void)
 //						Usart1_ON_Flag=0;
 //						Usart5_ON_Flag=0;
 						//Calculate the target speed of three axis from serial data, unit m/s
-						//´Ó´®¿ÚÊı¾İÇóÈıÖáÄ¿±êËÙ¶È£¬ µ¥Î»m/s
+						//ä»ä¸²å£æ•°æ®æ±‚ä¸‰è½´ç›®æ ‡é€Ÿåº¦ï¼Œ å•ä½m/s
 						Move_X=XYZ_Target_Speed_transition(Receive_Data.buffer[3],Receive_Data.buffer[4]);
 //						Move_Y=XYZ_Target_Speed_transition(Receive_Data.buffer[5],Receive_Data.buffer[6]);
 						Vz    =XYZ_Target_Speed_transition(Receive_Data.buffer[7],Receive_Data.buffer[8]);
 						if(Car_Num==Akm_Car)
 						{
 							Move_Z=Vz_to_Akm_Angle(Move_X, Vz);
-							Move_Z = target_limit_float(Move_Z,-Pi/3,Pi/3);   //ÏŞ·ù
+							Move_Z = target_limit_float(Move_Z,-Pi/3,Pi/3);   //é™å¹…
 						}
 						else
 						{
 							Move_Z=XYZ_Target_Speed_transition(Receive_Data.buffer[7],Receive_Data.buffer[8]);
-							Move_Z = target_limit_float(Move_Z,-Pi/3,Pi/3);   //ÏŞ·ù
+							Move_Z = target_limit_float(Move_Z,-Pi/3,Pi/3);   //é™å¹…
 						}
                     
 					}						
@@ -228,51 +228,51 @@ int USART1_IRQHandler(void)
 Function: Refresh the OLED screen
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º´®¿Ú1½ÓÊÕÖĞ¶Ï
-Èë¿Ú²ÎÊı£ºÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šä¸²å£1æ¥æ”¶ä¸­æ–­
+å…¥å£å‚æ•°ï¼šæ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
 int UART4_IRQHandler(void)
 {	
 		static u8 Count=0;
 	  u8 Usart_Receive;
 
-	if(USART_GetITStatus(UART4, USART_IT_RXNE) != RESET) //Check if data is received //ÅĞ¶ÏÊÇ·ñ½ÓÊÕµ½Êı¾İ
+	if(USART_GetITStatus(UART4, USART_IT_RXNE) != RESET) //Check if data is received //åˆ¤æ–­æ˜¯å¦æ¥æ”¶åˆ°æ•°æ®
 	{
 		USART_ClearITPendingBit(UART4,USART_IT_RXNE);
-		Usart_Receive = USART_ReceiveData(UART4);//Read the data //¶ÁÈ¡Êı¾İ
-		ROS_ON_Flag = RC_ON;//ros¿ØÖÆÊ±£¬½«Ğ¡³µÄ£Ê½ÉèÎªROSÄ£Ê½
+		Usart_Receive = USART_ReceiveData(UART4);//Read the data //è¯»å–æ•°æ®
+		ROS_ON_Flag = RC_ON;//rosæ§åˆ¶æ—¶ï¼Œå°†å°è½¦æ¨¡å¼è®¾ä¸ºROSæ¨¡å¼
 		APP_ON_Flag = RC_OFF;		
 		PS2_ON_Flag = RC_OFF;
 		Remote_ON_Flag = RC_OFF;
 //		if(Time_count<CONTROL_DELAY)
 //			// Data is not processed until 10 seconds after startup
-//		  //¿ª»ú10ÃëÇ°²»´¦ÀíÊı¾İ
+//		  //å¼€æœº10ç§’å‰ä¸å¤„ç†æ•°æ®
 //		  return 0;	
 		
 		//Fill the array with serial data
-		//´®¿ÚÊı¾İÌîÈëÊı×é
+		//ä¸²å£æ•°æ®å¡«å…¥æ•°ç»„
         Receive_Data.buffer[Count]=Usart_Receive;
 		
 		// Ensure that the first data in the array is FRAME_HEADER
-		//È·±£Êı×éµÚÒ»¸öÊı¾İÎªFRAME_HEADER
+		//ç¡®ä¿æ•°ç»„ç¬¬ä¸€ä¸ªæ•°æ®ä¸ºFRAME_HEADER
 		if(Usart_Receive == FRAME_HEADER||Count>0) 
 			Count++; 
 		else			
 			Count=0;
 		
-		if (Count == 11) //Verify the length of the packet //ÑéÖ¤Êı¾İ°üµÄ³¤¶È
+		if (Count == 11) //Verify the length of the packet //éªŒè¯æ•°æ®åŒ…çš„é•¿åº¦
 		{   
-				Count=0; //Prepare for the serial port data to be refill into the array //Îª´®¿ÚÊı¾İÖØĞÂÌîÈëÊı×é×ö×¼±¸
-				if(Receive_Data.buffer[10] == FRAME_TAIL) //Verify the frame tail of the packet //ÑéÖ¤Êı¾İ°üµÄÖ¡Î²
+				Count=0; //Prepare for the serial port data to be refill into the array //ä¸ºä¸²å£æ•°æ®é‡æ–°å¡«å…¥æ•°ç»„åšå‡†å¤‡
+				if(Receive_Data.buffer[10] == FRAME_TAIL) //Verify the frame tail of the packet //éªŒè¯æ•°æ®åŒ…çš„å¸§å°¾
 				{
 					//Data exclusionary or bit check calculation, mode 0 is sent data check
-					//Êı¾İÒì»òÎ»Ğ£Ñé¼ÆËã£¬Ä£Ê½0ÊÇ·¢ËÍÊı¾İĞ£Ñé
+					//æ•°æ®å¼‚æˆ–ä½æ ¡éªŒè®¡ç®—ï¼Œæ¨¡å¼0æ˜¯å‘é€æ•°æ®æ ¡éªŒ
 					if(Receive_Data.buffer[9] ==Check_Sum(9,0))	 
 				  {	
 						float Vz;						
 						//All modes flag position 0, USART4 control mode
-            //ËùÓĞÄ£Ê½±êÖ¾Î»ÖÃ0£¬ÎªUsart4¿ØÖÆÄ£Ê½						
+            //æ‰€æœ‰æ¨¡å¼æ ‡å¿—ä½ç½®0ï¼Œä¸ºUsart4æ§åˆ¶æ¨¡å¼						
 //						PS2_ON_Flag=0;
 //						Remote_ON_Flag=0;
 //						APP_ON_Flag=0;
@@ -280,19 +280,19 @@ int UART4_IRQHandler(void)
 //						Usart1_ON_Flag=0;
 //						Usart5_ON_Flag=0;
 						//Calculate the target speed of three axis from serial data, unit m/s
-						//´Ó´®¿ÚÊı¾İÇóÈıÖáÄ¿±êËÙ¶È£¬ µ¥Î»m/s
+						//ä»ä¸²å£æ•°æ®æ±‚ä¸‰è½´ç›®æ ‡é€Ÿåº¦ï¼Œ å•ä½m/s
 						Move_X=XYZ_Target_Speed_transition(Receive_Data.buffer[3],Receive_Data.buffer[4]);
 //						Move_Y=XYZ_Target_Speed_transition(Receive_Data.buffer[5],Receive_Data.buffer[6]);
 						Vz    =XYZ_Target_Speed_transition(Receive_Data.buffer[7],Receive_Data.buffer[8]);
 						if(Car_Num==Akm_Car)
 						{
 							Move_Z=Vz_to_Akm_Angle(Move_X, Vz);
-							Move_Z = target_limit_float(Move_Z,-Pi/3,Pi/3);   //ÏŞ·ù
+							Move_Z = target_limit_float(Move_Z,-Pi/3,Pi/3);   //é™å¹…
 						}
 						else
 						{
 							Move_Z=XYZ_Target_Speed_transition(Receive_Data.buffer[7],Receive_Data.buffer[8]);
-							Move_Z = target_limit_float(Move_Z,-Pi/3,Pi/3);   //ÏŞ·ù
+							Move_Z = target_limit_float(Move_Z,-Pi/3,Pi/3);   //é™å¹…
 						}
                     
 					}						
@@ -306,9 +306,9 @@ int UART4_IRQHandler(void)
 Function: After the top 8 and low 8 figures are integrated into a short type data, the unit reduction is converted
 Input   : 8 bits high, 8 bits low
 Output  : The target velocity of the robot on the X/Y/Z axis
-º¯Êı¹¦ÄÜ£º½«ÉÏÎ»»ú·¢¹ıÀ´Ä¿±êÇ°½øËÙ¶ÈVx¡¢Ä¿±ê½ÇËÙ¶ÈVz£¬×ª»»Îª°¢¿ËÂüĞ¡³µµÄÓÒÇ°ÂÖ×ª½Ç
-Èë¿Ú²ÎÊı£ºÄ¿±êÇ°½øËÙ¶ÈVx¡¢Ä¿±ê½ÇËÙ¶ÈVz£¬µ¥Î»£ºm/s£¬rad/s
-·µ»Ø  Öµ£º°¢¿ËÂüĞ¡³µµÄÓÒÇ°ÂÖ×ª½Ç£¬µ¥Î»£ºrad
+å‡½æ•°åŠŸèƒ½ï¼šå°†ä¸Šä½æœºå‘è¿‡æ¥ç›®æ ‡å‰è¿›é€Ÿåº¦Vxã€ç›®æ ‡è§’é€Ÿåº¦Vzï¼Œè½¬æ¢ä¸ºé˜¿å…‹æ›¼å°è½¦çš„å³å‰è½®è½¬è§’
+å…¥å£å‚æ•°ï¼šç›®æ ‡å‰è¿›é€Ÿåº¦Vxã€ç›®æ ‡è§’é€Ÿåº¦Vzï¼Œå•ä½ï¼šm/sï¼Œrad/s
+è¿”å›  å€¼ï¼šé˜¿å…‹æ›¼å°è½¦çš„å³å‰è½®è½¬è§’ï¼Œå•ä½ï¼šrad
 **************************************************************************/
 float Vz_to_Akm_Angle(float Vx, float Vz)
 {
@@ -318,19 +318,19 @@ float Vz_to_Akm_Angle(float Vx, float Vz)
 	//Ackermann car needs to set minimum turning radius
 	//If the target speed requires a turn radius less than the minimum turn radius,
 	//This will greatly improve the friction force of the car, which will seriously affect the control effect
-	//°¢¿ËÂüĞ¡³µĞèÒªÉèÖÃ×îĞ¡×ªÍä°ë¾¶
-	//Èç¹ûÄ¿±êËÙ¶ÈÒªÇóµÄ×ªÍä°ë¾¶Ğ¡ÓÚ×îĞ¡×ªÍä°ë¾¶£¬
-	//»áµ¼ÖÂĞ¡³µÔË¶¯Ä¦²ÁÁ¦´ó´óÌá¸ß£¬ÑÏÖØÓ°Ïì¿ØÖÆĞ§¹û
+	//é˜¿å…‹æ›¼å°è½¦éœ€è¦è®¾ç½®æœ€å°è½¬å¼¯åŠå¾„
+	//å¦‚æœç›®æ ‡é€Ÿåº¦è¦æ±‚çš„è½¬å¼¯åŠå¾„å°äºæœ€å°è½¬å¼¯åŠå¾„ï¼Œ
+	//ä¼šå¯¼è‡´å°è½¦è¿åŠ¨æ‘©æ“¦åŠ›å¤§å¤§æé«˜ï¼Œä¸¥é‡å½±å“æ§åˆ¶æ•ˆæœ
 	Min_Turn_Radius=MINI_AKM_MIN_TURN_RADIUS;
 	
 	if(Vz!=0 && Vx!=0)
 	{
 		//If the target speed requires a turn radius less than the minimum turn radius
-		//Èç¹ûÄ¿±êËÙ¶ÈÒªÇóµÄ×ªÍä°ë¾¶Ğ¡ÓÚ×îĞ¡×ªÍä°ë¾¶
+		//å¦‚æœç›®æ ‡é€Ÿåº¦è¦æ±‚çš„è½¬å¼¯åŠå¾„å°äºæœ€å°è½¬å¼¯åŠå¾„
 		if(float_abs(Vx/Vz)<=Min_Turn_Radius)
 		{
 			//Reduce the target angular velocity and increase the turning radius to the minimum turning radius in conjunction with the forward speed
-			//½µµÍÄ¿±ê½ÇËÙ¶È£¬ÅäºÏÇ°½øËÙ¶È£¬Ìá¸ß×ªÍä°ë¾¶µ½×îĞ¡×ªÍä°ë¾¶
+			//é™ä½ç›®æ ‡è§’é€Ÿåº¦ï¼Œé…åˆå‰è¿›é€Ÿåº¦ï¼Œæé«˜è½¬å¼¯åŠå¾„åˆ°æœ€å°è½¬å¼¯åŠå¾„
 			if(Vz>0)
 				Vz= float_abs(Vx)/(Min_Turn_Radius);
 			else	
@@ -351,17 +351,17 @@ float Vz_to_Akm_Angle(float Vx, float Vz)
 Function: After the top 8 and low 8 figures are integrated into a short type data, the unit reduction is converted
 Input   : 8 bits high, 8 bits low
 Output  : The target velocity of the robot on the X/Y/Z axis
-º¯Êı¹¦ÄÜ£º½«ÉÏÎ»»ú·¢¹ıÀ´µÄ¸ß8Î»ºÍµÍ8Î»Êı¾İÕûºÏ³ÉÒ»¸öshortĞÍÊı¾İºó£¬ÔÙ×öµ¥Î»»¹Ô­»»Ëã
-Èë¿Ú²ÎÊı£º¸ß8Î»£¬µÍ8Î»
-·µ»Ø  Öµ£º»úÆ÷ÈËX/Y/ZÖáµÄÄ¿±êËÙ¶È
+å‡½æ•°åŠŸèƒ½ï¼šå°†ä¸Šä½æœºå‘è¿‡æ¥çš„é«˜8ä½å’Œä½8ä½æ•°æ®æ•´åˆæˆä¸€ä¸ªshortå‹æ•°æ®åï¼Œå†åšå•ä½è¿˜åŸæ¢ç®—
+å…¥å£å‚æ•°ï¼šé«˜8ä½ï¼Œä½8ä½
+è¿”å›  å€¼ï¼šæœºå™¨äººX/Y/Zè½´çš„ç›®æ ‡é€Ÿåº¦
 **************************************************************************/
 float XYZ_Target_Speed_transition(u8 High,u8 Low)
 {
 	//Data conversion intermediate variable
-	//Êı¾İ×ª»»µÄÖĞ¼ä±äÁ¿
+	//æ•°æ®è½¬æ¢çš„ä¸­é—´å˜é‡
 	float transition; 
 	
-	//½«¸ß8Î»ºÍµÍ8Î»ÕûºÏ³ÉÒ»¸ö16Î»µÄshortĞÍÊı¾İ
+	//å°†é«˜8ä½å’Œä½8ä½æ•´åˆæˆä¸€ä¸ª16ä½çš„shortå‹æ•°æ®
 	//The high 8 and low 8 bits are integrated into a 16-bit short data
 	transition=((short)((High<<8)+Low))/1000.0; 
 	return transition; 					
@@ -371,9 +371,9 @@ float XYZ_Target_Speed_transition(u8 High,u8 Low)
 Function: Serial port 1 sends data
 Input   : The data to send
 Output  : none
-º¯Êı¹¦ÄÜ£º´®¿Ú1·¢ËÍÊı¾İ
-Èë¿Ú²ÎÊı£ºÒª·¢ËÍµÄÊı¾İ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šä¸²å£1å‘é€æ•°æ®
+å…¥å£å‚æ•°ï¼šè¦å‘é€çš„æ•°æ®
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
 void usart1_send(u8 data)
 {
@@ -385,16 +385,16 @@ void usart1_send(u8 data)
 Function: Calculates the check bits of data to be sent/received
 Input   : Count_Number: The first few digits of a check; Mode: 0-Verify the received data, 1-Validate the sent data
 Output  : Check result
-º¯Êı¹¦ÄÜ£º¼ÆËãÒª·¢ËÍ/½ÓÊÕµÄÊı¾İĞ£Ñé½á¹û
-Èë¿Ú²ÎÊı£ºCount_Number£ºĞ£ÑéµÄÇ°¼¸Î»Êı£»Mode£º0-¶Ô½ÓÊÕÊı¾İ½øĞĞĞ£Ñé£¬1-¶Ô·¢ËÍÊı¾İ½øĞĞĞ£Ñé
-·µ»Ø  Öµ£ºĞ£Ñé½á¹û
+å‡½æ•°åŠŸèƒ½ï¼šè®¡ç®—è¦å‘é€/æ¥æ”¶çš„æ•°æ®æ ¡éªŒç»“æœ
+å…¥å£å‚æ•°ï¼šCount_Numberï¼šæ ¡éªŒçš„å‰å‡ ä½æ•°ï¼›Modeï¼š0-å¯¹æ¥æ”¶æ•°æ®è¿›è¡Œæ ¡éªŒï¼Œ1-å¯¹å‘é€æ•°æ®è¿›è¡Œæ ¡éªŒ
+è¿”å›  å€¼ï¼šæ ¡éªŒç»“æœ
 **************************************************************************/
 u8 Check_Sum(unsigned char Count_Number,unsigned char Mode)
 {
 	unsigned char check_sum=0,k;
 	
 	//Validate the data to be sent
-	//¶ÔÒª·¢ËÍµÄÊı¾İ½øĞĞĞ£Ñé
+	//å¯¹è¦å‘é€çš„æ•°æ®è¿›è¡Œæ ¡éªŒ
 	if(Mode==1)
 	for(k=0;k<Count_Number;k++)
 	{
@@ -402,7 +402,7 @@ u8 Check_Sum(unsigned char Count_Number,unsigned char Mode)
 	}
 	
 	//Verify the data received
-	//¶Ô½ÓÊÕµ½µÄÊı¾İ½øĞĞĞ£Ñé
+	//å¯¹æ¥æ”¶åˆ°çš„æ•°æ®è¿›è¡Œæ ¡éªŒ
 	if(Mode==0)
 	for(k=0;k<Count_Number;k++)
 	{
@@ -415,9 +415,9 @@ u8 Check_Sum(unsigned char Count_Number,unsigned char Mode)
 Function: Floating-point data calculates the absolute value
 Input   : float
 Output  : The absolute value of the input number
-º¯Êı¹¦ÄÜ£º¸¡µãĞÍÊı¾İ¼ÆËã¾ø¶ÔÖµ
-Èë¿Ú²ÎÊı£º¸¡µãÊı
-·µ»Ø  Öµ£ºÊäÈëÊıµÄ¾ø¶ÔÖµ
+å‡½æ•°åŠŸèƒ½ï¼šæµ®ç‚¹å‹æ•°æ®è®¡ç®—ç»å¯¹å€¼
+å…¥å£å‚æ•°ï¼šæµ®ç‚¹æ•°
+è¿”å›  å€¼ï¼šè¾“å…¥æ•°çš„ç»å¯¹å€¼
 **************************************************************************/
 float float_abs(float insert)
 {

@@ -1,18 +1,18 @@
 /***********************************************
-¹«Ë¾£ºÂÖÈ¤¿Æ¼¼£¨¶«İ¸£©ÓĞÏŞ¹«Ë¾
-Æ·ÅÆ£ºWHEELTEC
-¹ÙÍø£ºwheeltec.net
-ÌÔ±¦µêÆÌ£ºshop114407458.taobao.com 
-ËÙÂôÍ¨: https://minibalance.aliexpress.com/store/4455017
-°æ±¾£ºV1.0
-ĞŞ¸ÄÊ±¼ä£º2023-03-02
+å…¬å¸ï¼šè½®è¶£ç§‘æŠ€ï¼ˆä¸œèï¼‰æœ‰é™å…¬å¸
+å“ç‰Œï¼šWHEELTEC
+å®˜ç½‘ï¼šwheeltec.net
+æ·˜å®åº—é“ºï¼šshop114407458.taobao.com 
+é€Ÿå–é€š: https://minibalance.aliexpress.com/store/4455017
+ç‰ˆæœ¬ï¼šV1.0
+ä¿®æ”¹æ—¶é—´ï¼š2023-03-02
 
 Brand: WHEELTEC
 Website: wheeltec.net
 Taobao shop: shop114407458.taobao.com 
 Aliexpress: https://minibalance.aliexpress.com/store/4455017
 Version: V1.0
-Update£º2023-03-02
+Updateï¼š2023-03-02
 
 All rights reserved
 ***********************************************/
@@ -23,21 +23,21 @@ All rights reserved
 Function: OLED_Show
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£ºÏÔÊ¾ÆÁÏÔÊ¾º¯Êı
-Èë¿Ú²ÎÊı: ÎŞ 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šæ˜¾ç¤ºå±æ˜¾ç¤ºå‡½æ•°
+å…¥å£å‚æ•°: æ—  
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 void Show(void)
 {
-	memset(OLED_GRAM,0, 128*8*sizeof(u8));	//GRAMÇåÁãµ«²»Á¢¼´Ë¢ĞÂ£¬·ÀÖ¹»¨ÆÁ
-	if(Mode==ELE_Line_Patrol_Mode)			//µç´ÅÑ²ÏßÄ£Ê½ÏÔÊ¾
+	memset(OLED_GRAM,0, 128*8*sizeof(u8));	//GRAMæ¸…é›¶ä½†ä¸ç«‹å³åˆ·æ–°ï¼Œé˜²æ­¢èŠ±å±
+	if(Mode==ELE_Line_Patrol_Mode)			//ç”µç£å·¡çº¿æ¨¡å¼æ˜¾ç¤º
 	{
-		//=============µÚÒ»ĞĞÏÔÊ¾Ğ¡³µÄ£Ê½=======================//	
+		//=============ç¬¬ä¸€è¡Œæ˜¾ç¤ºå°è½¦æ¨¡å¼=======================//	
 		OLED_ShowNumber(0,0,Sensor_Left,4,12);	
 		OLED_ShowNumber(30,0,Sensor_Middle,4,12);
 		OLED_ShowNumber(60,0,Sensor_Right,4,12);
 		OLED_ShowNumber(90,0,Sensor,4,12);		
-		//=============µÚ¶şĞĞÏÔÊ¾XºÍZÖáµÄËÙ¶È===============//	
+		//=============ç¬¬äºŒè¡Œæ˜¾ç¤ºXå’ŒZè½´çš„é€Ÿåº¦===============//	
 		OLED_ShowString(00,10,"MoveX:");
 		if(Move_X<0)		OLED_ShowString(50,10,"-");
 		else				OLED_ShowString(50,10,"+");
@@ -47,7 +47,7 @@ void Show(void)
 		else				OLED_ShowString(94,10,"+");
 							OLED_ShowNumber(106,10,myabs(Move_Z),3,12);
 
-		//=============µÚÈıĞĞÏÔÊ¾×óµç»úPWMÓëËÙ¶ÈÊı¾İ=======================//		
+		//=============ç¬¬ä¸‰è¡Œæ˜¾ç¤ºå·¦ç”µæœºPWMä¸é€Ÿåº¦æ•°æ®=======================//		
 								OLED_ShowString(00,20,"L-P:");
 		if(MotorA.Motor_Pwm<0)	OLED_ShowString(30,20,"-"),
 								OLED_ShowNumber(36,20,MotorA.Motor_Pwm,4,12);
@@ -60,7 +60,7 @@ void Show(void)
 		if(MotorA.Target_Encoder>=0)  	OLED_ShowString(98,20,"+");
 									OLED_ShowNumber(104,20,MotorA.Target_Encoder*1000,4,12);
 
-		//=============µÚËÄĞĞÏÔÊ¾ÓÒµç»úPWMÓëËÙ¶ÈÊı¾İ=======================//		
+		//=============ç¬¬å››è¡Œæ˜¾ç¤ºå³ç”µæœºPWMä¸é€Ÿåº¦æ•°æ®=======================//		
 								OLED_ShowString(00,30,"R-P:");
 		if(MotorB.Motor_Pwm<0)	OLED_ShowString(30,30,"-"),
 								OLED_ShowNumber(36,30,MotorB.Motor_Pwm,4,12);
@@ -72,31 +72,31 @@ void Show(void)
 		if(MotorB.Target_Encoder<0)		OLED_ShowString(98,30,"-");
 		if(MotorB.Target_Encoder>=0)  	OLED_ShowString(98,30,"+");
 									OLED_ShowNumber(104,30,MotorB.Target_Encoder*1000,4,12);
-		//=============µÚÎåĞĞÏÔÊ¾À×´ïÊÇ·ñ¼ì²âÕÏ°­Îï=======================//
+		//=============ç¬¬äº”è¡Œæ˜¾ç¤ºé›·è¾¾æ˜¯å¦æ£€æµ‹éšœç¢ç‰©=======================//
 		OLED_ShowString(0,40,"Detect:");
 		if(Lidar_Detect == Lidar_Detect_ON)
 			OLED_ShowString(65,40,"ON ");
 		else
 			OLED_ShowString(65,40,"OFF");
-		//=============µÚÁùĞĞÏÔÊ¾Ä£Ê½£¬µçÑ¹Óëµç»ú¿ª¹Ø=======================//
+		//=============ç¬¬å…­è¡Œæ˜¾ç¤ºæ¨¡å¼ï¼Œç”µå‹ä¸ç”µæœºå¼€å…³=======================//
 //		if(Car_Num == Akm_Car)				OLED_ShowString(0,50,"Akm  ");
 //		else if(Car_Num == Diff_Car)		OLED_ShowString(0,50,"Diff ");
 //		else if(Car_Num == Small_Tank_Car)	OLED_ShowString(0,50,"STank");
 //		else 								OLED_ShowString(0,50,"BTank");
-								OLED_ShowString(0,50,"ELE ");				//Ä£Ê½ÏÔÊ¾
+								OLED_ShowString(0,50,"ELE ");				//æ¨¡å¼æ˜¾ç¤º
 								OLED_ShowString(54,50,".");
 								OLED_ShowString(78,50,"V");
 								OLED_ShowNumber(40,50,Voltage/100,2,12);
-								OLED_ShowNumber(62,50,Voltage/10%10,1,12);//ÏÔÊ¾µçÑ¹
+								OLED_ShowNumber(62,50,Voltage/10%10,1,12);//æ˜¾ç¤ºç”µå‹
 								OLED_ShowNumber(70,50,Voltage%10,1,12);
 		if(Flag_Stop)          	OLED_ShowString(105,50, "OFF");
 		if(!Flag_Stop)        	OLED_ShowString(105,50, "ON ");
 
 	}
-	else if(Mode == CCD_Line_Patrol_Mode)				//CCDÑ²ÏßÄ£Ê½ÏÔÊ¾
+	else if(Mode == CCD_Line_Patrol_Mode)				//CCDå·¡çº¿æ¨¡å¼æ˜¾ç¤º
 	{
 		OLED_Show_CCD();
-		//=============µÚ¶şĞĞÏÔÊ¾CCDÖĞÖµ=======================//	
+		//=============ç¬¬äºŒè¡Œæ˜¾ç¤ºCCDä¸­å€¼=======================//	
 								OLED_ShowString(00,10,"Median:");
 		if( CCD_Median<0)		OLED_ShowString(90,10,"-"),
 								OLED_ShowNumber(100,10,-CCD_Median,3,12);
@@ -104,14 +104,14 @@ void Show(void)
 								OLED_ShowNumber(100,10, CCD_Median,3,12);
 
 		
-		//=============µÚÈıĞĞÏÔÊ¾CCDãĞÖµ=======================//	
+		//=============ç¬¬ä¸‰è¡Œæ˜¾ç¤ºCCDé˜ˆå€¼=======================//	
 								OLED_ShowString(00,20,"Threshold:");
 		if( CCD_Threshold<0)	OLED_ShowString(90,20,"-"),
 								OLED_ShowNumber(100,20,-CCD_Threshold,3,12);
 		else                 	OLED_ShowString(90,20,"+"),
 								OLED_ShowNumber(100,20, CCD_Threshold,3,12);
 
-		//=============µÚËÄĞĞÏÔÊ¾×óµç»úPWMÓëËÙ¶ÈÊı¾İ=======================//		
+		//=============ç¬¬å››è¡Œæ˜¾ç¤ºå·¦ç”µæœºPWMä¸é€Ÿåº¦æ•°æ®=======================//		
 								OLED_ShowString(00,30,"L-P:");
 		if(MotorA.Motor_Pwm<0)	OLED_ShowString(30,30,"-"),
 								OLED_ShowNumber(36,30,MotorA.Motor_Pwm,4,12);
@@ -124,7 +124,7 @@ void Show(void)
 		if(MotorA.Target_Encoder>=0)  	OLED_ShowString(98,30,"+");
 									OLED_ShowNumber(104,30,MotorA.Target_Encoder*1000,4,12);
 
-		//=============µÚÎåĞĞÏÔÊ¾ÓÒµç»úPWMÓëËÙ¶ÈÊı¾İ=======================//		
+		//=============ç¬¬äº”è¡Œæ˜¾ç¤ºå³ç”µæœºPWMä¸é€Ÿåº¦æ•°æ®=======================//		
 								OLED_ShowString(00,40,"R-P:");
 		if(MotorB.Motor_Pwm<0)	OLED_ShowString(30,40,"-"),
 								OLED_ShowNumber(36,40,MotorB.Motor_Pwm,4,12);
@@ -136,17 +136,17 @@ void Show(void)
 		if(MotorB.Target_Encoder<0)		OLED_ShowString(98,40,"-");
 		if(MotorB.Target_Encoder>=0)  	OLED_ShowString(98,40,"+");
 									OLED_ShowNumber(104,40,MotorB.Target_Encoder*1000,4,12);
-		//=============µÚÁùĞĞÏÔÊ¾Ä£Ê½£¬µçÑ¹Óëµç»ú¿ª¹Ø=======================//
+		//=============ç¬¬å…­è¡Œæ˜¾ç¤ºæ¨¡å¼ï¼Œç”µå‹ä¸ç”µæœºå¼€å…³=======================//
 		
 //		if(Car_Num == Akm_Car)				OLED_ShowString(0,50,"Akm  ");
 //		else if(Car_Num == Diff_Car)		OLED_ShowString(0,50,"Diff ");
 //		else if(Car_Num == Small_Tank_Car)	OLED_ShowString(0,50,"STank");
 //		else 								OLED_ShowString(0,50,"BTank");
-								OLED_ShowString(0,50,"CCD ");				//Ä£Ê½ÏÔÊ¾
+								OLED_ShowString(0,50,"CCD ");				//æ¨¡å¼æ˜¾ç¤º
 								OLED_ShowString(54,50,".");
 								OLED_ShowString(78,50,"V");
 								OLED_ShowNumber(40,50,Voltage/100,2,12);
-								OLED_ShowNumber(62,50,Voltage/10%10,1,12);//ÏÔÊ¾µçÑ¹
+								OLED_ShowNumber(62,50,Voltage/10%10,1,12);//æ˜¾ç¤ºç”µå‹
 								OLED_ShowNumber(70,50,Voltage%10,1,12);
 		if(Flag_Stop)          	OLED_ShowString(105,50, "OFF");
 		if(!Flag_Stop)        	OLED_ShowString(105,50, "ON ");
@@ -154,15 +154,15 @@ void Show(void)
 	}
 	else
 	{
-		//==================µÚ¶şĞĞÏÔÊ¾Ğ¡³µÄ£Ê½·½Ê½==================//	
-												OLED_ShowString(0,0, "Mode:");	//ÏÔÊ¾Ä£Ê½
+		//==================ç¬¬äºŒè¡Œæ˜¾ç¤ºå°è½¦æ¨¡å¼æ–¹å¼==================//	
+												OLED_ShowString(0,0, "Mode:");	//æ˜¾ç¤ºæ¨¡å¼
 		if(Mode==Normal_Mode)					OLED_ShowString(50,0,"Normal ");
 		else if(Mode==Lidar_Avoid_Mode)			OLED_ShowString(50,0,"Avoid  ");
 		else if(Mode==Lidar_Follow_Mode)		OLED_ShowString(50,0,"Follow ");
 		else if(Mode==Lidar_Along_Mode)		  OLED_ShowString(50,0,"Along  ");
-//		else if(Mode==Measure_Distance_Mode)	OLED_ShowString(50,0,"Measure");//³¬Éù²¨²âÁ¿¾àÀë
+//		else if(Mode==Measure_Distance_Mode)	OLED_ShowString(50,0,"Measure");//è¶…å£°æ³¢æµ‹é‡è·ç¦»
 
-		//====================µÚ¶şĞĞÏÔÊ¾Ğ¡³µ¿ØÖÆ·½Ê½================//
+		//====================ç¬¬äºŒè¡Œæ˜¾ç¤ºå°è½¦æ§åˆ¶æ–¹å¼================//
 		if(Mode==Lidar_Avoid_Mode||Mode==Lidar_Follow_Mode||Mode==Lidar_Along_Mode)
 		{
 			if(Lidar_Success_Receive_flag==1)
@@ -172,19 +172,19 @@ void Show(void)
 		}
 		else if(Mode==Normal_Mode)
 		{
-		    if(APP_ON_Flag==RC_ON)		OLED_ShowString(0,10,"Bluetooth ");	//À¶ÑÀ
-			else if(PS2_ON_Flag==RC_ON)	OLED_ShowString(0,10,"PS2       ");	//PS2ÊÖ±ú
+		    if(APP_ON_Flag==RC_ON)		OLED_ShowString(0,10,"Bluetooth ");	//è“ç‰™
+			else if(PS2_ON_Flag==RC_ON)	OLED_ShowString(0,10,"PS2       ");	//PS2æ‰‹æŸ„
 		    else if(ROS_ON_Flag==RC_ON) OLED_ShowString(0,10,"ROS       ");	//ROS
 			else if(Remote_ON_Flag==RC_ON) OLED_ShowString(0,10,"R-C     ");
-			else						OLED_ShowString(0,10,"LINKING...");	//Á½¸ö¶¼Ã»ÓĞÁ¬½Ó£¬ÏÔÊ¾´ıÁ¬½ÓÖĞ
+			else						OLED_ShowString(0,10,"LINKING...");	//ä¸¤ä¸ªéƒ½æ²¡æœ‰è¿æ¥ï¼Œæ˜¾ç¤ºå¾…è¿æ¥ä¸­
 			
 		}
 //			if(Mode==Measure_Distance_Mode)
 //										OLED_ShowString(110,10,"mm"),		
-//										OLED_ShowNumber(84,10,Distance1,4,12);//ÏÔÊ¾³¬Éù²¨²âÊÔµÄ¾àÀë
+//										OLED_ShowNumber(84,10,Distance1,4,12);//æ˜¾ç¤ºè¶…å£°æ³¢æµ‹è¯•çš„è·ç¦»
 									  
-		//================µÚÈıĞĞÏÔÊ¾ËÙ¶È====================//	
-		if(Car_Num == Akm_Car)//°¢¿ËÂü³µĞÍ×ªÏòËÙ¶ÈÏÔÊ¾½Ç¶È
+		//================ç¬¬ä¸‰è¡Œæ˜¾ç¤ºé€Ÿåº¦====================//	
+		if(Car_Num == Akm_Car)//é˜¿å…‹æ›¼è½¦å‹è½¬å‘é€Ÿåº¦æ˜¾ç¤ºè§’åº¦
 		{
 									OLED_ShowString(00,20,"SPEED:");
 			if( RC_Velocity<0)		OLED_ShowString(50,20,"-");
@@ -198,7 +198,7 @@ void Show(void)
 			else if(Remote_ON_Flag == RC_ON)
 				OLED_ShowString(98,20,"Pi/4");
 		}
-		else//ÆäËû³µĞÍ×ªÏòËÙ¶ÈÏÔÊ¾²îËÙ×ªÏòËÙ¶È
+		else//å…¶ä»–è½¦å‹è½¬å‘é€Ÿåº¦æ˜¾ç¤ºå·®é€Ÿè½¬å‘é€Ÿåº¦
 		{
 									OLED_ShowString(00,20,"SPEED:");
 			if( RC_Velocity<0)		OLED_ShowString(50,20,"-");
@@ -210,7 +210,7 @@ void Show(void)
 			
 		}
 
-		//=============µÚËÄĞĞÏÔÊ¾×óµç»úPWMÓëËÙ¶ÈÊı¾İ=======================//		
+		//=============ç¬¬å››è¡Œæ˜¾ç¤ºå·¦ç”µæœºPWMä¸é€Ÿåº¦æ•°æ®=======================//		
 								OLED_ShowString(00,30,"L-P:");
 		if(MotorA.Motor_Pwm<0)	{OLED_ShowString(30,30,"-"),
 								OLED_ShowNumber(36,30,-MotorA.Motor_Pwm,4,12);}
@@ -223,7 +223,7 @@ void Show(void)
 		if(MotorA.Target_Encoder>=0)  	{OLED_ShowString(94,30,"+");
 									OLED_ShowNumber(104,30,MotorA.Target_Encoder*1000,4,12);}
 
-		//=============µÚÎåĞĞÏÔÊ¾ÓÒµç»úPWMÓëËÙ¶ÈÊı¾İ=======================//		
+		//=============ç¬¬äº”è¡Œæ˜¾ç¤ºå³ç”µæœºPWMä¸é€Ÿåº¦æ•°æ®=======================//		
 								OLED_ShowString(00,40,"R-P:");
 		if(MotorB.Motor_Pwm<0){	OLED_ShowString(30,40,"-"),
 								OLED_ShowNumber(36,40,-MotorB.Motor_Pwm,4,12);}
@@ -235,7 +235,7 @@ void Show(void)
 		if(MotorB.Target_Encoder>=0)  	{OLED_ShowString(94,40,"+");
 									OLED_ShowNumber(104,40,MotorB.Target_Encoder*1000,4,12);}
 
-		//=============µÚÁùĞĞÏÔÊ¾³µĞÍ£¬µçÑ¹Óëµç»ú¿ª¹Ø=======================//
+		//=============ç¬¬å…­è¡Œæ˜¾ç¤ºè½¦å‹ï¼Œç”µå‹ä¸ç”µæœºå¼€å…³=======================//
 		if(Car_Num == Akm_Car)				OLED_ShowString(0,50,"AKM  ");
 		else if(Car_Num == Diff_Car)		OLED_ShowString(0,50,"DIFF ");
 		else if(Car_Num == Small_Tank_Car)	OLED_ShowString(0,50,"STANK");
@@ -244,13 +244,13 @@ void Show(void)
 								OLED_ShowString(62,50,".");
 								OLED_ShowString(86,50,"V");
 								OLED_ShowNumber(48,50,Voltage/100,2,12);
-								OLED_ShowNumber(70,50,Voltage/10%10,1,12);//ÏÔÊ¾µçÑ¹
+								OLED_ShowNumber(70,50,Voltage/10%10,1,12);//æ˜¾ç¤ºç”µå‹
 								OLED_ShowNumber(78,50,Voltage%10,1,12);
 		if(Flag_Stop)          	OLED_ShowString(105,50, "OFF");
 		else        	          OLED_ShowString(105,50, "ON ");
 										
 	}
-	//==================Ë¢ĞÂ==================//
+	//==================åˆ·æ–°==================//
 	OLED_Refresh_Gram();	
 }
 
@@ -258,9 +258,9 @@ void Show(void)
 Function: OLED_Show_CCD
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£ºCCDÄ£Ê½ÏÔÊ¾º¯Êı£¬»­µã
-Èë¿Ú²ÎÊı: ÎŞ 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šCCDæ¨¡å¼æ˜¾ç¤ºå‡½æ•°ï¼Œç”»ç‚¹
+å…¥å£å‚æ•°: æ—  
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 
 void OLED_DrawPoint_Shu(u8 x,u8 y,u8 t)
@@ -288,19 +288,19 @@ void OLED_Show_CCD(void)
 Function: Car_Select_Show
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º³µĞÍÑ¡ÔñÏÔÊ¾
-Èë¿Ú²ÎÊı: ÎŞ 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šè½¦å‹é€‰æ‹©æ˜¾ç¤º
+å…¥å£å‚æ•°: æ—  
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 void Car_Select_Show(void)
 {						  
 	OLED_ShowString(0,00,"Rotate Resistor");
 	OLED_ShowString(0,10,"To Select Car");
 	OLED_ShowString(0,20,"Current Car Is");
-	if(Car_Num==Diff_Car)         			OLED_ShowString(24,30," Diff Car ");//²îËÙĞ¡³µ
-	if(Car_Num==Akm_Car)        			OLED_ShowString(24,30,"  Akm Car ");//°¢¿ËÂü
-	if(Car_Num==Small_Tank_Car)				OLED_ShowString(24,30,"S_Tank Car");//Ğ¡ÂÄ´ø³µ
-	if(Car_Num==Big_Tank_Car)				OLED_ShowString(24,30,"B_Tank Car");//´óÂÄ´ø³µ
+	if(Car_Num==Diff_Car)         			OLED_ShowString(24,30," Diff Car ");//å·®é€Ÿå°è½¦
+	if(Car_Num==Akm_Car)        			OLED_ShowString(24,30,"  Akm Car ");//é˜¿å…‹æ›¼
+	if(Car_Num==Small_Tank_Car)				OLED_ShowString(24,30,"S_Tank Car");//å°å±¥å¸¦è½¦
+	if(Car_Num==Big_Tank_Car)				OLED_ShowString(24,30,"B_Tank Car");//å¤§å±¥å¸¦è½¦
 	
 	OLED_ShowString(0,40,"Press User Key");
 	OLED_ShowString(0,50,"To End Selection");
@@ -312,53 +312,53 @@ void Car_Select_Show(void)
 Function: Send data to APP
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£ºÏòAPP·¢ËÍÊı¾İ
-Èë¿Ú²ÎÊı£ºÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šå‘APPå‘é€æ•°æ®
+å…¥å£å‚æ•°ï¼šæ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
 void APP_Show(void)
 {    
 	static u8 flag;
 	int Velocity_Left_Show,Velocity_Right_Show,Voltage_Show;
-	Voltage_Show=(Voltage-1000)*2/3;			if(Voltage_Show<0)Voltage_Show=0;if(Voltage_Show>100) Voltage_Show=100;   //¶ÔµçÑ¹Êı¾İ½øĞĞ´¦Àí
-	Velocity_Right_Show=MotorB.Velocity*1.1; 	if(Velocity_Right_Show<0) Velocity_Right_Show=-Velocity_Right_Show;			  //¶Ô±àÂëÆ÷Êı¾İ¾ÍĞĞÊı¾İ´¦Àí±ãÓÚÍ¼ĞÎ»¯
+	Voltage_Show=(Voltage-1000)*2/3;			if(Voltage_Show<0)Voltage_Show=0;if(Voltage_Show>100) Voltage_Show=100;   //å¯¹ç”µå‹æ•°æ®è¿›è¡Œå¤„ç†
+	Velocity_Right_Show=MotorB.Velocity*1.1; 	if(Velocity_Right_Show<0) Velocity_Right_Show=-Velocity_Right_Show;			  //å¯¹ç¼–ç å™¨æ•°æ®å°±è¡Œæ•°æ®å¤„ç†ä¾¿äºå›¾å½¢åŒ–
 	Velocity_Left_Show= MotorA.Velocity*1.1;  	if(Velocity_Left_Show<0) Velocity_Left_Show=-Velocity_Left_Show;
 	flag=!flag;
-	if(PID_Send==1)			//·¢ËÍPID²ÎÊı,ÔÚAPPµ÷²Î½çÃæÏÔÊ¾
+	if(PID_Send==1)			//å‘é€PIDå‚æ•°,åœ¨APPè°ƒå‚ç•Œé¢æ˜¾ç¤º
 	{
-		 printf("{C%d:%d:%d:%d:%d:%d:%d:%d:%d}$",(int)(CCD_KP_STank*100000),(int)(CCD_KD_STank*100000),(int)0,(int)0,(int)0,(int)0,(int)0,0,0);//´òÓ¡µ½APPÉÏÃæ
+		 printf("{C%d:%d:%d:%d:%d:%d:%d:%d:%d}$",(int)(CCD_KP_STank*100000),(int)(CCD_KD_STank*100000),(int)0,(int)0,(int)0,(int)0,(int)0,0,0);//æ‰“å°åˆ°APPä¸Šé¢
 		 PID_Send=0;		
   }
-   else	if(flag==0)		// ·¢ËÍµç³ØµçÑ¹£¬ËÙ¶È£¬½Ç¶ÈµÈ²ÎÊı£¬ÔÚAPPÊ×Ò³ÏÔÊ¾
-	   printf("{A%d:%d:%d:%d}$",(int)(MotorA.Current_Encoder*100),(int)(MotorB.Current_Encoder*100),(int)Voltage_Show,(int)0); //´òÓ¡µ½APPÉÏÃæ
-	 else				//·¢ËÍĞ¡³µ×ËÌ¬½Ç£¬ÔÚ²¨ĞÎ½çÃæÏÔÊ¾
-	    printf("{B%d:%d}$",(int)(MotorA.Current_Encoder*100),(int)(MotorB.Current_Encoder*100)); //ÏÔÊ¾×óÓÒ±àÂëÆ÷µÄËÙ¶È																	   //¿É°´¸ñÊ½×ÔĞĞÔö¼ÓÏÔÊ¾²¨ĞÎ£¬×î¶à¿ÉÏÔÊ¾Îå¸ö
+   else	if(flag==0)		// å‘é€ç”µæ± ç”µå‹ï¼Œé€Ÿåº¦ï¼Œè§’åº¦ç­‰å‚æ•°ï¼Œåœ¨APPé¦–é¡µæ˜¾ç¤º
+	   printf("{A%d:%d:%d:%d}$",(int)(MotorA.Current_Encoder*100),(int)(MotorB.Current_Encoder*100),(int)Voltage_Show,(int)0); //æ‰“å°åˆ°APPä¸Šé¢
+	 else				//å‘é€å°è½¦å§¿æ€è§’ï¼Œåœ¨æ³¢å½¢ç•Œé¢æ˜¾ç¤º
+	    printf("{B%d:%d}$",(int)(MotorA.Current_Encoder*100),(int)(MotorB.Current_Encoder*100)); //æ˜¾ç¤ºå·¦å³ç¼–ç å™¨çš„é€Ÿåº¦																	   //å¯æŒ‰æ ¼å¼è‡ªè¡Œå¢åŠ æ˜¾ç¤ºæ³¢å½¢ï¼Œæœ€å¤šå¯æ˜¾ç¤ºäº”ä¸ª
 }
 
 
-//ÉÏÎ»»úÊ¾²¨Æ÷
+//ä¸Šä½æœºç¤ºæ³¢å™¨
 /**************************************************************************
-º¯Êı¹¦ÄÜ£ºĞéÄâÊ¾²¨Æ÷ÍùÉÏÎ»»ú·¢ËÍÊı¾İ ¹Ø±ÕÏÔÊ¾ÆÁ
-Èë¿Ú²ÎÊı£ºÎŞ
-·µ»Ø  Öµ£ºÎŞ
-×÷    Õß£ºÆ½ºâĞ¡³µÖ®¼Ò
+å‡½æ•°åŠŸèƒ½ï¼šè™šæ‹Ÿç¤ºæ³¢å™¨å¾€ä¸Šä½æœºå‘é€æ•°æ® å…³é—­æ˜¾ç¤ºå±
+å…¥å£å‚æ•°ï¼šæ— 
+è¿”å›  å€¼ï¼šæ— 
+ä½œ    è€…ï¼šå¹³è¡¡å°è½¦ä¹‹å®¶
 **************************************************************************/
 void DataScope(void)
 {   
-	u8 i;			//¼ÆÊı±äÁ¿
-	u8 Send_Count;	//´®¿ÚĞèÒª·¢ËÍµÄÊı¾İ¸öÊı
-	float Vol;		//µçÑ¹±äÁ¿
+	u8 i;			//è®¡æ•°å˜é‡
+	u8 Send_Count;	//ä¸²å£éœ€è¦å‘é€çš„æ•°æ®ä¸ªæ•°
+	float Vol;		//ç”µå‹å˜é‡
 	Vol=(float)Voltage/100;
-	DataScope_Get_Channel_Data( MotorA.Velocity, 1 );     	//ÏÔÊ¾×óÂÖËÙ¶È£¬µ¥Î»mm/s
-	DataScope_Get_Channel_Data( MotorB.Velocity, 2 );    	//ÏÔÊ¾ÓÒÂÖËÙ¶È
-	DataScope_Get_Channel_Data( Vol, 3 );               	//ÏÔÊ¾µç³ØµçÑ¹ µ¥Î»£ºV
-//	DataScope_Get_Channel_Data(0, 5 ); //ÓÃÄúÒªÏÔÊ¾µÄÊı¾İÌæ»»0¾ÍĞĞÁË
-//	DataScope_Get_Channel_Data(0 , 6 );//ÓÃÄúÒªÏÔÊ¾µÄÊı¾İÌæ»»0¾ÍĞĞÁË
+	DataScope_Get_Channel_Data( MotorA.Velocity, 1 );     	//æ˜¾ç¤ºå·¦è½®é€Ÿåº¦ï¼Œå•ä½mm/s
+	DataScope_Get_Channel_Data( MotorB.Velocity, 2 );    	//æ˜¾ç¤ºå³è½®é€Ÿåº¦
+	DataScope_Get_Channel_Data( Vol, 3 );               	//æ˜¾ç¤ºç”µæ± ç”µå‹ å•ä½ï¼šV
+//	DataScope_Get_Channel_Data(0, 5 ); //ç”¨æ‚¨è¦æ˜¾ç¤ºçš„æ•°æ®æ›¿æ¢0å°±è¡Œäº†
+//	DataScope_Get_Channel_Data(0 , 6 );//ç”¨æ‚¨è¦æ˜¾ç¤ºçš„æ•°æ®æ›¿æ¢0å°±è¡Œäº†
 //	DataScope_Get_Channel_Data(0, 7 );
 //	DataScope_Get_Channel_Data( 0, 8 ); 
 //	DataScope_Get_Channel_Data(0, 9 );  
 //	DataScope_Get_Channel_Data( 0 , 10);
-	Send_Count = DataScope_Data_Generate(CHANNEL_NUMBER);//CHANNEL_NUMBER¿É¸Ä±äÍ¨µÀÊıÁ¿£¬Ä¿Ç°ÊÇ4
+	Send_Count = DataScope_Data_Generate(CHANNEL_NUMBER);//CHANNEL_NUMBERå¯æ”¹å˜é€šé“æ•°é‡ï¼Œç›®å‰æ˜¯4
 	for( i = 0 ; i < Send_Count; i++) 
 	{
 		while((USART1->SR&0X40)==0);  
@@ -367,10 +367,10 @@ void DataScope(void)
 }
 
 /**************************************************************************
-º¯Êı¹¦ÄÜ£º¾ø¶ÔÖµº¯Êı
-Èë¿Ú²ÎÊı£ºint
-·µ»Ø  Öµ£ºuint
-×÷    Õß£ºÆ½ºâĞ¡³µÖ®¼Ò
+å‡½æ•°åŠŸèƒ½ï¼šç»å¯¹å€¼å‡½æ•°
+å…¥å£å‚æ•°ï¼šint
+è¿”å›  å€¼ï¼šuint
+ä½œ    è€…ï¼šå¹³è¡¡å°è½¦ä¹‹å®¶
 **************************************************************************/
 u16 myabs(int Input)
 {
@@ -388,23 +388,23 @@ u16 myabs(int Input)
 Function: According to the potentiometer switch needs to control the car type
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º¸ù¾İµçÎ»Æ÷ÇĞ»»ĞèÒª¿ØÖÆµÄĞ¡³µÀàĞÍ
-Èë¿Ú²ÎÊı£ºÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šæ ¹æ®ç”µä½å™¨åˆ‡æ¢éœ€è¦æ§åˆ¶çš„å°è½¦ç±»å‹
+å…¥å£å‚æ•°ï¼šæ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
 void Robot_Select(void)
 {
 	u8 Car_Select_Count = 0;
-	u32 Car_Select_Sum = 0;				//³µĞÍÑ¡ÔñADCÏà¹Ø±äÁ¿
+	u32 Car_Select_Sum = 0;				//è½¦å‹é€‰æ‹©ADCç›¸å…³å˜é‡
 	//The ADC value is variable in segments, depending on the number of car models. Currently there are 6 car models, CAR_NUMBER=6
-  //ADCÖµ·Ö¶Î±äÁ¿£¬È¡¾öÓÚĞ¡³µĞÍºÅÊıÁ¿
-	//³µĞÍÑ¡ÔñµçÎ»¼Æ£¬adcÃ¿10´ÎÈ¡Ò»´ÎÆ½¾ù
+  //ADCå€¼åˆ†æ®µå˜é‡ï¼Œå–å†³äºå°è½¦å‹å·æ•°é‡
+	//è½¦å‹é€‰æ‹©ç”µä½è®¡ï¼Œadcæ¯10æ¬¡å–ä¸€æ¬¡å¹³å‡
 		for(Car_Select_Count=0;Car_Select_Count<2;Car_Select_Count++)
 		{
 			Car_Select_Sum += Get_Adc(CAR_ADC_CHANNEL);
 			//delay_ms(1);
 		}
-		Car_Num = Car_Select_Sum/2/(Max_Car_ADC/Num_Of_Car);	//Ëã³ö³µĞÍµÄºÅÂë
+		Car_Num = Car_Select_Sum/2/(Max_Car_ADC/Num_Of_Car);	//ç®—å‡ºè½¦å‹çš„å·ç 
 		Car_Select_Sum = 0;
 	
 }

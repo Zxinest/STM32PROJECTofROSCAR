@@ -1,18 +1,18 @@
 /***********************************************
-¹«Ë¾£ºÂÖÈ¤¿Æ¼¼£¨¶«İ¸£©ÓĞÏŞ¹«Ë¾
-Æ·ÅÆ£ºWHEELTEC
-¹ÙÍø£ºwheeltec.net
-ÌÔ±¦µêÆÌ£ºshop114407458.taobao.com 
-ËÙÂôÍ¨: https://minibalance.aliexpress.com/store/4455017
-°æ±¾£ºV1.0
-ĞŞ¸ÄÊ±¼ä£º2023-03-02
+å…¬å¸ï¼šè½®è¶£ç§‘æŠ€ï¼ˆä¸œèï¼‰æœ‰é™å…¬å¸
+å“ç‰Œï¼šWHEELTEC
+å®˜ç½‘ï¼šwheeltec.net
+æ·˜å®åº—é“ºï¼šshop114407458.taobao.com 
+é€Ÿå–é€š: https://minibalance.aliexpress.com/store/4455017
+ç‰ˆæœ¬ï¼šV1.0
+ä¿®æ”¹æ—¶é—´ï¼š2023-03-02
 
 Brand: WHEELTEC
 Website: wheeltec.net
 Taobao shop: shop114407458.taobao.com 
 Aliexpress: https://minibalance.aliexpress.com/store/4455017
 Version: V1.0
-Update£º2023-03-02
+Updateï¼š2023-03-02
 
 All rights reserved
 ***********************************************/
@@ -23,30 +23,30 @@ All rights reserved
 Function: Key_GPIO_Config
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º°´¼üÅäÖÃ
-Èë¿Ú²ÎÊı: ÎŞ 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šæŒ‰é”®é…ç½®
+å…¥å£å‚æ•°: æ—  
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 void Key_GPIO_Config(void)
 {
 	
 	GPIO_InitTypeDef GPIO_InitStructure;
 	
-	/*¿ªÆô°´¼ü¶Ë¿ÚµÄÊ±ÖÓ*/
+	/*å¼€å¯æŒ‰é”®ç«¯å£çš„æ—¶é’Ÿ*/
 	RCC_APB2PeriphClockCmd(KEY1_GPIO_CLK|KEY2_GPIO_CLK,ENABLE);
 	
-	//Ñ¡Ôñ°´¼üµÄÒı½Å
+	//é€‰æ‹©æŒ‰é”®çš„å¼•è„š
 	GPIO_InitStructure.GPIO_Pin = KEY1_GPIO_PIN; 
-	// ÉèÖÃ°´¼üµÄÒı½ÅÎª¸¡¿ÕÊäÈë
+	// è®¾ç½®æŒ‰é”®çš„å¼•è„šä¸ºæµ®ç©ºè¾“å…¥
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING; 
-	//Ê¹ÓÃ½á¹¹Ìå³õÊ¼»¯°´¼ü
+	//ä½¿ç”¨ç»“æ„ä½“åˆå§‹åŒ–æŒ‰é”®
 	GPIO_Init(KEY1_GPIO_PORT, &GPIO_InitStructure);
 	
-	//Ñ¡Ôñ°´¼üµÄÒı½Å
+	//é€‰æ‹©æŒ‰é”®çš„å¼•è„š
 	GPIO_InitStructure.GPIO_Pin = KEY2_GPIO_PIN; 
-	//ÉèÖÃ°´¼üµÄÒı½ÅÎª¸¡¿ÕÊäÈë
+	//è®¾ç½®æŒ‰é”®çš„å¼•è„šä¸ºæµ®ç©ºè¾“å…¥
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING; 
-	//Ê¹ÓÃ½á¹¹Ìå³õÊ¼»¯°´¼ü
+	//ä½¿ç”¨ç»“æ„ä½“åˆå§‹åŒ–æŒ‰é”®
 	GPIO_Init(KEY2_GPIO_PORT, &GPIO_InitStructure);	
 	
 }
@@ -55,17 +55,17 @@ void Key_GPIO_Config(void)
 Function: Key_Scan
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º°´¼ü¼ì²â
-Èë¿Ú²ÎÊı: ÎŞ 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šæŒ‰é”®æ£€æµ‹
+å…¥å£å‚æ•°: æ—  
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 
-//¼ì²âÊÇ·ñµ¥»÷°´ÏÂ
+//æ£€æµ‹æ˜¯å¦å•å‡»æŒ‰ä¸‹
 uint8_t Key_Scan(GPIO_TypeDef* GPIOx,uint16_t GPIO_Pin)
 {			
-	/*¼ì²âÊÇ·ñÓĞ°´¼ü°´ÏÂ */
+	/*æ£€æµ‹æ˜¯å¦æœ‰æŒ‰é”®æŒ‰ä¸‹ */
 	if(GPIO_ReadInputDataBit(GPIOx,GPIO_Pin) == KEY_ON )  
 	{	 
-		/*µÈ´ı°´¼üÊÍ·Å */
+		/*ç­‰å¾…æŒ‰é”®é‡Šæ”¾ */
 		while(GPIO_ReadInputDataBit(GPIOx,GPIO_Pin) == KEY_ON);   
 		return 	KEY_ON;	 
 	}
@@ -77,47 +77,47 @@ uint8_t Key_Scan(GPIO_TypeDef* GPIOx,uint16_t GPIO_Pin)
 Function: User_Key_Scan
 Input   : none
 Output  : Key status
-º¯Êı¹¦ÄÜ£ºÓÃ»§°´¼ü¼ì²â£¨µ¥»÷,³¤°´»òË«»÷£©
-Èë¿Ú²ÎÊı: ÎŞ 
-·µ»Ø  Öµ£º·µ»Ø°´¼ü×´Ì¬
+å‡½æ•°åŠŸèƒ½ï¼šç”¨æˆ·æŒ‰é”®æ£€æµ‹ï¼ˆå•å‡»,é•¿æŒ‰æˆ–åŒå‡»ï¼‰
+å…¥å£å‚æ•°: æ—  
+è¿”å›  å€¼ï¼šè¿”å›æŒ‰é”®çŠ¶æ€
 **************************************************************************/	 
-//·ÅÔÚ5msÖĞ¶ÏÖĞµ÷ÓÃ
+//æ”¾åœ¨5msä¸­æ–­ä¸­è°ƒç”¨
 uint8_t User_Key_Scan(void)
 {
-	static u16 count_time = 0;					//¼ÆËã°´ÏÂµÄÊ±¼ä£¬Ã¿5ms¼Ó1
-	static u8 key_step = 0;						//¼ÇÂ¼´ËÊ±µÄ²½Öè
+	static u16 count_time = 0;					//è®¡ç®—æŒ‰ä¸‹çš„æ—¶é—´ï¼Œæ¯5msåŠ 1
+	static u8 key_step = 0;						//è®°å½•æ­¤æ—¶çš„æ­¥éª¤
 	switch(key_step)
 	{
 		case 0:
 			if(GPIO_ReadInputDataBit(KEY1_GPIO_PORT,KEY1_GPIO_PIN) == KEY_ON )
-				key_step++;						//¼ì²âµ½ÓĞ°´¼ü°´ÏÂ£¬½øÈëÏÂÒ»²½
+				key_step++;						//æ£€æµ‹åˆ°æœ‰æŒ‰é”®æŒ‰ä¸‹ï¼Œè¿›å…¥ä¸‹ä¸€æ­¥
 			break;
 		case 1:
-			if((++count_time) == 5)				//ÑÓÊ±Ïû¶¶
+			if((++count_time) == 5)				//å»¶æ—¶æ¶ˆæŠ–
 			{
-				if(GPIO_ReadInputDataBit(KEY1_GPIO_PORT,KEY1_GPIO_PIN) == KEY_ON )//°´¼üÈ·Êµ°´ÏÂÁË
-					key_step++,count_time = 0;	//½øÈëÏÂÒ»²½
+				if(GPIO_ReadInputDataBit(KEY1_GPIO_PORT,KEY1_GPIO_PIN) == KEY_ON )//æŒ‰é”®ç¡®å®æŒ‰ä¸‹äº†
+					key_step++,count_time = 0;	//è¿›å…¥ä¸‹ä¸€æ­¥
 				else
-					count_time = 0,key_step = 0;//·ñÔò¸´Î»
+					count_time = 0,key_step = 0;//å¦åˆ™å¤ä½
 			}
 			break;
 		case 2:
 			if(GPIO_ReadInputDataBit(KEY1_GPIO_PORT,KEY1_GPIO_PIN) == KEY_ON )
-				count_time++;					//¼ÆËã°´ÏÂµÄÊ±¼ä
-			else 								//´ËÊ±ÒÑËÉ¿ªÊÖ
-				key_step++;						//½øÈëÏÂÒ»²½
+				count_time++;					//è®¡ç®—æŒ‰ä¸‹çš„æ—¶é—´
+			else 								//æ­¤æ—¶å·²æ¾å¼€æ‰‹
+				key_step++;						//è¿›å…¥ä¸‹ä¸€æ­¥
 			break;
-		case 3:									//´ËÊ±¿´°´ÏÂµÄÊ±¼ä£¬À´ÅĞ¶ÏÊÇ³¤°´»¹ÊÇ¶Ì°´
-			if(count_time > 400)				//ÔÚ5msÖĞ¶ÏÖĞµ÷ÓÃ£¬¹Ê°´ÏÂÊ±¼äÈô´óÓÚ400*5 = 2000ms£¨´ó¸ÅÖµ£©
+		case 3:									//æ­¤æ—¶çœ‹æŒ‰ä¸‹çš„æ—¶é—´ï¼Œæ¥åˆ¤æ–­æ˜¯é•¿æŒ‰è¿˜æ˜¯çŸ­æŒ‰
+			if(count_time > 400)				//åœ¨5msä¸­æ–­ä¸­è°ƒç”¨ï¼Œæ•…æŒ‰ä¸‹æ—¶é—´è‹¥å¤§äº400*5 = 2000msï¼ˆå¤§æ¦‚å€¼ï¼‰
 			{							
-				key_step = 0;					//±êÖ¾Î»¸´Î»
+				key_step = 0;					//æ ‡å¿—ä½å¤ä½
 				count_time = 0;
-				return Long_Press;				//·µ»Ø ³¤°´ µÄ×´Ì¬ 
+				return Long_Press;				//è¿”å› é•¿æŒ‰ çš„çŠ¶æ€ 
  			}
-			else if(count_time > 5)				//´ËÊ±ÊÇµ¥»÷ÁËÒ»´Î
+			else if(count_time > 5)				//æ­¤æ—¶æ˜¯å•å‡»äº†ä¸€æ¬¡
 			{
-				key_step++;						//´ËÊ±½øÈëÏÂÒ»²½£¬ÅĞ¶ÏÊÇ·ñÊÇË«»÷
-				count_time = 0;					//°´ÏÂµÄÊ±¼äÇåÁã
+				key_step++;						//æ­¤æ—¶è¿›å…¥ä¸‹ä¸€æ­¥ï¼Œåˆ¤æ–­æ˜¯å¦æ˜¯åŒå‡»
+				count_time = 0;					//æŒ‰ä¸‹çš„æ—¶é—´æ¸…é›¶
 			}
 			else
 			{
@@ -125,30 +125,30 @@ uint8_t User_Key_Scan(void)
 				count_time = 0;	
 			}
 			break;
-		case 4:									//ÅĞ¶ÏÊÇ·ñÊÇË«»÷»òµ¥»÷
-			if(++count_time == 38)				//5*38 = 190msÄÚÅĞ¶Ï°´¼üÊÇ·ñ°´ÏÂ
+		case 4:									//åˆ¤æ–­æ˜¯å¦æ˜¯åŒå‡»æˆ–å•å‡»
+			if(++count_time == 38)				//5*38 = 190mså†…åˆ¤æ–­æŒ‰é”®æ˜¯å¦æŒ‰ä¸‹
 			{
-				if(GPIO_ReadInputDataBit(KEY1_GPIO_PORT,KEY1_GPIO_PIN) == KEY_ON )	//°´¼üÈ·Êµ°´ÏÂÁË
-				{																	//ÕâÀïË«»÷²»ÄÜ°´Ì«¿ì£¬»áÊ¶±ğ³Éµ¥»÷
-					key_step++;														//½øÈëÏÂÒ»²½£¬ĞèÒªµÈËÉÊÖ²ÅÄÜÊÍ·Å×´Ì¬
+				if(GPIO_ReadInputDataBit(KEY1_GPIO_PORT,KEY1_GPIO_PIN) == KEY_ON )	//æŒ‰é”®ç¡®å®æŒ‰ä¸‹äº†
+				{																	//è¿™é‡ŒåŒå‡»ä¸èƒ½æŒ‰å¤ªå¿«ï¼Œä¼šè¯†åˆ«æˆå•å‡»
+					key_step++;														//è¿›å…¥ä¸‹ä¸€æ­¥ï¼Œéœ€è¦ç­‰æ¾æ‰‹æ‰èƒ½é‡Šæ”¾çŠ¶æ€
 					count_time = 0;
 				}
-				else																//190msÄÚÎŞ°´¼ü°´ÏÂ£¬´ËÊ±ÊÇµ¥»÷µÄ×´Ì¬
+				else																//190mså†…æ— æŒ‰é”®æŒ‰ä¸‹ï¼Œæ­¤æ—¶æ˜¯å•å‡»çš„çŠ¶æ€
 				{
-					key_step = 0;				//±êÖ¾Î»¸´Î»
+					key_step = 0;				//æ ‡å¿—ä½å¤ä½
 					count_time = 0;					
-					return Click;				//·µ»Øµ¥»÷µÄ×´Ì¬
+					return Click;				//è¿”å›å•å‡»çš„çŠ¶æ€
 				}
 			}
 			break;
 		case 5:
-			if(GPIO_ReadInputDataBit(KEY1_GPIO_PORT,KEY1_GPIO_PIN) == KEY_ON )//°´¼ü»¹ÔÚ°´×Å
+			if(GPIO_ReadInputDataBit(KEY1_GPIO_PORT,KEY1_GPIO_PIN) == KEY_ON )//æŒ‰é”®è¿˜åœ¨æŒ‰ç€
 			{
 				count_time++;
 			}
-			else								//°´¼üÒÑ¾­ËÉÊÖ
+			else								//æŒ‰é”®å·²ç»æ¾æ‰‹
 			{
-//				if(count_time>400)				//ÕâÀïµÚ¶ş´ÎµÄµ¥»÷Ò²¿ÉÒÔÅĞ¶ÏÊ±¼äµÄ£¬Ä¬ÈÏ²»ÅĞ¶ÏÊ±¼ä£¬È«²¿¶¼·µ»ØË«»÷
+//				if(count_time>400)				//è¿™é‡Œç¬¬äºŒæ¬¡çš„å•å‡»ä¹Ÿå¯ä»¥åˆ¤æ–­æ—¶é—´çš„ï¼Œé»˜è®¤ä¸åˆ¤æ–­æ—¶é—´ï¼Œå…¨éƒ¨éƒ½è¿”å›åŒå‡»
 //				{
 //				}
 				count_time = 0;
@@ -158,7 +158,7 @@ uint8_t User_Key_Scan(void)
 			break;
 		default:break;
 	}
-	return No_Action;							//ÎŞ¶¯×÷
+	return No_Action;							//æ— åŠ¨ä½œ
 
 }
 
@@ -166,34 +166,34 @@ uint8_t User_Key_Scan(void)
 Function: User_Key_Val
 Input   : none
 Output  : Key status
-º¯Êı¹¦ÄÜ£º°´¼üÖµ¼ì²â
-Èë¿Ú²ÎÊı: ÎŞ 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šæŒ‰é”®å€¼æ£€æµ‹
+å…¥å£å‚æ•°: æ—  
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 
-//·ÅÔÚ5msÖĞ¶ÏÖĞµ÷ÓÃ
+//æ”¾åœ¨5msä¸­æ–­ä¸­è°ƒç”¨
 void Get_KeyVal(void)
 {
-	switch(User_Key_Scan())								//°´¼üÉ¨Ãè£¬µ¥»÷£¬Ë«»÷»ò³¤°´
+	switch(User_Key_Scan())								//æŒ‰é”®æ‰«æï¼Œå•å‡»ï¼ŒåŒå‡»æˆ–é•¿æŒ‰
 		{
-			//µ¥»÷°´¼ü¿ÉÒÔÇĞ»»µ½
-			//1.ÆÕÍ¨Ò£¿ØÄ£Ê½
-			//2.À×´ïÑ²º½Ä£Ê½
-			//3.À×´ï¸úËæÄ£Ê½
-			//4.µç´ÅÑ²ÏßÄ£Ê½
-			//5.CCDÑ²ÏßÄ£Ê½
-			//³¤°´°´¼ü½øÈëÉÏÎ»»ú
+			//å•å‡»æŒ‰é”®å¯ä»¥åˆ‡æ¢åˆ°
+			//1.æ™®é€šé¥æ§æ¨¡å¼
+			//2.é›·è¾¾å·¡èˆªæ¨¡å¼
+			//3.é›·è¾¾è·Ÿéšæ¨¡å¼
+			//4.ç”µç£å·¡çº¿æ¨¡å¼
+			//5.CCDå·¡çº¿æ¨¡å¼
+			//é•¿æŒ‰æŒ‰é”®è¿›å…¥ä¸Šä½æœº
 			case Click:
 				Mode++;
 				if(Mode == ELE_Line_Patrol_Mode)
-					ELE_ADC_Init();							//³õÊ¼»¯µç´ÅÑ²ÏßÄ£Ê½
+					ELE_ADC_Init();							//åˆå§‹åŒ–ç”µç£å·¡çº¿æ¨¡å¼
 				
-				else if(Mode == CCD_Line_Patrol_Mode)		//CCDÑ²ÏßÄ£Ê½
+				else if(Mode == CCD_Line_Patrol_Mode)		//CCDå·¡çº¿æ¨¡å¼
 				{
-					CCD_Init();								//CCD³õÊ¼»¯£¬CCDÄ£¿éºÍµç´ÅÑ²ÏßÄ£¿é¹²ÓÃÒ»¸ö½Ó¿Ú£¬Á½¸ö²»ÄÜÍ¬Ê±Ê¹ÓÃ
-					BEEP_OFF;								//¹Ø±Õ·äÃùÆ÷
+					CCD_Init();								//CCDåˆå§‹åŒ–ï¼ŒCCDæ¨¡å—å’Œç”µç£å·¡çº¿æ¨¡å—å…±ç”¨ä¸€ä¸ªæ¥å£ï¼Œä¸¤ä¸ªä¸èƒ½åŒæ—¶ä½¿ç”¨
+					BEEP_OFF;								//å…³é—­èœ‚é¸£å™¨
 				}
 				
-				else if(Mode == 6)							//6ÖÖÄ£Ê½Ñ­»·ÇĞ»»
+				else if(Mode == 6)							//6ç§æ¨¡å¼å¾ªç¯åˆ‡æ¢
 				{
 					Mode = Normal_Mode;
 					Move_X = Move_Z = 0;
@@ -202,14 +202,14 @@ void Get_KeyVal(void)
 				}
 				break;
 			case Long_Press:
-				Flag_Show = !Flag_Show;								//³¤°´ ½øÈë/ÍË³ö ÉÏÎ»»úÄ£Ê½
+				Flag_Show = !Flag_Show;								//é•¿æŒ‰ è¿›å…¥/é€€å‡º ä¸Šä½æœºæ¨¡å¼
 				break;
 			case Double_Click:										
-				if(Mode == ELE_Line_Patrol_Mode)					//µç´ÅÑ²Ïß×´Ì¬Ê±£¬Ë«»÷¿ÉÒÔ´ò¿ª/¹Ø±ÕÀ×´ï¼ì²âÕÏ°­Îï£¬Ä¬ÈÏ´ò¿ª
+				if(Mode == ELE_Line_Patrol_Mode)					//ç”µç£å·¡çº¿çŠ¶æ€æ—¶ï¼ŒåŒå‡»å¯ä»¥æ‰“å¼€/å…³é—­é›·è¾¾æ£€æµ‹éšœç¢ç‰©ï¼Œé»˜è®¤æ‰“å¼€
 				{
 					Lidar_Detect = !Lidar_Detect;
 					if(Lidar_Detect == Lidar_Detect_OFF)
-						memset(Dataprocess,0, sizeof(PointDataProcessDef)*390);		//ÓÃÓÚÀ×´ï¼ì²âÕÏ°­ÎïµÄÊı×éÇåÁã
+						memset(Dataprocess,0, sizeof(PointDataProcessDef)*390);		//ç”¨äºé›·è¾¾æ£€æµ‹éšœç¢ç‰©çš„æ•°ç»„æ¸…é›¶
 				}
 				break;
 			default:break;

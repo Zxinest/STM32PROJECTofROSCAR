@@ -1,18 +1,18 @@
 /***********************************************
-¹«Ë¾£ºÂÖÈ¤¿Æ¼¼£¨¶«İ¸£©ÓĞÏŞ¹«Ë¾
-Æ·ÅÆ£ºWHEELTEC
-¹ÙÍø£ºwheeltec.net
-ÌÔ±¦µêÆÌ£ºshop114407458.taobao.com 
-ËÙÂôÍ¨: https://minibalance.aliexpress.com/store/4455017
-°æ±¾£ºV1.0
-ĞŞ¸ÄÊ±¼ä£º2023-03-02
+å…¬å¸ï¼šè½®è¶£ç§‘æŠ€ï¼ˆä¸œèï¼‰æœ‰é™å…¬å¸
+å“ç‰Œï¼šWHEELTEC
+å®˜ç½‘ï¼šwheeltec.net
+æ·˜å®åº—é“ºï¼šshop114407458.taobao.com 
+é€Ÿå–é€š: https://minibalance.aliexpress.com/store/4455017
+ç‰ˆæœ¬ï¼šV1.0
+ä¿®æ”¹æ—¶é—´ï¼š2023-03-02
 
 Brand: WHEELTEC
 Website: wheeltec.net
 Taobao shop: shop114407458.taobao.com 
 Aliexpress: https://minibalance.aliexpress.com/store/4455017
 Version: V1.0
-Update£º2023-03-02
+Updateï¼š2023-03-02
 
 All rights reserved
 ***********************************************/
@@ -23,40 +23,40 @@ All rights reserved
 Function: LED_GPIO_Config
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£ºLEDÅäÖÃ
-Èë¿Ú²ÎÊı: ÎŞ 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šLEDé…ç½®
+å…¥å£å‚æ•°: æ—  
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 void LED_GPIO_Config(void)
 {		
-	/*¶¨ÒåÒ»¸öGPIO_InitTypeDefÀàĞÍµÄ½á¹¹Ìå*/
+	/*å®šä¹‰ä¸€ä¸ªGPIO_InitTypeDefç±»å‹çš„ç»“æ„ä½“*/
 	GPIO_InitTypeDef GPIO_InitStructure;
 
-	/*¿ªÆôLEDÏà¹ØµÄGPIOÍâÉèÊ±ÖÓ*/
+	/*å¼€å¯LEDç›¸å…³çš„GPIOå¤–è®¾æ—¶é’Ÿ*/
 	RCC_APB2PeriphClockCmd( LED1_GPIO_CLK | LED2_GPIO_CLK , ENABLE);
-	/*Ñ¡ÔñÒª¿ØÖÆµÄGPIOÒı½Å*/
+	/*é€‰æ‹©è¦æ§åˆ¶çš„GPIOå¼•è„š*/
 	GPIO_InitStructure.GPIO_Pin = LED1_GPIO_PIN;	
 
-	/*ÉèÖÃÒı½ÅÄ£Ê½ÎªÍ¨ÓÃÍÆÍìÊä³ö*/
+	/*è®¾ç½®å¼•è„šæ¨¡å¼ä¸ºé€šç”¨æ¨æŒ½è¾“å‡º*/
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;   
 
-	/*ÉèÖÃÒı½ÅËÙÂÊÎª50MHz */   
+	/*è®¾ç½®å¼•è„šé€Ÿç‡ä¸º50MHz */   
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz; 
 
-	/*µ÷ÓÃ¿âº¯Êı£¬³õÊ¼»¯GPIO*/
+	/*è°ƒç”¨åº“å‡½æ•°ï¼Œåˆå§‹åŒ–GPIO*/
 	GPIO_Init(LED1_GPIO_PORT, &GPIO_InitStructure);	
 
-	/*Ñ¡ÔñÒª¿ØÖÆµÄGPIOÒı½Å*/
+	/*é€‰æ‹©è¦æ§åˆ¶çš„GPIOå¼•è„š*/
 	GPIO_InitStructure.GPIO_Pin = LED2_GPIO_PIN;
 
-	/*µ÷ÓÃ¿âº¯Êı£¬³õÊ¼»¯GPIO*/
+	/*è°ƒç”¨åº“å‡½æ•°ï¼Œåˆå§‹åŒ–GPIO*/
 	GPIO_Init(LED2_GPIO_PORT, &GPIO_InitStructure);
 
 
-	/* ¹Ø±ÕËùÓĞledµÆ	*/
+	/* å…³é—­æ‰€æœ‰ledç¯	*/
 	GPIO_SetBits(LED1_GPIO_PORT, LED1_GPIO_PIN);
 
-	/* ¹Ø±ÕËùÓĞledµÆ	*/
+	/* å…³é—­æ‰€æœ‰ledç¯	*/
 	GPIO_SetBits(LED2_GPIO_PORT, LED2_GPIO_PIN);	 
     
 }
@@ -65,11 +65,11 @@ void LED_GPIO_Config(void)
 Function: LED_Flash
 Input   : Indicates the count of frequencies
 Output  : none
-º¯Êı¹¦ÄÜ£ºLEDÉÁË¸ÆµÂÊ
-Èë¿Ú²ÎÊı: Ö¸Ê¾ÆµÂÊµÄ¼ÆÊı 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šLEDé—ªçƒé¢‘ç‡
+å…¥å£å‚æ•°: æŒ‡ç¤ºé¢‘ç‡çš„è®¡æ•° 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
-//ÔÚÖĞ¶Ïº¯Êıµ÷ÓÃ
+//åœ¨ä¸­æ–­å‡½æ•°è°ƒç”¨
 void LED_Flash(u16 count)
 {
 	static int count_time;

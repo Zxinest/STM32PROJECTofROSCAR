@@ -1,18 +1,18 @@
 /***********************************************
-¹«Ë¾£ºÂÖÈ¤¿Æ¼¼£¨¶«İ¸£©ÓĞÏŞ¹«Ë¾
-Æ·ÅÆ£ºWHEELTEC
-¹ÙÍø£ºwheeltec.net
-ÌÔ±¦µêÆÌ£ºshop114407458.taobao.com 
-ËÙÂôÍ¨: https://minibalance.aliexpress.com/store/4455017
-°æ±¾£ºV1.0
-ĞŞ¸ÄÊ±¼ä£º2023-03-02
+å…¬å¸ï¼šè½®è¶£ç§‘æŠ€ï¼ˆä¸œèï¼‰æœ‰é™å…¬å¸
+å“ç‰Œï¼šWHEELTEC
+å®˜ç½‘ï¼šwheeltec.net
+æ·˜å®åº—é“ºï¼šshop114407458.taobao.com 
+é€Ÿå–é€š: https://minibalance.aliexpress.com/store/4455017
+ç‰ˆæœ¬ï¼šV1.0
+ä¿®æ”¹æ—¶é—´ï¼š2023-03-02
 
 Brand: WHEELTEC
 Website: wheeltec.net
 Taobao shop: shop114407458.taobao.com 
 Aliexpress: https://minibalance.aliexpress.com/store/4455017
 Version: V1.0
-Update£º2023-03-02
+Updateï¼š2023-03-02
 
 All rights reserved
 ***********************************************/
@@ -26,20 +26,20 @@ All rights reserved
 #include "Header.h"
 
 /** 
-  * ´®¿Úºê¶¨Òå£¬²»Í¬µÄ´®¿Ú¹ÒÔØµÄ×ÜÏßºÍIO²»Ò»Ñù£¬ÒÆÖ²Ê±ĞèÒªĞŞ¸ÄÕâ¼¸¸öºê
-	* 1-ĞŞ¸Ä×ÜÏßÊ±ÖÓµÄºê£¬uart1¹ÒÔØµ½apb2×ÜÏß£¬ÆäËûuart¹ÒÔØµ½apb1×ÜÏß
-	* 2-ĞŞ¸ÄGPIOµÄºê
+  * ä¸²å£å®å®šä¹‰ï¼Œä¸åŒçš„ä¸²å£æŒ‚è½½çš„æ€»çº¿å’ŒIOä¸ä¸€æ ·ï¼Œç§»æ¤æ—¶éœ€è¦ä¿®æ”¹è¿™å‡ ä¸ªå®
+	* 1-ä¿®æ”¹æ€»çº¿æ—¶é’Ÿçš„å®ï¼Œuart1æŒ‚è½½åˆ°apb2æ€»çº¿ï¼Œå…¶ä»–uartæŒ‚è½½åˆ°apb1æ€»çº¿
+	* 2-ä¿®æ”¹GPIOçš„å®
   */
 	
-//´®¿Ú1-USART1
-//µ÷ÊÔ´®¿Ú
+//ä¸²å£1-USART1
+//è°ƒè¯•ä¸²å£
 
 #define  DEBUG_USARTx                   USART1
 #define  DEBUG_USART_CLK                RCC_APB2Periph_USART1
 #define  DEBUG_USART_APBxClkCmd         RCC_APB2PeriphClockCmd
 #define  DEBUG_USART_BAUDRATE           115200
 
-// USART GPIO Òı½Åºê¶¨Òå
+// USART GPIO å¼•è„šå®å®šä¹‰
 #define  DEBUG_USART_GPIO_CLK           (RCC_APB2Periph_GPIOA)
 #define  DEBUG_USART_GPIO_APBxClkCmd    RCC_APB2PeriphClockCmd
     
@@ -53,14 +53,14 @@ All rights reserved
 
 
 
- //´®¿Ú2-USART2
- //¿ÕÏĞ´®¿Ú
+ //ä¸²å£2-USART2
+ //ç©ºé—²ä¸²å£
 #define  UNUSED_USARTx                   USART2
 #define  UNUSED_USART_CLK                RCC_APB1Periph_USART2
 #define  UNUSED_USART_APBxClkCmd         RCC_APB1PeriphClockCmd
 #define  UNUSED_USART_BAUDRATE           115200
 
-// USART GPIO Òı½Åºê¶¨Òå
+// USART GPIO å¼•è„šå®å®šä¹‰
 #define  UNUSED_USART_GPIO_CLK           (RCC_APB2Periph_GPIOA)
 #define  UNUSED_USART_GPIO_APBxClkCmd    RCC_APB2PeriphClockCmd
     
@@ -75,14 +75,14 @@ All rights reserved
 
 
 
-// ´®¿Ú3-USART3
-//À¶ÑÀµÄ´®¿Ú
+// ä¸²å£3-USART3
+//è“ç‰™çš„ä¸²å£
 #define  BLUETOOTH_USARTx                   USART3
 #define  BLUETOOTH_USART_CLK                RCC_APB1Periph_USART3
 #define  BLUETOOTH_USART_APBxClkCmd         RCC_APB1PeriphClockCmd
 #define  BLUETOOTH_USART_BAUDRATE           9600
 
-// USART GPIO Òı½Åºê¶¨Òå
+// USART GPIO å¼•è„šå®å®šä¹‰
 #define  BLUETOOTH_USART_GPIO_CLK           (RCC_APB2Periph_GPIOB)
 #define  BLUETOOTH_USART_GPIO_APBxClkCmd    RCC_APB2PeriphClockCmd
     
@@ -96,13 +96,13 @@ All rights reserved
 
 
 
-// ´®¿Ú4-ROS´®¿Ú
+// ä¸²å£4-ROSä¸²å£
 #define  ROS_USARTx                   UART4
 #define  ROS_USART_CLK                RCC_APB1Periph_UART4
 #define  ROS_USART_APBxClkCmd         RCC_APB1PeriphClockCmd
 #define  ROS_USART_BAUDRATE           115200
 
-// USART GPIO Òı½Åºê¶¨Òå
+// USART GPIO å¼•è„šå®å®šä¹‰
 #define  ROS_USART_GPIO_CLK           (RCC_APB2Periph_GPIOC)
 #define  ROS_USART_GPIO_APBxClkCmd    RCC_APB2PeriphClockCmd
     
@@ -117,14 +117,14 @@ All rights reserved
 
 
 
-//´®¿Ú5-UART5
-//À×´ï´®¿Ú
+//ä¸²å£5-UART5
+//é›·è¾¾ä¸²å£
 #define  LIDAR_USARTx                   UART5
 #define  LIDAR_USART_CLK                RCC_APB1Periph_UART5
 #define  LIDAR_USART_APBxClkCmd         RCC_APB1PeriphClockCmd
 #define  LIDAR_USART_BAUDRATE           115200
 
-// USART GPIO Òı½Åºê¶¨Òå
+// USART GPIO å¼•è„šå®å®šä¹‰
 #define  LIDAR_USART_GPIO_CLK           (RCC_APB2Periph_GPIOC|RCC_APB2Periph_GPIOD)
 #define  LIDAR_USART_GPIO_APBxClkCmd    RCC_APB2PeriphClockCmd
     

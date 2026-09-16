@@ -7,7 +7,7 @@
 #define delay_ms  	SysTick_Delay_Ms
 #define delay_us   	SysTick_Delay_Us
 
-#define Delay_ms(x) Delay_us(100*x)	 //µ•Œªms
+#define Delay_ms(x) Delay_us(100*x)	 //Âçï‰Ωçms
 
 
 void SysTick_Init(void);

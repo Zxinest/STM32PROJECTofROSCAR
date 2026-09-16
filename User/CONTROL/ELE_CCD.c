@@ -1,18 +1,18 @@
 /***********************************************
-¹«Ë¾£ºÂÖÈ¤¿Æ¼¼£¨¶«İ¸£©ÓĞÏŞ¹«Ë¾
-Æ·ÅÆ£ºWHEELTEC
-¹ÙÍø£ºwheeltec.net
-ÌÔ±¦µêÆÌ£ºshop114407458.taobao.com 
-ËÙÂôÍ¨: https://minibalance.aliexpress.com/store/4455017
-°æ±¾£ºV1.0
-ĞŞ¸ÄÊ±¼ä£º2023-03-02
+å…¬å¸ï¼šè½®è¶£ç§‘æŠ€ï¼ˆä¸œèï¼‰æœ‰é™å…¬å¸
+å“ç‰Œï¼šWHEELTEC
+å®˜ç½‘ï¼šwheeltec.net
+æ·˜å®åº—é“ºï¼šshop114407458.taobao.com 
+é€Ÿå–é€š: https://minibalance.aliexpress.com/store/4455017
+ç‰ˆæœ¬ï¼šV1.0
+ä¿®æ”¹æ—¶é—´ï¼š2023-03-02
 
 Brand: WHEELTEC
 Website: wheeltec.net
 Taobao shop: shop114407458.taobao.com 
 Aliexpress: https://minibalance.aliexpress.com/store/4455017
 Version: V1.0
-Update£º2023-03-02
+Updateï¼š2023-03-02
 
 All rights reserved
 ***********************************************/
@@ -22,38 +22,38 @@ All rights reserved
 
 int Sensor_Left,Sensor_Middle,Sensor_Right,Sensor;
 u16  CCD_ADV[128]={0};
-u8 CCD_Median,CCD_Threshold;                 //ÏßĞÔCCDÏà¹Ø
+u8 CCD_Median,CCD_Threshold;                 //çº¿æ€§CCDç›¸å…³
 
-//µç´ÅÑ²ÏßADC¶Ë¿Ú³õÊ¼»¯
+//ç”µç£å·¡çº¿ADCç«¯å£åˆå§‹åŒ–
 /**************************************************************************
 Function: ELE_ADC_GPIO_Config
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º³õÊ¼»¯µç´ÅÑ²ÏßGPIO
-Èë¿Ú²ÎÊı: ÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šåˆå§‹åŒ–ç”µç£å·¡çº¿GPIO
+å…¥å£å‚æ•°: æ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 static void ELE_ADC_GPIO_Config(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 	
-	// ´ò¿ª ADC IO¶Ë¿ÚÊ±ÖÓ
+	// æ‰“å¼€ ADC IOç«¯å£æ—¶é’Ÿ
 	RCC_APB2PeriphClockCmd ( ELE_ADC_L_GPIO_CLK|ELE_ADC_M_GPIO_CLK|ELE_ADC_R_GPIO_CLK, ENABLE );
 	
-	// ÅäÖÃ ADC IO Òı½ÅÄ£Ê½
-	// ±ØĞëÎªÄ£ÄâÊäÈë
-	//×óÂ·¶Ë¿ÚÅäÖÃ£¬PA4
+	// é…ç½® ADC IO å¼•è„šæ¨¡å¼
+	// å¿…é¡»ä¸ºæ¨¡æ‹Ÿè¾“å…¥
+	//å·¦è·¯ç«¯å£é…ç½®ï¼ŒPA4
 	GPIO_InitStructure.GPIO_Pin = ELE_ADC_L_PIN;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
 	GPIO_Init(ELE_ADC_L_PORT, &GPIO_InitStructure);	
 
-	//ÖĞ¼ä¶Ë¿ÚÅäÖÃ£¬PA5
+	//ä¸­é—´ç«¯å£é…ç½®ï¼ŒPA5
 	GPIO_InitStructure.GPIO_Pin = ELE_ADC_M_PIN;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
 	GPIO_Init(ELE_ADC_M_PORT, &GPIO_InitStructure);				
 
 
-	//ÓÒÂ·¶Ë¿ÚÅäÖÃ£¬PC5
+	//å³è·¯ç«¯å£é…ç½®ï¼ŒPC5
 	GPIO_InitStructure.GPIO_Pin = ELE_ADC_R_PIN;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
 	GPIO_Init(ELE_ADC_R_PORT, &GPIO_InitStructure);				
@@ -64,47 +64,47 @@ static void ELE_ADC_GPIO_Config(void)
 Function: ELE_ADC_Mode_Config
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º³õÊ¼»¯µç´ÅÑ²ÏßADC
-Èë¿Ú²ÎÊı: ÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šåˆå§‹åŒ–ç”µç£å·¡çº¿ADC
+å…¥å£å‚æ•°: æ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 
 static void ELE_ADC_Mode_Config(void)
 {
 	ADC_InitTypeDef ADC_InitStructure;	
 
-	// ´ò¿ªADCÊ±ÖÓ
+	// æ‰“å¼€ADCæ—¶é’Ÿ
 	ELE_ADC_APBxClock_FUN ( ELE_ADC_CLK, ENABLE );
 	
-	//¸´Î»ADC1,½«ÍâÉè ADC1 µÄÈ«²¿¼Ä´æÆ÷ÖØÉèÎªÈ±Ê¡Öµ
+	//å¤ä½ADC1,å°†å¤–è®¾ ADC1 çš„å…¨éƒ¨å¯„å­˜å™¨é‡è®¾ä¸ºç¼ºçœå€¼
 	ADC_DeInit(ELE_ADC); 
 
-	// ADC Ä£Ê½ÅäÖÃ
-	// Ö»Ê¹ÓÃÒ»¸öADC£¬ÊôÓÚ¶ÀÁ¢Ä£Ê½
+	// ADC æ¨¡å¼é…ç½®
+	// åªä½¿ç”¨ä¸€ä¸ªADCï¼Œå±äºç‹¬ç«‹æ¨¡å¼
 	ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
 	
-	// ½ûÖ¹É¨ÃèÄ£Ê½£¬¶àÍ¨µÀ²ÅÒª£¬µ¥Í¨µÀ²»ĞèÒª
+	// ç¦æ­¢æ‰«ææ¨¡å¼ï¼Œå¤šé€šé“æ‰è¦ï¼Œå•é€šé“ä¸éœ€è¦
 	ADC_InitStructure.ADC_ScanConvMode = DISABLE ; 
 
-	// µ¥´Î×ª»»
+	// å•æ¬¡è½¬æ¢
 	ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;
 
-	// ²»ÓÃÍâ²¿´¥·¢×ª»»£¬Èí¼ş¿ªÆô¼´¿É
+	// ä¸ç”¨å¤–éƒ¨è§¦å‘è½¬æ¢ï¼Œè½¯ä»¶å¼€å¯å³å¯
 	ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
 
-	// ×ª»»½á¹ûÓÒ¶ÔÆë
+	// è½¬æ¢ç»“æœå³å¯¹é½
 	ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
 	
-	// ×ª»»Í¨µÀ1¸ö
+	// è½¬æ¢é€šé“1ä¸ª
 	ADC_InitStructure.ADC_NbrOfChannel = 1;	
 		
-	// ³õÊ¼»¯ADC
+	// åˆå§‹åŒ–ADC
 	ADC_Init(ELE_ADC, &ADC_InitStructure);
 	
-	// ÅäÖÃADCÊ±ÖÓÎªPCLK2µÄ6·ÖÆµ£¬¼´12MHz
+	// é…ç½®ADCæ—¶é’Ÿä¸ºPCLK2çš„6åˆ†é¢‘ï¼Œå³12MHz
 	RCC_ADCCLKConfig(RCC_PCLK2_Div6); 
 	
-	// ÅäÖÃ ADC Í¨µÀ×ª»»Ë³ĞòºÍ²ÉÑùÊ±¼ä
+	// é…ç½® ADC é€šé“è½¬æ¢é¡ºåºå’Œé‡‡æ ·æ—¶é—´
 	ADC_RegularChannelConfig(ELE_ADC, ELE_ADC_L_CHANNEL, 1, 
 	                         ADC_SampleTime_239Cycles5);
 							 
@@ -114,20 +114,20 @@ static void ELE_ADC_Mode_Config(void)
 	ADC_RegularChannelConfig(ELE_ADC, ELE_ADC_R_CHANNEL, 1, 
 	                         ADC_SampleTime_239Cycles5);
 		
-	// ²»ÖĞ¶Ï
+	// ä¸ä¸­æ–­
 	ADC_ITConfig(ELE_ADC, ADC_IT_EOC, DISABLE);
 	
-	// ¿ªÆôADC £¬²¢¿ªÊ¼×ª»»
+	// å¼€å¯ADC ï¼Œå¹¶å¼€å§‹è½¬æ¢
 	ADC_Cmd(ELE_ADC, ENABLE);
 	
-	// ³õÊ¼»¯ADC Ğ£×¼¼Ä´æÆ÷  
+	// åˆå§‹åŒ–ADC æ ¡å‡†å¯„å­˜å™¨  
 	ADC_ResetCalibration(ELE_ADC);
-	// µÈ´ıĞ£×¼¼Ä´æÆ÷³õÊ¼»¯Íê³É
+	// ç­‰å¾…æ ¡å‡†å¯„å­˜å™¨åˆå§‹åŒ–å®Œæˆ
 	while(ADC_GetResetCalibrationStatus(ELE_ADC));
 	
-	// ADC¿ªÊ¼Ğ£×¼
+	// ADCå¼€å§‹æ ¡å‡†
 	ADC_StartCalibration(ELE_ADC);
-	// µÈ´ıĞ£×¼Íê³É
+	// ç­‰å¾…æ ¡å‡†å®Œæˆ
 	while(ADC_GetCalibrationStatus(ELE_ADC));
 	
 }
@@ -136,11 +136,11 @@ static void ELE_ADC_Mode_Config(void)
 Function: ELE_ADC_Init
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º³õÊ¼»¯µç´ÅÑ²ÏßADC
-Èë¿Ú²ÎÊı: ÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šåˆå§‹åŒ–ç”µç£å·¡çº¿ADC
+å…¥å£å‚æ•°: æ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
-//µç´ÅÑ²Ïß³õÊ¼»¯
+//ç”µç£å·¡çº¿åˆå§‹åŒ–
 void ELE_ADC_Init(void)
 {
 	ELE_ADC_GPIO_Config();
@@ -153,64 +153,64 @@ void ELE_ADC_Init(void)
 Function: CCD_ADC_Mode_Config
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º³õÊ¼»¯CCDÑ²ÏßADC
-Èë¿Ú²ÎÊı: ÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šåˆå§‹åŒ–CCDå·¡çº¿ADC
+å…¥å£å‚æ•°: æ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 static void CCD_ADC_Mode_Config(void)
 {
 	ADC_InitTypeDef ADC_InitStructure;	
 
-	// ´ò¿ªADCÊ±ÖÓ
+	// æ‰“å¼€ADCæ—¶é’Ÿ
 	CCD_ADC_APBxClock_FUN ( CCD_ADC_CLK, ENABLE );
 	
-	//¸´Î»ADC1,½«ÍâÉè ADC1 µÄÈ«²¿¼Ä´æÆ÷ÖØÉèÎªÈ±Ê¡Öµ
+	//å¤ä½ADC1,å°†å¤–è®¾ ADC1 çš„å…¨éƒ¨å¯„å­˜å™¨é‡è®¾ä¸ºç¼ºçœå€¼
 	ADC_DeInit(CCD_ADC); 
 
-	// ADC Ä£Ê½ÅäÖÃ
-	// Ö»Ê¹ÓÃÒ»¸öADC£¬ÊôÓÚ¶ÀÁ¢Ä£Ê½
+	// ADC æ¨¡å¼é…ç½®
+	// åªä½¿ç”¨ä¸€ä¸ªADCï¼Œå±äºç‹¬ç«‹æ¨¡å¼
 	ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
 	
-	// ½ûÖ¹É¨ÃèÄ£Ê½£¬¶àÍ¨µÀ²ÅÒª£¬µ¥Í¨µÀ²»ĞèÒª
+	// ç¦æ­¢æ‰«ææ¨¡å¼ï¼Œå¤šé€šé“æ‰è¦ï¼Œå•é€šé“ä¸éœ€è¦
 	ADC_InitStructure.ADC_ScanConvMode = DISABLE ; 
 
-	// µ¥´Î×ª»»
+	// å•æ¬¡è½¬æ¢
 	ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;
 
-	// ²»ÓÃÍâ²¿´¥·¢×ª»»£¬Èí¼ş¿ªÆô¼´¿É
+	// ä¸ç”¨å¤–éƒ¨è§¦å‘è½¬æ¢ï¼Œè½¯ä»¶å¼€å¯å³å¯
 	ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
 
-	// ×ª»»½á¹ûÓÒ¶ÔÆë
+	// è½¬æ¢ç»“æœå³å¯¹é½
 	ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
 	
-	// ×ª»»Í¨µÀ1¸ö
+	// è½¬æ¢é€šé“1ä¸ª
 	ADC_InitStructure.ADC_NbrOfChannel = 1;	
 		
-	// ³õÊ¼»¯ADC
+	// åˆå§‹åŒ–ADC
 	ADC_Init(CCD_ADC, &ADC_InitStructure);
 	
-	// ÅäÖÃADCÊ±ÖÓÎªPCLK2µÄ6·ÖÆµ£¬¼´12MHz
+	// é…ç½®ADCæ—¶é’Ÿä¸ºPCLK2çš„6åˆ†é¢‘ï¼Œå³12MHz
 	RCC_ADCCLKConfig(RCC_PCLK2_Div6); 
 
-	// ÅäÖÃ ADC Í¨µÀ×ª»»Ë³ĞòºÍ²ÉÑùÊ±¼ä
+	// é…ç½® ADC é€šé“è½¬æ¢é¡ºåºå’Œé‡‡æ ·æ—¶é—´
 	ADC_RegularChannelConfig(CCD_ADC, CCD_ADC_CHANNEL, 1, 
 	                         ADC_SampleTime_239Cycles5);
 		
 		
-	// ²»ÖĞ¶Ï
+	// ä¸ä¸­æ–­
 	ADC_ITConfig(CCD_ADC, ADC_IT_EOC, DISABLE);
 	
-	// ¿ªÆôADC £¬²¢¿ªÊ¼×ª»»
+	// å¼€å¯ADC ï¼Œå¹¶å¼€å§‹è½¬æ¢
 	ADC_Cmd(CCD_ADC, ENABLE);
 	
-	// ³õÊ¼»¯ADC Ğ£×¼¼Ä´æÆ÷  
+	// åˆå§‹åŒ–ADC æ ¡å‡†å¯„å­˜å™¨  
 	ADC_ResetCalibration(CCD_ADC);
-	// µÈ´ıĞ£×¼¼Ä´æÆ÷³õÊ¼»¯Íê³É
+	// ç­‰å¾…æ ¡å‡†å¯„å­˜å™¨åˆå§‹åŒ–å®Œæˆ
 	while(ADC_GetResetCalibrationStatus(CCD_ADC));
 	
-	// ADC¿ªÊ¼Ğ£×¼
+	// ADCå¼€å§‹æ ¡å‡†
 	ADC_StartCalibration(CCD_ADC);
-	// µÈ´ıĞ£×¼Íê³É
+	// ç­‰å¾…æ ¡å‡†å®Œæˆ
 
 	while(ADC_GetCalibrationStatus(CCD_ADC));
 }
@@ -220,18 +220,18 @@ static void CCD_ADC_Mode_Config(void)
 Function: CCD_GPIO_Config
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º³õÊ¼»¯CCDÑ²ÏßGPIO
-Èë¿Ú²ÎÊı: ÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šåˆå§‹åŒ–CCDå·¡çº¿GPIO
+å…¥å£å‚æ•°: æ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 static void CCD_GPIO_Config(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 	
-	// ´ò¿ªCCD¶Ë¿ÚÊ±ÖÓ
+	// æ‰“å¼€CCDç«¯å£æ—¶é’Ÿ
 	RCC_APB2PeriphClockCmd ( TSL_CLK_GPIO_CLK|TSL_SI_GPIO_CLK|CCD_ADC_GPIO_CLK, ENABLE );
 	
-	// CLK,SIÅäÖÃÎªÊä³ö	
+	// CLK,SIé…ç½®ä¸ºè¾“å‡º	
 	GPIO_InitStructure.GPIO_Pin = TSL_SI_PIN;				//PA4
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
@@ -244,7 +244,7 @@ static void CCD_GPIO_Config(void)
 	GPIO_Init(TSL_CLK_PORT, &GPIO_InitStructure);				
 
 
-	//ÅäÖÃADCÊäÈëÄ£Ê½
+	//é…ç½®ADCè¾“å…¥æ¨¡å¼
 	GPIO_InitStructure.GPIO_Pin = CCD_ADC_PIN;				//PC5
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
 	GPIO_Init(CCD_ADC_PORT, &GPIO_InitStructure);				
@@ -256,9 +256,9 @@ static void CCD_GPIO_Config(void)
 Function: CCD_Init
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º³õÊ¼»¯CCDÑ²Ïß
-Èë¿Ú²ÎÊı: ÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šåˆå§‹åŒ–CCDå·¡çº¿
+å…¥å£å‚æ•°: æ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 void CCD_Init(void)
 {
@@ -271,9 +271,9 @@ void CCD_Init(void)
 Function: ELE_Mode
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£ºµç´ÅÑ²ÏßÄ£Ê½ÔËĞĞ
-Èë¿Ú²ÎÊı: ÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šç”µç£å·¡çº¿æ¨¡å¼è¿è¡Œ
+å…¥å£å‚æ•°: æ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 void ELE_Mode(void)
 {
@@ -283,19 +283,19 @@ void ELE_Mode(void)
 	Sensor_Right = Get_Adc(ELE_ADC_R_CHANNEL);
 	Sum = Sensor_Left*1+Sensor_Middle*100+Sensor_Right*199;			
 	Sensor = Sum/(Sensor_Left+Sensor_Middle+Sensor_Right);
-	if(Detect_Barrier() == No_Barrier)		//¼ì²âµ½ÎŞÕÏ°­Îï
+	if(Detect_Barrier() == No_Barrier)		//æ£€æµ‹åˆ°æ— éšœç¢ç‰©
 	{
-		Move_X = ELE_Move_X;				//Ñ²ÏßµÄÊ±ºòËÙ¶È,Ä¬ÈÏÊÇ0.25m
+		Move_X = ELE_Move_X;				//å·¡çº¿çš„æ—¶å€™é€Ÿåº¦,é»˜è®¤æ˜¯0.25m
 		if(Car_Num == Diff_Car|| Car_Num == Akm_Car)
-			Move_Z = ELE_PID(Sensor,92);		//Ä¿±êÖµ92
+			Move_Z = ELE_PID(Sensor,92);		//ç›®æ ‡å€¼92
 		else
-			Move_Z = ELE_PID(Sensor,100);		//Ä¿±êÖµ100
+			Move_Z = ELE_PID(Sensor,100);		//ç›®æ ‡å€¼100
 		Buzzer_Alarm(0);
     }											
-	else									//ÓĞÕÏ°­Îï
+	else									//æœ‰éšœç¢ç‰©
 	{
 		if(!Flag_Stop)
-			Buzzer_Alarm(100);				//µ±µç»úÊ¹ÄÜµÄÊ±ºò£¬ÓĞÕÏ°­ÎïÔò·äÃùÆ÷±¨¾¯
+			Buzzer_Alarm(100);				//å½“ç”µæœºä½¿èƒ½çš„æ—¶å€™ï¼Œæœ‰éšœç¢ç‰©åˆ™èœ‚é¸£å™¨æŠ¥è­¦
 		else 
 			Buzzer_Alarm(0);
 		Move_X = 0;
@@ -307,26 +307,26 @@ void ELE_Mode(void)
 Function: Detect_Barrier
 Input   : none
 Output  : 1or0(Barrier_Detected or No_Barrier)
-º¯Êı¹¦ÄÜ£ºµç´ÅÑ²ÏßÄ£Ê½À×´ï¼ì²âÕÏ°­Îï
-Èë¿Ú²ÎÊı: ÎŞ
-·µ»Ø  Öµ£º1»ò0(¼ì²âµ½ÕÏ°­Îï»òÎŞÕÏ°­Îï)
+å‡½æ•°åŠŸèƒ½ï¼šç”µç£å·¡çº¿æ¨¡å¼é›·è¾¾æ£€æµ‹éšœç¢ç‰©
+å…¥å£å‚æ•°: æ— 
+è¿”å›  å€¼ï¼š1æˆ–0(æ£€æµ‹åˆ°éšœç¢ç‰©æˆ–æ— éšœç¢ç‰©)
 **************************************************************************/	 	
-//¼ì²âÕÏ°­Îï
+//æ£€æµ‹éšœç¢ç‰©
 u8 Detect_Barrier(void)
 {
 	int i;
 	u8 point_count = 0;
 	if(Lidar_Detect == Lidar_Detect_ON)
 	{
-		for(i=0;i<390;i++)	//¼ì²âÊÇ·ñÓĞÕÏ°­Îï
+		for(i=0;i<390;i++)	//æ£€æµ‹æ˜¯å¦æœ‰éšœç¢ç‰©
 		{
 			if((Dataprocess[i].angle>300)||(Dataprocess[i].angle<60))
 			{
-				if(0<Dataprocess[i].distance&&Dataprocess[i].distance<700)//700mmÄÚÊÇ·ñÓĞÕÏ°­Îï
+				if(0<Dataprocess[i].distance&&Dataprocess[i].distance<700)//700mmå†…æ˜¯å¦æœ‰éšœç¢ç‰©
 					point_count++;
 		  }
 		}
-		if(point_count > 3)//ÓĞÕÏ°­Îï
+		if(point_count > 3)//æœ‰éšœç¢ç‰©
 			return Barrier_Detected;
 		else
 			return No_Barrier;
@@ -335,10 +335,10 @@ u8 Detect_Barrier(void)
 		return No_Barrier;
 }
 /**************************************************************************
-º¯Êı¹¦ÄÜ£ºÈí¼şÑÓÊ±
-Èë¿Ú²ÎÊı£ºÎŞ
-·µ»Ø  Öµ£ºÎŞ
-×÷    Õß£ºÆ½ºâĞ¡³µÖ®¼Ò
+å‡½æ•°åŠŸèƒ½ï¼šè½¯ä»¶å»¶æ—¶
+å…¥å£å‚æ•°ï¼šæ— 
+è¿”å›  å€¼ï¼šæ— 
+ä½œ    è€…ï¼šå¹³è¡¡å°è½¦ä¹‹å®¶
 **************************************************************************/
 void Dly_us(void)
 {
@@ -350,11 +350,11 @@ void Dly_us(void)
 Function: Read_TSL
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º¶ÁÈ¡CCDÄ£¿éµÄÊı¾İ
-Èë¿Ú²ÎÊı: ÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šè¯»å–CCDæ¨¡å—çš„æ•°æ®
+å…¥å£å‚æ•°: æ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
-//¶ÁÈ¡CCDÄ£¿éµÄÊı¾İ
+//è¯»å–CCDæ¨¡å—çš„æ•°æ®
 void RD_TSL(void) 
 {
 	u8 i=0,tslp=0;
@@ -378,7 +378,7 @@ void RD_TSL(void)
 	for(i=0;i<128;i++)
 	{ 
 		TSL_CLK_LOW; 
-		Dly_us();  //µ÷½ÚÆØ¹âÊ±¼ä
+		Dly_us();  //è°ƒèŠ‚æ›å…‰æ—¶é—´
 		CCD_ADV[tslp]=(Get_Adc(CCD_ADC_CHANNEL))>>4;		
 		++tslp;
 		TSL_CLK_HIGH;
@@ -388,31 +388,31 @@ void RD_TSL(void)
 
 
 /**************************************************************************
-º¯Êı¹¦ÄÜ£ºÏßĞÔCCDÈ¡ÖĞÖµ
-Èë¿Ú²ÎÊı£ºÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šçº¿æ€§CCDå–ä¸­å€¼
+å…¥å£å‚æ•°ï¼šæ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
 void  Find_CCD_Median(void)
 { 
 	static u8 i,j,Left,Right,Last_CCD_Median;
 	static u16 value1_max,value1_min;
 
-	value1_max=CCD_ADV[0];  //¶¯Ì¬ãĞÖµËã·¨£¬¶ÁÈ¡×î´óºÍ×îĞ¡Öµ
-	for(i=5;i<123;i++)   //Á½±ß¸÷È¥µô5¸öµã
+	value1_max=CCD_ADV[0];  //åŠ¨æ€é˜ˆå€¼ç®—æ³•ï¼Œè¯»å–æœ€å¤§å’Œæœ€å°å€¼
+	for(i=5;i<123;i++)   //ä¸¤è¾¹å„å»æ‰5ä¸ªç‚¹
 	{
 		if(value1_max<=CCD_ADV[i])
 		value1_max=CCD_ADV[i];
 	}
-	value1_min=CCD_ADV[0];  //×îĞ¡Öµ
+	value1_min=CCD_ADV[0];  //æœ€å°å€¼
 	for(i=5;i<123;i++) 
 	{
 		if(value1_min>=CCD_ADV[i])
 		value1_min=CCD_ADV[i];
 	}
-	CCD_Threshold=(value1_max+value1_min)/2;	  //¼ÆËã³ö±¾´ÎÖĞÏßÌáÈ¡µÄãĞÖµ
+	CCD_Threshold=(value1_max+value1_min)/2;	  //è®¡ç®—å‡ºæœ¬æ¬¡ä¸­çº¿æå–çš„é˜ˆå€¼
 	
-	//CCDÑ²µ¥Ïß
-	for(i = 15;i<118; i++)   //Ñ°ÕÒ×ó±ßÌø±äÑØ
+	//CCDå·¡å•çº¿
+	for(i = 15;i<118; i++)   //å¯»æ‰¾å·¦è¾¹è·³å˜æ²¿
 	{
 		if(CCD_ADV[i]>CCD_Threshold&&CCD_ADV[i+1]>CCD_Threshold&&CCD_ADV[i+2]>CCD_Threshold&&CCD_ADV[i+3]<CCD_Threshold&&CCD_ADV[i+4]<CCD_Threshold&&CCD_ADV[i+5]<CCD_Threshold)
 		{	
@@ -420,7 +420,7 @@ void  Find_CCD_Median(void)
 			break;	
 		}
 	}
-	for(j = 118;j>15; j--)//Ñ°ÕÒÓÒ±ßÌø±äÑØ
+	for(j = 118;j>15; j--)//å¯»æ‰¾å³è¾¹è·³å˜æ²¿
 	{
 		if(CCD_ADV[j]<CCD_Threshold&&CCD_ADV[j+1]<CCD_Threshold&&CCD_ADV[j+2]<CCD_Threshold&&CCD_ADV[j+3]>CCD_Threshold&&CCD_ADV[j+4]>CCD_Threshold&&CCD_ADV[j+5]>CCD_Threshold)
 		{	
@@ -428,27 +428,27 @@ void  Find_CCD_Median(void)
 			break;	
 		}
 	}
-	CCD_Median=(Right+Left)/2;//¼ÆËãÖĞÏßÎ»ÖÃ
-	if(myabs(CCD_Median-Last_CCD_Median)>90)   //¼ÆËãÖĞÏßµÄÆ«²î£¬Èç¹ûÌ«´ó
-		CCD_Median=Last_CCD_Median;    //ÔòÈ¡ÉÏÒ»´ÎµÄÖµ
-	Last_CCD_Median=CCD_Median;  //±£´æÉÏÒ»´ÎµÄÆ«²î
+	CCD_Median=(Right+Left)/2;//è®¡ç®—ä¸­çº¿ä½ç½®
+	if(myabs(CCD_Median-Last_CCD_Median)>90)   //è®¡ç®—ä¸­çº¿çš„åå·®ï¼Œå¦‚æœå¤ªå¤§
+		CCD_Median=Last_CCD_Median;    //åˆ™å–ä¸Šä¸€æ¬¡çš„å€¼
+	Last_CCD_Median=CCD_Median;  //ä¿å­˜ä¸Šä¸€æ¬¡çš„åå·®
 
 }	
 /**************************************************************************
 Function: CCD_Mode
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£ºCCDÑ²ÏßÄ£Ê½ÔËĞĞ
-Èë¿Ú²ÎÊı: ÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šCCDå·¡çº¿æ¨¡å¼è¿è¡Œ
+å…¥å£å‚æ•°: æ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 void CCD_Mode(void)
 {
-	RD_TSL();			//¶ÁÈ¡CCDÄ£¿éÊı¾İ
-	Find_CCD_Median();	//ÕÒÖĞÖµ
+	RD_TSL();			//è¯»å–CCDæ¨¡å—æ•°æ®
+	Find_CCD_Median();	//æ‰¾ä¸­å€¼
 	
-	Move_X = CCD_Move_X;			//CCDÑ²ÏßËÙ¶È£¬Ä¬ÈÏ0.3m
-	Move_Z = CCD_PID(CCD_Median,64);//PIDµ÷½Ú£¬Ä¿±êÖµ64
+	Move_X = CCD_Move_X;			//CCDå·¡çº¿é€Ÿåº¦ï¼Œé»˜è®¤0.3m
+	Move_Z = CCD_PID(CCD_Median,64);//PIDè°ƒèŠ‚ï¼Œç›®æ ‡å€¼64
 	
 }
 

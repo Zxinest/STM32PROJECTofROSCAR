@@ -1,56 +1,56 @@
 /***********************************************
-¹«Ë¾£ºÂÖÈ¤¿Æ¼¼£¨¶«İ¸£©ÓĞÏŞ¹«Ë¾
-Æ·ÅÆ£ºWHEELTEC
-¹ÙÍø£ºwheeltec.net
-ÌÔ±¦µêÆÌ£ºshop114407458.taobao.com 
-ËÙÂôÍ¨: https://minibalance.aliexpress.com/store/4455017
-°æ±¾£ºV1.0
-ĞŞ¸ÄÊ±¼ä£º2023-03-02
+å…¬å¸ï¼šè½®è¶£ç§‘æŠ€ï¼ˆä¸œèï¼‰æœ‰é™å…¬å¸
+å“ç‰Œï¼šWHEELTEC
+å®˜ç½‘ï¼šwheeltec.net
+æ·˜å®åº—é“ºï¼šshop114407458.taobao.com 
+é€Ÿå–é€š: https://minibalance.aliexpress.com/store/4455017
+ç‰ˆæœ¬ï¼šV1.0
+ä¿®æ”¹æ—¶é—´ï¼š2023-03-02
 
 Brand: WHEELTEC
 Website: wheeltec.net
 Taobao shop: shop114407458.taobao.com 
 Aliexpress: https://minibalance.aliexpress.com/store/4455017
 Version: V1.0
-Update£º2023-03-02
+Updateï¼š2023-03-02
 
 All rights reserved
 ***********************************************/
 
 #include "bluetooth.h"  
-u8 PID_Send;			//ÓÃÓÚÊÖ»úapp»ñÈ¡²ÎÊı½çÃæµÄ±äÁ¿
-u8 Flag_Direction;		//ÓÃÓÚÊÖ»úappµÄ·½Ïò±äÁ¿£¬Ë³Ê±ÕëÒ»È¦¹²8¸ö·½Ïò£¬ÊıÖµÊÇ1--8,Í£Ö¹Ê±ÊıÖµÎª0
+u8 PID_Send;			//ç”¨äºæ‰‹æœºappè·å–å‚æ•°ç•Œé¢çš„å˜é‡
+u8 Flag_Direction;		//ç”¨äºæ‰‹æœºappçš„æ–¹å‘å˜é‡ï¼Œé¡ºæ—¶é’ˆä¸€åœˆå…±8ä¸ªæ–¹å‘ï¼Œæ•°å€¼æ˜¯1--8,åœæ­¢æ—¶æ•°å€¼ä¸º0
 /**************************************************************************
 Function: BLUETOOTH_USART_IRQHandler
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£ºÀ¶ÑÀ½ÓÊÕÖĞ¶Ïº¯Êı£¬½ÓÊÕÀ´×ÔÊÖ»úµÄÊı¾İ
-Èë¿Ú²ÎÊı: ÎŞ 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šè“ç‰™æ¥æ”¶ä¸­æ–­å‡½æ•°ï¼Œæ¥æ”¶æ¥è‡ªæ‰‹æœºçš„æ•°æ®
+å…¥å£å‚æ•°: æ—  
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
-//À¶ÑÀ½ÓÊÕÖĞ¶Ï£¬´®¿Ú3
+//è“ç‰™æ¥æ”¶ä¸­æ–­ï¼Œä¸²å£3
 void BLUETOOTH_USART_IRQHandler(void)
 {
-	static int temp_count = 0;				//ÓÃÓÚ¼ÇÂ¼Ç°½øµÄÖ¸ÁîµÄ´ÎÊı£¬µÚÒ»´ÎÁ¬½ÓÀ¶ÑÀµÄÊ±ºòĞèÒªÓÃµ½
-	static	int bluetooth_receive=0;		//À¶ÑÀ½ÓÊÕÏà¹Ø±äÁ¿
+	static int temp_count = 0;				//ç”¨äºè®°å½•å‰è¿›çš„æŒ‡ä»¤çš„æ¬¡æ•°ï¼Œç¬¬ä¸€æ¬¡è¿æ¥è“ç‰™çš„æ—¶å€™éœ€è¦ç”¨åˆ°
+	static	int bluetooth_receive=0;		//è“ç‰™æ¥æ”¶ç›¸å…³å˜é‡
 	static u8 Flag_PID,i,j,Receive[50];
-	static float Data;						//app½çÃæ½ÓÊÕ²ÎÊıÓÃµ½µÄ±äÁ¿
-	if(USART_GetITStatus(BLUETOOTH_USARTx, USART_IT_RXNE) != RESET) //½ÓÊÕµ½Êı¾İ
+	static float Data;						//appç•Œé¢æ¥æ”¶å‚æ•°ç”¨åˆ°çš„å˜é‡
+	if(USART_GetITStatus(BLUETOOTH_USARTx, USART_IT_RXNE) != RESET) //æ¥æ”¶åˆ°æ•°æ®
 	{	  
 		bluetooth_receive=USART_ReceiveData(BLUETOOTH_USARTx); 
 		USART_ClearITPendingBit(BLUETOOTH_USARTx,USART_IT_RXNE);
-		if(APP_ON_Flag == RC_OFF)						//Î´¿ªÆôÀ¶ÑÀ¿ØÖÆ£¬Ö»½ÓÊÕÊı¾İ½øĞĞ¼òµ¥µÄ·ÖÎö
+		if(APP_ON_Flag == RC_OFF)						//æœªå¼€å¯è“ç‰™æ§åˆ¶ï¼Œåªæ¥æ”¶æ•°æ®è¿›è¡Œç®€å•çš„åˆ†æ
 		{
 			if(bluetooth_receive == 0x41)
 			{
-				if((++temp_count) == 5)					//ĞèÒªÁ¬Ğø·¢ËÍ5´ÎÇ°½øµÄÖ¸Áî£¬ÉÏÀ­×ªÅÌÒ»¶ÎÊ±¼ä¿É¿ªÊ¼app¿ØÖÆ
+				if((++temp_count) == 5)					//éœ€è¦è¿ç»­å‘é€5æ¬¡å‰è¿›çš„æŒ‡ä»¤ï¼Œä¸Šæ‹‰è½¬ç›˜ä¸€æ®µæ—¶é—´å¯å¼€å§‹appæ§åˆ¶
 				{
 					temp_count = 0;
 					APP_ON_Flag = RC_ON;		
 					PS2_ON_Flag = RC_OFF;
 					ROS_ON_Flag=RC_OFF;
 					Remote_ON_Flag = RC_OFF;
-					RC_Velocity = Default_Velocity;		//´ËÊ±ËÙ¶È»Ö¸´Ä¬ÈÏËÙ¶È
+					RC_Velocity = Default_Velocity;		//æ­¤æ—¶é€Ÿåº¦æ¢å¤é»˜è®¤é€Ÿåº¦
 					RC_Turn_Velocity = Pi/20;
 				}
 			}
@@ -59,26 +59,26 @@ void BLUETOOTH_USART_IRQHandler(void)
 		}
 		else 
 		{
-			if(bluetooth_receive>=0x41&&bluetooth_receive<=0x48) 	//Ä¬ÈÏÊ¹ÓÃ£¬8¸ö·½ÏòÊÖ»ú·¢ËÍµÄÊıÖµÊÇ0x41--0x48
+			if(bluetooth_receive>=0x41&&bluetooth_receive<=0x48) 	//é»˜è®¤ä½¿ç”¨ï¼Œ8ä¸ªæ–¹å‘æ‰‹æœºå‘é€çš„æ•°å€¼æ˜¯0x41--0x48
 				Flag_Direction=bluetooth_receive-0x40;
 			
-			else if(bluetooth_receive==0X5A)  						//Í£Ö¹Ê±·¢ËÍ0x5a
+			else if(bluetooth_receive==0X5A)  						//åœæ­¢æ—¶å‘é€0x5a
 				Flag_Direction=0;
 
-			else if(bluetooth_receive<=10)  //±¸ÓÃapp
+			else if(bluetooth_receive<=10)  //å¤‡ç”¨app
 				Flag_Direction=bluetooth_receive;	
 			
-			else if(bluetooth_receive==0x59) 						//¼õËÙ°´¼ü
+			else if(bluetooth_receive==0x59) 						//å‡é€ŸæŒ‰é”®
 			{
 				if((RC_Velocity -= X_Step)<MINI_RC_Velocity)
 					RC_Velocity = MINI_RC_Velocity;
-				if(Car_Num != Akm_Car)								//·Ç°¢¿ËÂü³µ×ªÏòËÙ¶È¿É¸ü¸Ä
+				if(Car_Num != Akm_Car)								//éé˜¿å…‹æ›¼è½¦è½¬å‘é€Ÿåº¦å¯æ›´æ”¹
 				{
 					if((RC_Turn_Velocity -= Z_Step)<MINI_RC_Turn_Velocity)
 					RC_Turn_Velocity = MINI_RC_Turn_Velocity;
 				}
 			}			 
-			else if(bluetooth_receive==0x58)						//¼ÓËÙ
+			else if(bluetooth_receive==0x58)						//åŠ é€Ÿ
 			{
 				if((RC_Velocity += X_Step)>MAX_RC_Velocity)
 					RC_Velocity = MAX_RC_Velocity;
@@ -88,15 +88,15 @@ void BLUETOOTH_USART_IRQHandler(void)
 						RC_Turn_Velocity = MAX_RC_Turn_Bias;
 				}
 			}			
-			else if(bluetooth_receive==0x7B) Flag_PID=1;   			//APP²ÎÊıÖ¸ÁîÆğÊ¼Î»
-			else if(bluetooth_receive==0x7D) Flag_PID=2;   			//APP²ÎÊıÖ¸ÁîÍ£Ö¹Î»
+			else if(bluetooth_receive==0x7B) Flag_PID=1;   			//APPå‚æ•°æŒ‡ä»¤èµ·å§‹ä½
+			else if(bluetooth_receive==0x7D) Flag_PID=2;   			//APPå‚æ•°æŒ‡ä»¤åœæ­¢ä½
 
-			if(Flag_PID==1)  //²É¼¯Êı¾İ
+			if(Flag_PID==1)  //é‡‡é›†æ•°æ®
 			{
 				Receive[i]=bluetooth_receive;
 				i++;
 			}
-			if(Flag_PID==2)  //·ÖÎöÊı¾İ
+			if(Flag_PID==2)  //åˆ†ææ•°æ®
 			{
 				if(Receive[3]==0x50) 	 PID_Send=1;
 				else if(Receive[1]!=0x23) 
@@ -105,17 +105,17 @@ void BLUETOOTH_USART_IRQHandler(void)
 					{
 						Data+=(Receive[j-1]-48)*pow(10,i-j);
 					}
-								switch(Receive[1])//µ÷²Î½çÃæ
+								switch(Receive[1])//è°ƒå‚ç•Œé¢
 								{  
 								case 0x30:  CCD_KP_STank =Data/100000;break;
-								case 0x31:  CCD_KD_STank =Data/100000;break;//mm/s»¯Îªm/s
+								case 0x31:  CCD_KD_STank =Data/100000;break;//mm/såŒ–ä¸ºm/s
 								case 0x32:  CCD_KI_STank =Data/100000;break;
-								case 0x33:  break; //Ô¤Áô
-								case 0x34:  break; //Ô¤Áô 
-								case 0x35:  break; //Ô¤Áô
-								case 0x36:  break; //Ô¤Áô
-								case 0x37:  break; //Ô¤Áô
-								case 0x38:  break; //Ô¤Áô
+								case 0x33:  break; //é¢„ç•™
+								case 0x34:  break; //é¢„ç•™ 
+								case 0x35:  break; //é¢„ç•™
+								case 0x36:  break; //é¢„ç•™
+								case 0x37:  break; //é¢„ç•™
+								case 0x38:  break; //é¢„ç•™
 								default:break;
 								}
 				}				 
@@ -123,7 +123,7 @@ void BLUETOOTH_USART_IRQHandler(void)
 				i=0;
 				j=0;
 				Data=0;
-				memset(Receive, 0, sizeof(u8)*50);//Êı×éÇåÁã
+				memset(Receive, 0, sizeof(u8)*50);//æ•°ç»„æ¸…é›¶
 			} 
 		}
 	}  											 

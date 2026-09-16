@@ -1,18 +1,18 @@
 /***********************************************
-¹«Ë¾£ºÂÖÈ¤¿Æ¼¼£¨¶«İ¸£©ÓĞÏŞ¹«Ë¾
-Æ·ÅÆ£ºWHEELTEC
-¹ÙÍø£ºwheeltec.net
-ÌÔ±¦µêÆÌ£ºshop114407458.taobao.com 
-ËÙÂôÍ¨: https://minibalance.aliexpress.com/store/4455017
-°æ±¾£ºV1.0
-ĞŞ¸ÄÊ±¼ä£º2023-03-02
+å…¬å¸ï¼šè½®è¶£ç§‘æŠ€ï¼ˆä¸œèï¼‰æœ‰é™å…¬å¸
+å“ç‰Œï¼šWHEELTEC
+å®˜ç½‘ï¼šwheeltec.net
+æ·˜å®åº—é“ºï¼šshop114407458.taobao.com 
+é€Ÿå–é€š: https://minibalance.aliexpress.com/store/4455017
+ç‰ˆæœ¬ï¼šV1.0
+ä¿®æ”¹æ—¶é—´ï¼š2023-03-02
 
 Brand: WHEELTEC
 Website: wheeltec.net
 Taobao shop: shop114407458.taobao.com 
 Aliexpress: https://minibalance.aliexpress.com/store/4455017
 Version: V1.0
-Update£º2023-03-02
+Updateï¼š2023-03-02
 
 All rights reserved
 ***********************************************/
@@ -24,39 +24,39 @@ All rights reserved
 
 
 
-//µ¥Æ¬»ú×î´ó²âÁ¿µçÑ¹3.3V
+//å•ç‰‡æœºæœ€å¤§æµ‹é‡ç”µå‹3.3V
 #define Max_Voltage   				3.3f
-//ADC¶ÁÈ¡×î´óÊıÖµ4095
+//ADCè¯»å–æœ€å¤§æ•°å€¼4095
 #define Max_Voltage_ADC				4095
-//µç³ØµçÑ¹Óë¶ÁÈ¡µçÑ¹µÄ±ÈÀı£¬11:1
+//ç”µæ± ç”µå‹ä¸è¯»å–ç”µå‹çš„æ¯”ä¾‹ï¼Œ11:1
 #define Ratio 						11
-//³µĞÍÑ¡ÔñADCµçÑ¹×î´óÊÇ3.3/2V 
+//è½¦å‹é€‰æ‹©ADCç”µå‹æœ€å¤§æ˜¯3.3/2V 
 #define Max_Car_ADC					2047
-//Ò»¹²ËÄ¸ö³µ
+//ä¸€å…±å››ä¸ªè½¦
 #define Num_Of_Car					4
 
 
-// ADC ±àºÅÑ¡Ôñ
-// ¿ÉÒÔÊÇ ADC1/2£¬Èç¹ûÊ¹ÓÃADC3£¬ÖĞ¶ÏÏà¹ØµÄÒª¸Ä³ÉADC3µÄ
+// ADC ç¼–å·é€‰æ‹©
+// å¯ä»¥æ˜¯ ADC1/2ï¼Œå¦‚æœä½¿ç”¨ADC3ï¼Œä¸­æ–­ç›¸å…³çš„è¦æ”¹æˆADC3çš„
 
-/**************************µçÑ¹¼ì²âADC£¬ADC2*****************************/
+/**************************ç”µå‹æ£€æµ‹ADCï¼ŒADC2*****************************/
 #define    ADC_APBxClock_FUN             RCC_APB2PeriphClockCmd
 #define    ADCx                          ADC2
 #define    ADC_CLK                       RCC_APB2Periph_ADC2
 
-// ADC GPIOºê¶¨Òå
-// ×¢Òâ£ºÓÃ×÷ADC²É¼¯µÄIO±ØĞëÃ»ÓĞ¸´ÓÃ£¬·ñÔò²É¼¯µçÑ¹»áÓĞÓ°Ïì
+// ADC GPIOå®å®šä¹‰
+// æ³¨æ„ï¼šç”¨ä½œADCé‡‡é›†çš„IOå¿…é¡»æ²¡æœ‰å¤ç”¨ï¼Œå¦åˆ™é‡‡é›†ç”µå‹ä¼šæœ‰å½±å“
 #define    ADC_GPIO_APBxClock_FUN        RCC_APB2PeriphClockCmd
 #define    ADC_GPIO_CLK                  RCC_APB2Periph_GPIOC  
 #define    ADC_PORT                      GPIOC
 #define    ADC_PIN                       GPIO_Pin_1
-// ADC Í¨µÀºê¶¨Òå
+// ADC é€šé“å®å®šä¹‰
 #define    ADC_CHANNEL                   ADC_Channel_11
 #define Battery_Ch 11
 
 
 
-/*******************************³µĞÍÑ¡ÔñADC*************************/
+/*******************************è½¦å‹é€‰æ‹©ADC*************************/
 //ADC1
 #define    CAR_ADC_APBxClock_FUN             	 RCC_APB2PeriphClockCmd
 #define    CAR_ADC                          	 ADC1
@@ -68,7 +68,7 @@ All rights reserved
 #define    CAR_ADC_PIN                       	 GPIO_Pin_0
 
 
-// ADC Í¨µÀºê¶¨Òå
+// ADC é€šé“å®å®šä¹‰
 #define    CAR_ADC_CHANNEL                  	 ADC_Channel_10
 #define    ELE_ADC_L_CHANNEL					 ADC_Channel_4
 #define    ELE_ADC_M_CHANNEL					 ADC_Channel_5

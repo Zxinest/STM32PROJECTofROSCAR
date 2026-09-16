@@ -1,18 +1,18 @@
 /***********************************************
-¹«Ë¾£ºÂÖÈ¤¿Æ¼¼£¨¶«İ¸£©ÓĞÏŞ¹«Ë¾
-Æ·ÅÆ£ºWHEELTEC
-¹ÙÍø£ºwheeltec.net
-ÌÔ±¦µêÆÌ£ºshop114407458.taobao.com 
-ËÙÂôÍ¨: https://minibalance.aliexpress.com/store/4455017
-°æ±¾£ºV1.0
-ĞŞ¸ÄÊ±¼ä£º2023-03-02
+å…¬å¸ï¼šè½®è¶£ç§‘æŠ€ï¼ˆä¸œèï¼‰æœ‰é™å…¬å¸
+å“ç‰Œï¼šWHEELTEC
+å®˜ç½‘ï¼šwheeltec.net
+æ·˜å®åº—é“ºï¼šshop114407458.taobao.com 
+é€Ÿå–é€š: https://minibalance.aliexpress.com/store/4455017
+ç‰ˆæœ¬ï¼šV1.0
+ä¿®æ”¹æ—¶é—´ï¼š2023-03-02
 
 Brand: WHEELTEC
 Website: wheeltec.net
 Taobao shop: shop114407458.taobao.com 
 Aliexpress: https://minibalance.aliexpress.com/store/4455017
 Version: V1.0
-Update£º2023-03-02
+Updateï¼š2023-03-02
 
 All rights reserved
 ***********************************************/
@@ -21,67 +21,67 @@ All rights reserved
 #include "Lidar.h"
 #include "MPU6050.h"
 
-float Move_X =0,Move_Z = 0;						//Ä¿±êËÙ¶ÈºÍÄ¿±ê×ªÏòËÙ¶È
-float PWM_Left,PWM_Right;					//×óÓÒµç»úPWMÖµ
-float RC_Velocity,RC_Turn_Velocity;			//Ò£¿Ø¿ØÖÆµÄËÙ¶È
-u8 Mode = 0;								//Ä£Ê½Ñ¡Ôñ£¬Ä¬ÈÏÊÇÆÕÍ¨µÄ¿ØÖÆÄ£Ê½
-Motor_parameter MotorA,MotorB;				//×óÓÒµç»úÏà¹Ø±äÁ¿
-int Servo_PWM = SERVO_INIT;					//°¢¿ËÂü¶æ»úÏà¹Ø±äÁ¿
-u8 Lidar_Detect = Lidar_Detect_ON;			//µç´ÅÑ²ÏßÄ£Ê½À×´ï¼ì²âÕÏ°­Îï£¬Ä¬ÈÏ¿ªÆô
-float CCD_Move_X = 0.3;						//CCDÑ²ÏßËÙ¶È
-float ELE_Move_X = 0.25;						//µç´ÅÑ²ÏßËÙ¶È
+float Move_X =0,Move_Z = 0;						//ç›®æ ‡é€Ÿåº¦å’Œç›®æ ‡è½¬å‘é€Ÿåº¦
+float PWM_Left,PWM_Right;					//å·¦å³ç”µæœºPWMå€¼
+float RC_Velocity,RC_Turn_Velocity;			//é¥æ§æ§åˆ¶çš„é€Ÿåº¦
+u8 Mode = 0;								//æ¨¡å¼é€‰æ‹©ï¼Œé»˜è®¤æ˜¯æ™®é€šçš„æ§åˆ¶æ¨¡å¼
+Motor_parameter MotorA,MotorB;				//å·¦å³ç”µæœºç›¸å…³å˜é‡
+int Servo_PWM = SERVO_INIT;					//é˜¿å…‹æ›¼èˆµæœºç›¸å…³å˜é‡
+u8 Lidar_Detect = Lidar_Detect_ON;			//ç”µç£å·¡çº¿æ¨¡å¼é›·è¾¾æ£€æµ‹éšœç¢ç‰©ï¼Œé»˜è®¤å¼€å¯
+float CCD_Move_X = 0.3;						//CCDå·¡çº¿é€Ÿåº¦
+float ELE_Move_X = 0.25;						//ç”µç£å·¡çº¿é€Ÿåº¦
 u8 Ros_count=0,Lidar_flag_count=0;
-Encoder OriginalEncoder; //Encoder raw data //±àÂëÆ÷Ô­Ê¼Êı¾İ   
+Encoder OriginalEncoder; //Encoder raw data //ç¼–ç å™¨åŸå§‹æ•°æ®   
 short Accel_Y,Accel_Z,Accel_X,Accel_Angle_x,Accel_Angle_y,Gyro_X,Gyro_Z,Gyro_Y;
 /**************************************************************************
 Function: Control Function
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º5ms¶¨Ê±ÖĞ¶Ï¿ØÖÆº¯Êı
-Èë¿Ú²ÎÊı: ÎŞ 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼š5mså®šæ—¶ä¸­æ–­æ§åˆ¶å‡½æ•°
+å…¥å£å‚æ•°: æ—  
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 int TIMING_TIM_IRQHandler(void)
 {
-	static u8 Count_CCD = 0;								//µ÷½ÚCCD¿ØÖÆÆµÂÊ
+	static u8 Count_CCD = 0;								//è°ƒèŠ‚CCDæ§åˆ¶é¢‘ç‡
 	if(TIM_GetITStatus( TIMING_TIM, TIM_IT_Update) != RESET ) 
 	{			
 		TIM_ClearITPendingBit(TIMING_TIM , TIM_IT_Update);
-		Get_Velocity_From_Encoder();								//¶ÁÈ¡×óÓÒ±àÂëÆ÷µÄÖµÇÒ×ª»»³ÉËÙ¶È
+		Get_Velocity_From_Encoder();								//è¯»å–å·¦å³ç¼–ç å™¨çš„å€¼ä¸”è½¬æ¢æˆé€Ÿåº¦
         Get_KeyVal();		 		
-		if(delay_flag)												//50msÑÓÊ±
+		if(delay_flag)												//50mså»¶æ—¶
 		{
-			if(++delay_50==10) delay_50=0,delay_flag=0;            	//¸øÖ÷º¯ÊıÌá¹©50msµÄ¾«×¼ÑÓÊ±£¬Ö÷ÒªÊÇÓÃÓÚÉÏÎ»»úÊ¾²¨Æ÷
+			if(++delay_50==10) delay_50=0,delay_flag=0;            	//ç»™ä¸»å‡½æ•°æä¾›50msçš„ç²¾å‡†å»¶æ—¶ï¼Œä¸»è¦æ˜¯ç”¨äºä¸Šä½æœºç¤ºæ³¢å™¨
 			else if(delay_50>10)	delay_50=0,delay_flag=0;
 		}
-		if(++Lidar_flag_count==20) Lidar_Success_Receive_flag=0,Lidar_flag_count=0; //50msÇåÁãÀ×´ï½ÓÊÕµ½Êı¾İ±êÖ¾Î»
-		if(Mode == Normal_Mode)										//ÆÕÍ¨µÄ¿ØÖÆÄ£Ê½¿É½øĞĞÀ¶ÑÀ»òÊÖ±ú¿ØÖÆ
+		if(++Lidar_flag_count==20) Lidar_Success_Receive_flag=0,Lidar_flag_count=0; //50msæ¸…é›¶é›·è¾¾æ¥æ”¶åˆ°æ•°æ®æ ‡å¿—ä½
+		if(Mode == Normal_Mode)										//æ™®é€šçš„æ§åˆ¶æ¨¡å¼å¯è¿›è¡Œè“ç‰™æˆ–æ‰‹æŸ„æ§åˆ¶
 		{
 			if(++Ros_count == 10)
 		   {
-			  Get_Angle(2);     //»ñÈ¡½Ç¶È£¬ 2.¿¨¶ûÂüÂË²¨ 3.»¥²¹ÂË²¨
+			  Get_Angle(2);     //è·å–è§’åº¦ï¼Œ 2.å¡å°”æ›¼æ»¤æ³¢ 3.äº’è¡¥æ»¤æ³¢
 //			  data_transition();
-//		      USART1_SEND();                //¸øros¶Ë·¢ËÍÊı¾İ 50msÒ»´Î
+//		      USART1_SEND();                //ç»™rosç«¯å‘é€æ•°æ® 50msä¸€æ¬¡
 		 	  Ros_count=0;
 		    }				
-			if(APP_ON_Flag == RC_ON)								//¿ªÆôÀ¶ÑÀ¿ØÖÆÊ±£¬ĞèÉÏÀ­ÂÖÅÌÖ±µ½ÏÔÊ¾ÆÁ³öÏÖ bluetooth ×ÖÑù
+			if(APP_ON_Flag == RC_ON)								//å¼€å¯è“ç‰™æ§åˆ¶æ—¶ï¼Œéœ€ä¸Šæ‹‰è½®ç›˜ç›´åˆ°æ˜¾ç¤ºå±å‡ºç° bluetooth å­—æ ·
 				Bluetooth_Control();								
-			else if(PS2_ON_Flag == RC_ON)							//¿ªÆôÊÖ±ú¿ØÖÆÊ±£¬ĞèÏÈ°´start°´¼ü£¬È»ºóÉÏÀ­×óÒ¡¸ËÖ±µ½³öÏÖ PS2 ×ÖÑù
+			else if(PS2_ON_Flag == RC_ON)							//å¼€å¯æ‰‹æŸ„æ§åˆ¶æ—¶ï¼Œéœ€å…ˆæŒ‰startæŒ‰é”®ï¼Œç„¶åä¸Šæ‹‰å·¦æ‘‡æ†ç›´åˆ°å‡ºç° PS2 å­—æ ·
 				PS2_Control();	
-			else if(Remote_ON_Flag==RC_ON)                          //¿ªÆôº½Ä£¿ØÖÆ¡£ĞèÒª×ó±ßÒ¡¸ËÏòÉÏÍÆ¶¯ÖªµÀ³öÏÖR-C×ÖÑù
+			else if(Remote_ON_Flag==RC_ON)                          //å¼€å¯èˆªæ¨¡æ§åˆ¶ã€‚éœ€è¦å·¦è¾¹æ‘‡æ†å‘ä¸Šæ¨åŠ¨çŸ¥é“å‡ºç°R-Cå­—æ ·
 				Remote_Control();
 		}
-		else if(Mode == Lidar_Avoid_Mode)							//À×´ïÑ²º½±ÜÕÏÄ£Ê½
+		else if(Mode == Lidar_Avoid_Mode)							//é›·è¾¾å·¡èˆªé¿éšœæ¨¡å¼
 			Lidar_Avoid();
-		else if(Mode == Lidar_Follow_Mode)							//À×´ï¸úËæÄ£Ê½
+		else if(Mode == Lidar_Follow_Mode)							//é›·è¾¾è·Ÿéšæ¨¡å¼
 			Lidar_Follow();
-		else if(Mode == Lidar_Along_Mode)							//À×´ï×ßÖ±ÏßÄ£Ê½
+		else if(Mode == Lidar_Along_Mode)							//é›·è¾¾èµ°ç›´çº¿æ¨¡å¼
 			Lidar_along_wall();
-		else if(Mode == ELE_Line_Patrol_Mode)						//µç´ÅÑ²ÏßÄ£Ê½
+		else if(Mode == ELE_Line_Patrol_Mode)						//ç”µç£å·¡çº¿æ¨¡å¼
 			ELE_Mode();
-		else														//CCDÄ£Ê½
+		else														//CCDæ¨¡å¼
 		{
-			if(++Count_CCD == 4)									//µ÷½Ú¿ØÖÆÆµÂÊ£¬4*5 = 20ms¿ØÖÆÒ»´Î
+			if(++Count_CCD == 4)									//è°ƒèŠ‚æ§åˆ¶é¢‘ç‡ï¼Œ4*5 = 20msæ§åˆ¶ä¸€æ¬¡
 			{
 				Count_CCD = 0;
 				CCD_Mode();											
@@ -91,17 +91,17 @@ int TIMING_TIM_IRQHandler(void)
 		}			
 		
 //		else 
-//			Ultrasonic_Follow();									//³¬Éù²¨¸úËæ
-		Get_Target_Encoder(Move_X,Move_Z);							//ÔË¶¯Ñ§Äæ½â½â£¬×ª»»³É±àÂëÆ÷µÄÄ¿±êËÙ¶È
-		if(Turn_Off()==Normal)										//¼ì²éµç»úÊÇ·ñ¹Ø±Õ£¬µçÑ¹ÊÇ·ñ²»×ã
+//			Ultrasonic_Follow();									//è¶…å£°æ³¢è·Ÿéš
+		Get_Target_Encoder(Move_X,Move_Z);							//è¿åŠ¨å­¦é€†è§£è§£ï¼Œè½¬æ¢æˆç¼–ç å™¨çš„ç›®æ ‡é€Ÿåº¦
+		if(Turn_Off()==Normal)										//æ£€æŸ¥ç”µæœºæ˜¯å¦å…³é—­ï¼Œç”µå‹æ˜¯å¦ä¸è¶³
 		{				
-			Get_Motor_PWM();										//×ª»»³ÉÇı¶¯µç»úµÄpwm
+			Get_Motor_PWM();										//è½¬æ¢æˆé©±åŠ¨ç”µæœºçš„pwm
 		}
 		else
 		{
 			MotorA.Motor_Pwm  = 0,MotorB.Motor_Pwm = 0,Servo_PWM = SERVO_INIT;
 		}
-		Set_Pwm(-MotorA.Motor_Pwm,MotorB.Motor_Pwm);				//Çı¶¯µç»ú
+		Set_Pwm(-MotorA.Motor_Pwm,MotorB.Motor_Pwm);				//é©±åŠ¨ç”µæœº
 	}		 	
 	return 0;
 }
@@ -110,27 +110,27 @@ int TIMING_TIM_IRQHandler(void)
 Function: Bluetooth_Control
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£ºÊÖ»úÀ¶ÑÀ¿ØÖÆ
-Èë¿Ú²ÎÊı: ÎŞ 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šæ‰‹æœºè“ç‰™æ§åˆ¶
+å…¥å£å‚æ•°: æ—  
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 void Bluetooth_Control(void)
 {
-	if(Flag_Direction==0) Move_X=0,Move_Z=0;  			 						//Í£Ö¹
-	else if(Flag_Direction==1) Move_X=RC_Velocity,Move_Z=0;  					//Ç°½ø
-	else if(Flag_Direction==2) Move_X=RC_Velocity,Move_Z=Pi/4;  	//ÓÒÇ°
-	else if(Flag_Direction==3) Move_X=0,Move_Z=Pi/2;   				//ÏòÓÒ
-	else if(Flag_Direction==4) Move_X=-RC_Velocity,Move_Z=Pi/4; 	//ÓÒºó
-	else if(Flag_Direction==5) Move_X=-RC_Velocity,Move_Z=0;    				//ºóÍË
-	else if(Flag_Direction==6) Move_X=-RC_Velocity,Move_Z=-Pi/4; 	//×óºó
-	else if(Flag_Direction==7) Move_X=0,Move_Z=-Pi/2;      		 	//Ïò×ó
-	else if(Flag_Direction==8) Move_X=RC_Velocity,Move_Z=-Pi/4;  	//×óÇ°
+	if(Flag_Direction==0) Move_X=0,Move_Z=0;  			 						//åœæ­¢
+	else if(Flag_Direction==1) Move_X=RC_Velocity,Move_Z=0;  					//å‰è¿›
+	else if(Flag_Direction==2) Move_X=RC_Velocity,Move_Z=Pi/4;  	//å³å‰
+	else if(Flag_Direction==3) Move_X=0,Move_Z=Pi/2;   				//å‘å³
+	else if(Flag_Direction==4) Move_X=-RC_Velocity,Move_Z=Pi/4; 	//å³å
+	else if(Flag_Direction==5) Move_X=-RC_Velocity,Move_Z=0;    				//åé€€
+	else if(Flag_Direction==6) Move_X=-RC_Velocity,Move_Z=-Pi/4; 	//å·¦å
+	else if(Flag_Direction==7) Move_X=0,Move_Z=-Pi/2;      		 	//å‘å·¦
+	else if(Flag_Direction==8) Move_X=RC_Velocity,Move_Z=-Pi/4;  	//å·¦å‰
 	else Move_X=0,Move_Z=0; 
 	
 	if(Car_Num==Akm_Car)
 	{
 		//Ackermann structure car is converted to the front wheel steering Angle system target value, and kinematics analysis is pearformed
-		//°¢¿ËÂü½á¹¹Ğ¡³µ×ª»»ÎªÇ°ÂÖ×ªÏò½Ç¶È
+		//é˜¿å…‹æ›¼ç»“æ„å°è½¦è½¬æ¢ä¸ºå‰è½®è½¬å‘è§’åº¦
 		Move_Z=Move_Z*2/10; 
 	}
 	Move_X=Move_X/1000;     Move_Z=-Move_Z;
@@ -140,86 +140,86 @@ void Bluetooth_Control(void)
 Function: PS2_Control
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£ºPS2ÊÖ±ú¿ØÖÆ
-Èë¿Ú²ÎÊı: ÎŞ 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šPS2æ‰‹æŸ„æ§åˆ¶
+å…¥å£å‚æ•°: æ—  
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 void PS2_Control(void)
 {
-	int LY,RX;									//ÊÖ±úADCµÄÖµ
-	int Threshold=20; 							//ãĞÖµ£¬ºöÂÔÒ¡¸ËĞ¡·ù¶È¶¯×÷
-	static u8 Key1_Count = 0,Key2_Count = 0;	//ÓÃÓÚ¿ØÖÆ¶ÁÈ¡Ò¡¸ËµÄËÙ¶È
-	//×ª»¯Îª128µ½-128µÄÊıÖµ
-	LY=-(PS2_LY-128);//×ó±ßYÖá¿ØÖÆÇ°½øºóÍË
-	RX=-(PS2_RX-128);//ÓÒ±ßXÖá¿ØÖÆ×ªÏò
+	int LY,RX;									//æ‰‹æŸ„ADCçš„å€¼
+	int Threshold=20; 							//é˜ˆå€¼ï¼Œå¿½ç•¥æ‘‡æ†å°å¹…åº¦åŠ¨ä½œ
+	static u8 Key1_Count = 0,Key2_Count = 0;	//ç”¨äºæ§åˆ¶è¯»å–æ‘‡æ†çš„é€Ÿåº¦
+	//è½¬åŒ–ä¸º128åˆ°-128çš„æ•°å€¼
+	LY=-(PS2_LY-128);//å·¦è¾¹Yè½´æ§åˆ¶å‰è¿›åé€€
+	RX=-(PS2_RX-128);//å³è¾¹Xè½´æ§åˆ¶è½¬å‘
 
 	if(LY>-Threshold&&LY<Threshold)	LY=0;
-	if(RX>-Threshold&&RX<Threshold)	RX=0;		//ºöÂÔÒ¡¸ËĞ¡·ù¶È¶¯×÷
+	if(RX>-Threshold&&RX<Threshold)	RX=0;		//å¿½ç•¥æ‘‡æ†å°å¹…åº¦åŠ¨ä½œ
 	
-	Move_X = (RC_Velocity/128)*LY;				//ËÙ¶È¿ØÖÆ£¬Á¦¶È±íÊ¾ËÙ¶È´óĞ¡
-	if(Car_Num == Akm_Car)						//°¢¿ËÂü³µ×ªÏò¿ØÖÆ£¬Á¦¶È±íÊ¾×ªÏò½Ç¶È
+	Move_X = (RC_Velocity/128)*LY;				//é€Ÿåº¦æ§åˆ¶ï¼ŒåŠ›åº¦è¡¨ç¤ºé€Ÿåº¦å¤§å°
+	if(Car_Num == Akm_Car)						//é˜¿å…‹æ›¼è½¦è½¬å‘æ§åˆ¶ï¼ŒåŠ›åº¦è¡¨ç¤ºè½¬å‘è§’åº¦
 		Move_Z = -(RC_Turn_Velocity/128)*RX;	
-	else										//ÆäËû³µĞÍ×ªÏò¿ØÖÆ
+	else										//å…¶ä»–è½¦å‹è½¬å‘æ§åˆ¶
 	{
 		if(Move_X>=0)
-			Move_Z = -(RC_Turn_Velocity/128)*RX;	//×ªÏò¿ØÖÆ£¬Á¦¶È±íÊ¾×ªÏòËÙ¶È
+			Move_Z = -(RC_Turn_Velocity/128)*RX;	//è½¬å‘æ§åˆ¶ï¼ŒåŠ›åº¦è¡¨ç¤ºè½¬å‘é€Ÿåº¦
 		else
 			Move_Z = (RC_Turn_Velocity/128)*RX;
 	}
-	if (PS2_KEY == PSB_L1) 					 	//°´ÏÂ×ó1¼ü¼ÓËÙ£¨°´¼üÔÚ¶¥ÉÏ£©
+	if (PS2_KEY == PSB_L1) 					 	//æŒ‰ä¸‹å·¦1é”®åŠ é€Ÿï¼ˆæŒ‰é”®åœ¨é¡¶ä¸Šï¼‰
 	{	
-		if((++Key1_Count) == 20)				//µ÷½Ú°´¼ü·´Ó¦ËÙ¶È
+		if((++Key1_Count) == 20)				//è°ƒèŠ‚æŒ‰é”®ååº”é€Ÿåº¦
 		{
 			PS2_KEY = 0;
 			Key1_Count = 0;
-			if((RC_Velocity += X_Step)>MAX_RC_Velocity)				//Ç°½ø×î´óËÙ¶È1230
+			if((RC_Velocity += X_Step)>MAX_RC_Velocity)				//å‰è¿›æœ€å¤§é€Ÿåº¦1230
 				RC_Velocity = MAX_RC_Velocity;
-			if(Car_Num != Akm_Car)								//·Ç°¢¿ËÂü³µ¿Éµ÷½Ú×ªÏòËÙ¶È
+			if(Car_Num != Akm_Car)								//éé˜¿å…‹æ›¼è½¦å¯è°ƒèŠ‚è½¬å‘é€Ÿåº¦
 			{
-				if((RC_Turn_Velocity += Z_Step)>MAX_RC_Turn_Bias)	//×ªÏò×î´óËÙ¶È325
+				if((RC_Turn_Velocity += Z_Step)>MAX_RC_Turn_Bias)	//è½¬å‘æœ€å¤§é€Ÿåº¦325
 					RC_Turn_Velocity = MAX_RC_Turn_Bias;
 			}
 		}
 	}
-	else if(PS2_KEY == PSB_R1) 					//°´ÏÂÓÒ1¼ü¼õËÙ
+	else if(PS2_KEY == PSB_R1) 					//æŒ‰ä¸‹å³1é”®å‡é€Ÿ
 	{
 		if((++Key2_Count) == 20)
 		{
 			PS2_KEY = 0;
 			Key2_Count = 0;
-			if((RC_Velocity -= X_Step)<MINI_RC_Velocity)			//Ç°ºó×îĞ¡ËÙ¶È210
+			if((RC_Velocity -= X_Step)<MINI_RC_Velocity)			//å‰åæœ€å°é€Ÿåº¦210
 				RC_Velocity = MINI_RC_Velocity;
 			
-			if(Car_Num != Akm_Car)								//·Ç°¢¿ËÂü³µ¿Éµ÷½Ú×ªÏòËÙ¶È
+			if(Car_Num != Akm_Car)								//éé˜¿å…‹æ›¼è½¦å¯è°ƒèŠ‚è½¬å‘é€Ÿåº¦
 			{
-				if((RC_Turn_Velocity -= Z_Step)<MINI_RC_Turn_Velocity)//×ªÏò×îĞ¡ËÙ¶È45
+				if((RC_Turn_Velocity -= Z_Step)<MINI_RC_Turn_Velocity)//è½¬å‘æœ€å°é€Ÿåº¦45
 				RC_Turn_Velocity = MINI_RC_Turn_Velocity;
 			}
 		}
 	}
 	else
-		Key2_Count = 0,Key2_Count = 0;			//¶ÁÈ¡µ½ÆäËû°´¼üÖØĞÂ¼ÆÊı
+		Key2_Count = 0,Key2_Count = 0;			//è¯»å–åˆ°å…¶ä»–æŒ‰é”®é‡æ–°è®¡æ•°
 	Move_X=Move_X/1000;  Move_Z=-Move_Z;
 }
 /**************************************************************************
 Function: Get_Velocity_From_Encoder
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º¶ÁÈ¡±àÂëÆ÷ºÍ×ª»»³ÉËÙ¶È
-Èë¿Ú²ÎÊı: ÎŞ 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šè¯»å–ç¼–ç å™¨å’Œè½¬æ¢æˆé€Ÿåº¦
+å…¥å£å‚æ•°: æ—  
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 void Get_Velocity_From_Encoder(void)
 {
 	
 	 //Retrieves the original data of the encoder
-	  //»ñÈ¡±àÂëÆ÷µÄÔ­Ê¼Êı¾İ
+	  //è·å–ç¼–ç å™¨çš„åŸå§‹æ•°æ®
 		float Encoder_A_pr,Encoder_B_pr; 
 		OriginalEncoder.A=Read_Encoder(Encoder1);	
 		OriginalEncoder.B=Read_Encoder(Encoder2);	
 
 	  //Decide the encoder numerical polarity according to different car models
-		//¸ù¾İ²»Í¬Ğ¡³µĞÍºÅ¾ö¶¨±àÂëÆ÷ÊıÖµ¼«ĞÔ
+		//æ ¹æ®ä¸åŒå°è½¦å‹å·å†³å®šç¼–ç å™¨æ•°å€¼ææ€§
 		switch(Car_Num)
 		{
 			case Akm_Car:       Encoder_A_pr=OriginalEncoder.A; Encoder_B_pr=-OriginalEncoder.B;break;
@@ -228,9 +228,9 @@ void Get_Velocity_From_Encoder(void)
 			case Big_Tank_Car:  Encoder_A_pr=OriginalEncoder.A; Encoder_B_pr=-OriginalEncoder.B;break;
 		}
 		//The encoder converts the raw data to wheel speed in m/s
-		//±àÂëÆ÷Ô­Ê¼Êı¾İ×ª»»Îª³µÂÖËÙ¶È£¬µ¥Î»m/s
+		//ç¼–ç å™¨åŸå§‹æ•°æ®è½¬æ¢ä¸ºè½¦è½®é€Ÿåº¦ï¼Œå•ä½m/s
 		MotorA.Current_Encoder= Encoder_A_pr*Frequency*Perimeter/1560.0f;  
-		MotorB.Current_Encoder= Encoder_B_pr*Frequency*Perimeter/1560.0f;   //1560=4*13*30=2£¨Á½Â·Âö³å£©*2£¨ÉÏÏÂÑØ¼ÆÊı£©*»ô¶û±àÂëÆ÷13Ïß*µç»úµÄ¼õËÙ±È
+		MotorB.Current_Encoder= Encoder_B_pr*Frequency*Perimeter/1560.0f;   //1560=4*13*30=2ï¼ˆä¸¤è·¯è„‰å†²ï¼‰*2ï¼ˆä¸Šä¸‹æ²¿è®¡æ•°ï¼‰*éœå°”ç¼–ç å™¨13çº¿*ç”µæœºçš„å‡é€Ÿæ¯”
 //		MotorA.Current_Encoder= Encoder_A_pr*CONTROL_FREQUENCY*Akm_wheelspacing//(4*13*30);  
 //		MotorB.Current_Encoder= Encoder_B_pr*CONTROL_FREQUENCY*Akm_wheelspacing/Encoder_precision;  
 }
@@ -238,30 +238,30 @@ void Get_Velocity_From_Encoder(void)
 Function: Drive_Motor
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£ºÔË¶¯Ñ§Äæ½â
-Èë¿Ú²ÎÊı: ÎŞ 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šè¿åŠ¨å­¦é€†è§£
+å…¥å£å‚æ•°: æ—  
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
-//ÔË¶¯Ñ§Äæ½â£¬ÓÉxºÍyµÄËÙ¶ÈµÃµ½±àÂëÆ÷µÄËÙ¶È,VxÊÇm/s,Vzµ¥Î»ÊÇ¶È/s(½Ç¶ÈÖÆ)
-//°¢¿ËÂü³µVzÊÇ¶æ»ú×ªÏòµÄ½Ç¶È(»¡¶ÈÖÆ)
+//è¿åŠ¨å­¦é€†è§£ï¼Œç”±xå’Œyçš„é€Ÿåº¦å¾—åˆ°ç¼–ç å™¨çš„é€Ÿåº¦,Vxæ˜¯m/s,Vzå•ä½æ˜¯åº¦/s(è§’åº¦åˆ¶)
+//é˜¿å…‹æ›¼è½¦Vzæ˜¯èˆµæœºè½¬å‘çš„è§’åº¦(å¼§åº¦åˆ¶)
 void Get_Target_Encoder(float Vx,float Vz)
 {
-	float amplitude=3.5f; //Wheel target speed limit //³µÂÖÄ¿±êËÙ¶ÈÏŞ·ù
+	float amplitude=3.5f; //Wheel target speed limit //è½¦è½®ç›®æ ‡é€Ÿåº¦é™å¹…
 	Move_X = target_limit_float(Move_X,-1.2,1.2);
 	Move_Z = target_limit_float(Move_Z,-Pi/3,Pi/3);
-	if(Car_Num==Akm_Car)							//°¢¿ËÂü³µ
+	if(Car_Num==Akm_Car)							//é˜¿å…‹æ›¼è½¦
 	{
-		//Ackerman car specific related variables //°¢¿ËÂüĞ¡³µ×¨ÓÃÏà¹Ø±äÁ¿
+		//Ackerman car specific related variables //é˜¿å…‹æ›¼å°è½¦ä¸“ç”¨ç›¸å…³å˜é‡
 			float R, ratio=636.62, AngleR, Angle_Servo;
 			
 			// For Ackerman small car, Vz represents the front wheel steering Angle
-			//¶ÔÓÚ°¢¿ËÂüĞ¡³µVz´ú±íÓÒÇ°ÂÖ×ªÏò½Ç¶È
+			//å¯¹äºé˜¿å…‹æ›¼å°è½¦Vzä»£è¡¨å³å‰è½®è½¬å‘è§’åº¦
 			AngleR=Vz;
 			R=Akm_axlespacing/tan(AngleR)-0.5f*Akm_wheelspacing;
 			// Front wheel steering Angle limit (front wheel steering Angle controlled by steering engine), unit: rad
-			//Ç°ÂÖ×ªÏò½Ç¶ÈÏŞ·ù(¶æ»ú¿ØÖÆÇ°ÂÖ×ªÏò½Ç¶È)£¬µ¥Î»£ºrad
+			//å‰è½®è½¬å‘è§’åº¦é™å¹…(èˆµæœºæ§åˆ¶å‰è½®è½¬å‘è§’åº¦)ï¼Œå•ä½ï¼šrad
 			AngleR=target_limit_float(AngleR,-0.32f,0.32f);
-			//Inverse kinematics //ÔË¶¯Ñ§Äæ½â
+			//Inverse kinematics //è¿åŠ¨å­¦é€†è§£
 			if(AngleR!=0)
 			{
 				MotorA.Target_Encoder = Vx*(R-0.081f)/R;
@@ -274,24 +274,24 @@ void Get_Target_Encoder(float Vx,float Vz)
 			}
 
 			// The PWM value of the servo controls the steering Angle of the front wheel
-			//¶æ»úPWMÖµ£¬¶æ»ú¿ØÖÆÇ°ÂÖ×ªÏò½Ç¶È
+			//èˆµæœºPWMå€¼ï¼Œèˆµæœºæ§åˆ¶å‰è½®è½¬å‘è§’åº¦
 			Angle_Servo = -0.628f*pow(AngleR, 3) + 1.269f*pow(AngleR, 2) - 1.772f*AngleR + 1.573f;
 			Servo_PWM=SERVO_INIT + (Angle_Servo - 1.572f)*ratio;
 
 			
-			//Wheel (motor) target speed limit //³µÂÖ(µç»ú)Ä¿±êËÙ¶ÈÏŞ·ù
+			//Wheel (motor) target speed limit //è½¦è½®(ç”µæœº)ç›®æ ‡é€Ÿåº¦é™å¹…
 			MotorA.Target_Encoder=target_limit_float(MotorA.Target_Encoder,-amplitude,amplitude); 
 			MotorB.Target_Encoder=target_limit_float(MotorB.Target_Encoder,-amplitude,amplitude); 
-			Servo_PWM=target_limit_int(Servo_PWM,800,2200);	//Servo PWM value limit //¶æ»úPWMÖµÏŞ·ù
+			Servo_PWM=target_limit_int(Servo_PWM,800,2200);	//Servo PWM value limit //èˆµæœºPWMå€¼é™å¹…
 	}
-	else if(Car_Num==Diff_Car)											//²îËÙĞ¡³µ
+	else if(Car_Num==Diff_Car)											//å·®é€Ÿå°è½¦
 	{
 		  if(Vx<0) Vz=-Vz;
 	      else     Vz=Vz;
-			//Inverse kinematics //ÔË¶¯Ñ§Äæ½â
-		   MotorA.Target_Encoder = Vx - Vz * Wheelspacing / 2.0f; //¼ÆËã³ö×óÂÖµÄÄ¿±êËÙ¶È
-		   MotorB.Target_Encoder = Vx + Vz * Wheelspacing / 2.0f; //¼ÆËã³öÓÒÂÖµÄÄ¿±êËÙ¶È
-			//Wheel (motor) target speed limit //³µÂÖ(µç»ú)Ä¿±êËÙ¶ÈÏŞ·ù
+			//Inverse kinematics //è¿åŠ¨å­¦é€†è§£
+		   MotorA.Target_Encoder = Vx - Vz * Wheelspacing / 2.0f; //è®¡ç®—å‡ºå·¦è½®çš„ç›®æ ‡é€Ÿåº¦
+		   MotorB.Target_Encoder = Vx + Vz * Wheelspacing / 2.0f; //è®¡ç®—å‡ºå³è½®çš„ç›®æ ‡é€Ÿåº¦
+			//Wheel (motor) target speed limit //è½¦è½®(ç”µæœº)ç›®æ ‡é€Ÿåº¦é™å¹…
 		   MotorA.Target_Encoder=target_limit_float( MotorA.Target_Encoder,-amplitude,amplitude); 
 	       MotorB.Target_Encoder=target_limit_float( MotorB.Target_Encoder,-amplitude,amplitude); 
 	}  
@@ -299,9 +299,9 @@ void Get_Target_Encoder(float Vx,float Vz)
 	{
 		  if(Vx<0) Vz=-Vz;
 	      else     Vz=Vz;
-		  MotorA.Target_Encoder = Vx-Vz*Wheelspacing/2.0f;//¼ÆËã³ö×óÂÖµÄÄ¿±êËÙ¶È
-		  MotorB.Target_Encoder = Vx+Vz*Wheelspacing/2.0f;//¼ÆËã³öÓÒÂÖµÄÄ¿±êËÙ¶È
-		//Wheel (motor) target speed limit //³µÂÖ(µç»ú)Ä¿±êËÙ¶ÈÏŞ·ù
+		  MotorA.Target_Encoder = Vx-Vz*Wheelspacing/2.0f;//è®¡ç®—å‡ºå·¦è½®çš„ç›®æ ‡é€Ÿåº¦
+		  MotorB.Target_Encoder = Vx+Vz*Wheelspacing/2.0f;//è®¡ç®—å‡ºå³è½®çš„ç›®æ ‡é€Ÿåº¦
+		//Wheel (motor) target speed limit //è½¦è½®(ç”µæœº)ç›®æ ‡é€Ÿåº¦é™å¹…
 		  MotorA.Target_Encoder=target_limit_float( MotorA.Target_Encoder,-amplitude,amplitude); 
 	      MotorB.Target_Encoder=target_limit_float( MotorB.Target_Encoder,-amplitude,amplitude); 
 	}
@@ -309,8 +309,8 @@ void Get_Target_Encoder(float Vx,float Vz)
 	{
 		  if(Vx<0) Vz=-Vz;
 	      else     Vz=Vz;
-		  MotorA.Target_Encoder = Vx-Vz*Wheelspacing/2.0f;//¼ÆËã³ö×óÂÖµÄÄ¿±êËÙ¶È
-		  MotorB.Target_Encoder = Vx+Vz*Wheelspacing/2.0f;//¼ÆËã³öÓÒÂÖµÄÄ¿±êËÙ¶È
+		  MotorA.Target_Encoder = Vx-Vz*Wheelspacing/2.0f;//è®¡ç®—å‡ºå·¦è½®çš„ç›®æ ‡é€Ÿåº¦
+		  MotorB.Target_Encoder = Vx+Vz*Wheelspacing/2.0f;//è®¡ç®—å‡ºå³è½®çš„ç›®æ ‡é€Ÿåº¦
 		  MotorA.Target_Encoder=target_limit_float( MotorA.Target_Encoder,-amplitude,amplitude); 
 	      MotorB.Target_Encoder=target_limit_float( MotorB.Target_Encoder,-amplitude,amplitude); 
 	}
@@ -319,22 +319,22 @@ void Get_Target_Encoder(float Vx,float Vz)
 Function: Get_Motor_PWM
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º×ª»»³ÉÇı¶¯µç»úµÄPWM
-Èë¿Ú²ÎÊı: ÎŞ 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šè½¬æ¢æˆé©±åŠ¨ç”µæœºçš„PWM
+å…¥å£å‚æ•°: æ—  
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 void Get_Motor_PWM(void)
 {
-	//¼ÆËã×óÓÒµç»ú¶ÔÓ¦µÄPWM
+	//è®¡ç®—å·¦å³ç”µæœºå¯¹åº”çš„PWM
 	MotorA.Motor_Pwm = Incremental_PI_Left(MotorA.Current_Encoder,MotorA.Target_Encoder);	
 	MotorB.Motor_Pwm = Incremental_PI_Right(MotorB.Current_Encoder,MotorB.Target_Encoder);
 	if(Mode==Normal_Mode||Mode == Measure_Distance_Mode)
 	{
-		//ÂË²¨£¬Ê¹Æğ²½ºÍÍ£Ö¹ÉÔÎ¢Æ½»¬Ò»Ğ©
+		//æ»¤æ³¢ï¼Œä½¿èµ·æ­¥å’Œåœæ­¢ç¨å¾®å¹³æ»‘ä¸€äº›
 		MotorA.Motor_Pwm  = Mean_Filter_Left(MotorA.Motor_Pwm);
 		MotorB.Motor_Pwm  = Mean_Filter_Right(MotorB.Motor_Pwm);
 	}
-	//ÏŞ·ù
+	//é™å¹…
 	MotorA.Motor_Pwm  = PWM_Limit(MotorA.Motor_Pwm,PWM_MAX,PWM_MIN);
 	MotorB.Motor_Pwm  = PWM_Limit(MotorB.Motor_Pwm,PWM_MAX,PWM_MIN);
 }
@@ -342,9 +342,9 @@ void Get_Motor_PWM(void)
 Function: PWM_Limit
 Input   : IN;max;min
 Output  : OUT
-º¯Êı¹¦ÄÜ£ºÏŞÖÆPWM¸³Öµ
-Èë¿Ú²ÎÊı: IN£ºÊäÈë²ÎÊı  max£ºÏŞ·ù×î´óÖµ  min£ºÏŞ·ù×îĞ¡Öµ 
-·µ»Ø  Öµ£ºÏŞ·ùºóµÄÖµ
+å‡½æ•°åŠŸèƒ½ï¼šé™åˆ¶PWMèµ‹å€¼
+å…¥å£å‚æ•°: INï¼šè¾“å…¥å‚æ•°  maxï¼šé™å¹…æœ€å¤§å€¼  minï¼šé™å¹…æœ€å°å€¼ 
+è¿”å›  å€¼ï¼šé™å¹…åçš„å€¼
 **************************************************************************/	 	
 float PWM_Limit(float IN,float max,float min)
 {
@@ -358,9 +358,9 @@ float PWM_Limit(float IN,float max,float min)
 Function: Limiting function
 Input   : Value
 Output  : none
-º¯Êı¹¦ÄÜ£ºÏŞ·ùº¯Êı
-Èë¿Ú²ÎÊı£º·ùÖµ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šé™å¹…å‡½æ•°
+å…¥å£å‚æ•°ï¼šå¹…å€¼
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
 float target_limit_float(float insert,float low,float high)
 {
@@ -385,18 +385,18 @@ int target_limit_int(int insert,int low,int high)
 Function: Check whether it is abnormal
 Input   : none
 Output  : 1:Abnormal;0:Normal
-º¯Êı¹¦ÄÜ£ºÒì³£¹Ø±Õµç»ú
-Èë¿Ú²ÎÊı: ÎŞ 
-·µ»Ø  Öµ£º1£ºÒì³£  0£ºÕı³£
+å‡½æ•°åŠŸèƒ½ï¼šå¼‚å¸¸å…³é—­ç”µæœº
+å…¥å£å‚æ•°: æ—  
+è¿”å›  å€¼ï¼š1ï¼šå¼‚å¸¸  0ï¼šæ­£å¸¸
 **************************************************************************/	 	
 u8 Turn_Off(void)
 {
 	u8 temp = Normal;
-	Flag_Stop = KEY2_STATE;			//¶ÁÈ¡°´¼ü2×´Ì¬£¬°´¼ü2¿ØÖÆµç»úµÄ¿ª¹Ø
-	if(Voltage<1000)				//µç³ØµçÑ¹µÍÓÚ10V¹Ø±Õµç»ú,LEDµÆ¿ìËÙÉÁË¸
+	Flag_Stop = KEY2_STATE;			//è¯»å–æŒ‰é”®2çŠ¶æ€ï¼ŒæŒ‰é”®2æ§åˆ¶ç”µæœºçš„å¼€å…³
+	if(Voltage<1000)				//ç”µæ± ç”µå‹ä½äº10Vå…³é—­ç”µæœº,LEDç¯å¿«é€Ÿé—ªçƒ
 		LED_Flash(50),temp=Abnormal;
 	else
-		LED_Flash(200);				//Ã¿Ò»ÃëÉÁÒ»´Î£¬Õı³£ÔËĞĞ
+		LED_Flash(200);				//æ¯ä¸€ç§’é—ªä¸€æ¬¡ï¼Œæ­£å¸¸è¿è¡Œ
 	if(Flag_Stop)
 		temp=Abnormal;
 	return temp;			
@@ -406,9 +406,9 @@ u8 Turn_Off(void)
 Function: Data sliding filtering
 Input   : data
 Output  : Filtered data
-º¯Êı¹¦ÄÜ£ºÊı¾İ»¬¶¯ÂË²¨
-Èë¿Ú²ÎÊı£ºÊı¾İ
-·µ»Ø  Öµ£ºÂË²¨ºóµÄÊı¾İ
+å‡½æ•°åŠŸèƒ½ï¼šæ•°æ®æ»‘åŠ¨æ»¤æ³¢
+å…¥å£å‚æ•°ï¼šæ•°æ®
+è¿”å›  å€¼ï¼šæ»¤æ³¢åçš„æ•°æ®
 **************************************************************************/
 float Mean_Filter_Left(float data)
 {
@@ -434,9 +434,9 @@ float Mean_Filter_Left(float data)
 Function: Data sliding filtering
 Input   : data
 Output  : Filtered data
-º¯Êı¹¦ÄÜ£ºÊı¾İ»¬¶¯ÂË²¨
-Èë¿Ú²ÎÊı£ºÊı¾İ
-·µ»Ø  Öµ£ºÂË²¨ºóµÄÊı¾İ
+å‡½æ•°åŠŸèƒ½ï¼šæ•°æ®æ»‘åŠ¨æ»¤æ³¢
+å…¥å£å‚æ•°ï¼šæ•°æ®
+è¿”å›  å€¼ï¼šæ»¤æ³¢åçš„æ•°æ®
 **************************************************************************/
 float Mean_Filter_Right(float data)
 {
@@ -462,79 +462,79 @@ float Mean_Filter_Right(float data)
 Function: Lidar_Avoid
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£ºÀ×´ï±ÜÕÏÄ£Ê½
-Èë¿Ú²ÎÊı£ºÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šé›·è¾¾é¿éšœæ¨¡å¼
+å…¥å£å‚æ•°ï¼šæ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
 void Lidar_Avoid(void)
 {
 	int i = 0; 
-	u8 calculation_angle_cnt = 0;	//ÓÃÓÚÅĞ¶Ï100¸öµãÖĞĞèÒª×ö±ÜÕÏµÄµã
-	float angle_sum = 0;			//´ÖÂÔ¼ÆËãÕÏ°­ÎïÎ»ÓÚ×ó»òÕßÓÒ
-	u8 distance_count = 0;			//¾àÀëĞ¡ÓÚÄ³ÖµµÄ¼ÆÊı
-	int distance = 350;				//Éè¶¨±ÜÕÏ¾àÀë,Ä¬ÈÏÊÇ300
+	u8 calculation_angle_cnt = 0;	//ç”¨äºåˆ¤æ–­100ä¸ªç‚¹ä¸­éœ€è¦åšé¿éšœçš„ç‚¹
+	float angle_sum = 0;			//ç²—ç•¥è®¡ç®—éšœç¢ç‰©ä½äºå·¦æˆ–è€…å³
+	u8 distance_count = 0;			//è·ç¦»å°äºæŸå€¼çš„è®¡æ•°
+	int distance = 350;				//è®¾å®šé¿éšœè·ç¦»,é»˜è®¤æ˜¯300
 	if(Car_Num == Akm_Car)
-		distance = 400;				//°¢¿ËÂü³µÉè¶¨ÊÇ400mm
+		distance = 400;				//é˜¿å…‹æ›¼è½¦è®¾å®šæ˜¯400mm
 	else if(Car_Num == Big_Tank_Car)
-		distance = 500;				//´óÂÄ´ø³µÉè¶¨ÊÇ500mm
+		distance = 500;				//å¤§å±¥å¸¦è½¦è®¾å®šæ˜¯500mm
 	for(i=0;i<lap_count;i++)				
 	{
 		if((Dataprocess[i].angle>310) || (Dataprocess[i].angle<50))
 		{
-			if((0<Dataprocess[i].distance)&&(Dataprocess[i].distance<distance))	//¾àÀëĞ¡ÓÚ350mmĞèÒª±ÜÕÏ,Ö»ĞèÒª100¶È·¶Î§ÄÚµã
+			if((0<Dataprocess[i].distance)&&(Dataprocess[i].distance<distance))	//è·ç¦»å°äº350mméœ€è¦é¿éšœ,åªéœ€è¦100åº¦èŒƒå›´å†…ç‚¹
 			{
-			  calculation_angle_cnt++;						 			//¼ÆËã¾àÀëĞ¡ÓÚ±ÜÕÏ¾àÀëµÄµã¸öÊı
+			  calculation_angle_cnt++;						 			//è®¡ç®—è·ç¦»å°äºé¿éšœè·ç¦»çš„ç‚¹ä¸ªæ•°
 				if(Dataprocess[i].angle<50)		
 					angle_sum += Dataprocess[i].angle;
 				else if(Dataprocess[i].angle>310)
-					angle_sum += (Dataprocess[i].angle-360);	//310¶Èµ½50¶È×ª»¯Îª-50¶Èµ½50¶È
-				if(Dataprocess[i].distance<200)				//¼ÇÂ¼Ğ¡ÓÚ200mmµÄµãµÄ¼ÆÊı
+					angle_sum += (Dataprocess[i].angle-360);	//310åº¦åˆ°50åº¦è½¬åŒ–ä¸º-50åº¦åˆ°50åº¦
+				if(Dataprocess[i].distance<200)				//è®°å½•å°äº200mmçš„ç‚¹çš„è®¡æ•°
 					distance_count++;
 			}
 	  }
 	}
-	if(calculation_angle_cnt < 8)						//Ğ¡ÓÚ8µã²»ĞèÒª±ÜÕÏ£¬È¥³ıÒ»Ğ©Ôëµã
+	if(calculation_angle_cnt < 8)						//å°äº8ç‚¹ä¸éœ€è¦é¿éšœï¼Œå»é™¤ä¸€äº›å™ªç‚¹
 	{
-		if((Move_X += 0.1)>=Aovid_Speed)							//±ÜÕÏµÄËÙ¶ÈÉè¶¨Îª260£¬Öğ½¥Ôö¼Óµ½260¿ÉÉÔÎ¢Æ½»¬Ò»Ğ©
+		if((Move_X += 0.1)>=Aovid_Speed)							//é¿éšœçš„é€Ÿåº¦è®¾å®šä¸º260ï¼Œé€æ¸å¢åŠ åˆ°260å¯ç¨å¾®å¹³æ»‘ä¸€äº›
 			Move_X = Aovid_Speed;
-		Move_Z = 0;										//²»±ÜÕÏÊ±²»ĞèÒª×ªÍä
+		Move_Z = 0;										//ä¸é¿éšœæ—¶ä¸éœ€è¦è½¬å¼¯
 	}
-	else												//ĞèÒª±ÜÕÏ£¬¼òµ¥µØÅĞ¶ÏÕÏ°­Îï·½Î»
+	else												//éœ€è¦é¿éšœï¼Œç®€å•åœ°åˆ¤æ–­éšœç¢ç‰©æ–¹ä½
 	{
-		if(Car_Num == Akm_Car)							//°¢¿ËÂü³µĞÍÓĞ¶æ»ú£¬ĞèÒªÌØÊâ´¦Àí
+		if(Car_Num == Akm_Car)							//é˜¿å…‹æ›¼è½¦å‹æœ‰èˆµæœºï¼Œéœ€è¦ç‰¹æ®Šå¤„ç†
 		{
-			if(distance_count>8)						//¾àÀëĞ¡ÓÚ±ÜÕ½¾àÀë
-				Move_X = -Aovid_Speed,Move_Z = 0;				//ÍùºóÍË
+			if(distance_count>8)						//è·ç¦»å°äºé¿æˆ˜è·ç¦»
+				Move_X = -Aovid_Speed,Move_Z = 0;				//å¾€åé€€
 			else
 			{
-				if((Move_X -= 0.1)<=(Aovid_Speed*0.5))					//±ÜÕÏÊ±ËÙ¶È½µµ½µÍËÙ80
+				if((Move_X -= 0.1)<=(Aovid_Speed*0.5))					//é¿éšœæ—¶é€Ÿåº¦é™åˆ°ä½é€Ÿ80
 					Move_X = Aovid_Speed*0.5;
-				if(angle_sum>0)							//ÕÏ°­ÎïÆ«ÓÒ
-					Move_Z = -Pi/5;						//Ã¿´Î×ªÍä½Ç¶ÈÎªPI/5£¬Ö±µ½100¶È·¶Î§ÄÚÎŞÕÏ°­Îï¾ÍÍ£Ö¹
-				else 									//Æ«×ó
+				if(angle_sum>0)							//éšœç¢ç‰©åå³
+					Move_Z = -Pi/5;						//æ¯æ¬¡è½¬å¼¯è§’åº¦ä¸ºPI/5ï¼Œç›´åˆ°100åº¦èŒƒå›´å†…æ— éšœç¢ç‰©å°±åœæ­¢
+				else 									//åå·¦
 					Move_Z = Pi/5;	
 			}
 		}
 		else
 		{
-			if(distance_count>8)						//Ğ¡ÓÚ±ÜÕ½¾àÀëµÄÊ±ºò
-				Move_X = -Aovid_Speed,Move_Z = 0;				//ÍùºóÍË
+			if(distance_count>8)						//å°äºé¿æˆ˜è·ç¦»çš„æ—¶å€™
+				Move_X = -Aovid_Speed,Move_Z = 0;				//å¾€åé€€
 			else
 			{
-				if((Move_X -= 0.1)<=(Aovid_Speed*0.5))					//±ÜÕÏÊ±ËÙ¶È½µµ½µÍËÙ¶È0.15
+				if((Move_X -= 0.1)<=(Aovid_Speed*0.5))					//é¿éšœæ—¶é€Ÿåº¦é™åˆ°ä½é€Ÿåº¦0.15
 				Move_X = Aovid_Speed*0.5;
-				if(angle_sum>0)							//ÕÏ°­ÎïÆ«ÓÒ
+				if(angle_sum>0)							//éšœç¢ç‰©åå³
 				{	
-					if(Car_Num == Diff_Car)				//Ã¿´Î×ªÍäËÙ¶ÈÎªX¶È£¬Ö±µ½100¶È·¶Î§ÄÚÎŞÕÏ°­Îï¾ÍÍ£Ö¹
+					if(Car_Num == Diff_Car)				//æ¯æ¬¡è½¬å¼¯é€Ÿåº¦ä¸ºXåº¦ï¼Œç›´åˆ°100åº¦èŒƒå›´å†…æ— éšœç¢ç‰©å°±åœæ­¢
 						Move_Z = -1;									
 					else if(Car_Num == Small_Tank_Car)
 						Move_Z = -1;	
 					else
 						Move_Z = -1;
 				}
-				else 									//Æ«×ó
+				else 									//åå·¦
 				{
-					if(Car_Num == Diff_Car)				//Ã¿´Î×ªÍäËÙ¶ÈÎªX¶È£¬Ö±µ½100¶È·¶Î§ÄÚÎŞÕÏ°­Îï¾ÍÍ£Ö¹
+					if(Car_Num == Diff_Car)				//æ¯æ¬¡è½¬å¼¯é€Ÿåº¦ä¸ºXåº¦ï¼Œç›´åˆ°100åº¦èŒƒå›´å†…æ— éšœç¢ç‰©å°±åœæ­¢
 						Move_Z = 1;									
 					else if(Car_Num == Small_Tank_Car)
 						Move_Z = 1;	
@@ -551,28 +551,28 @@ void Lidar_Avoid(void)
 Function: Lidar_Follow
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£ºÀ×´ï¸úËæÄ£Ê½
-Èë¿Ú²ÎÊı£ºÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šé›·è¾¾è·Ÿéšæ¨¡å¼
+å…¥å£å‚æ•°ï¼šæ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
-float angle1 = 0;				//¸úËæµÄ½Ç¶È
+float angle1 = 0;				//è·Ÿéšçš„è§’åº¦
 u16 mini_distance1;
 void Lidar_Follow(void)
 {
 	static u16 cnt = 0;
 	int i;
 	int calculation_angle_cnt = 0;
-	static float angle = 0;				//¸úËæµÄ½Ç¶È
+	static float angle = 0;				//è·Ÿéšçš„è§’åº¦
 	static float last_angle = 0;		//
 	u16 mini_distance = 65535;
-	static u8 data_count = 0;			//ÓÃÓÚÂË³ıÒ»Ğ´ÔëµãµÄ¼ÆÊı±äÁ¿
-	//ĞèÒªÕÒ³ö¸úËæµÄÄÇ¸öµãµÄ½Ç¶È
+	static u8 data_count = 0;			//ç”¨äºæ»¤é™¤ä¸€å†™å™ªç‚¹çš„è®¡æ•°å˜é‡
+	//éœ€è¦æ‰¾å‡ºè·Ÿéšçš„é‚£ä¸ªç‚¹çš„è§’åº¦
 	for(i=0;i<lap_count;i++)
 	{
-		if(100<Dataprocess[i].distance && Dataprocess[i].distance<Follow_Distance)//1200·¶Î§ÄÚ¾ÍĞèÒª¸úËæ
+		if(100<Dataprocess[i].distance && Dataprocess[i].distance<Follow_Distance)//1200èŒƒå›´å†…å°±éœ€è¦è·Ÿéš
 		{
 			calculation_angle_cnt++;
-			if(Dataprocess[i].distance<mini_distance)//ÕÒ³ö¾àÀë×îĞ¡µÄµã
+			if(Dataprocess[i].distance<mini_distance)//æ‰¾å‡ºè·ç¦»æœ€å°çš„ç‚¹
 			{
 				mini_distance = Dataprocess[i].distance;
 				angle = Dataprocess[i].angle;
@@ -580,28 +580,28 @@ void Lidar_Follow(void)
 		}
 	}
 	if(angle>180)
-		angle -= 360;				//0--360¶È×ª»»³É0--180£»-180--0£¨Ë³Ê±Õë£©
-	if(angle-last_angle>10 ||angle-last_angle<-10)	//×öÒ»¶¨Ïû¶¶£¬²¨¶¯´óÓÚ10¶ÈµÄĞèÒª×öÅĞ¶Ï
+		angle -= 360;				//0--360åº¦è½¬æ¢æˆ0--180ï¼›-180--0ï¼ˆé¡ºæ—¶é’ˆï¼‰
+	if(angle-last_angle>10 ||angle-last_angle<-10)	//åšä¸€å®šæ¶ˆæŠ–ï¼Œæ³¢åŠ¨å¤§äº10åº¦çš„éœ€è¦åšåˆ¤æ–­
 	{
-		if(++data_count == 30)		//Á¬Ğø30´Î²É¼¯µ½µÄÖµ(150msºó)ºÍÉÏ´ÎµÄ±È´óÓÚ10¶È£¬´ËÊ±²ÅÊÇÈÏÎªÊÇÓĞĞ§Öµ
+		if(++data_count == 30)		//è¿ç»­30æ¬¡é‡‡é›†åˆ°çš„å€¼(150mså)å’Œä¸Šæ¬¡çš„æ¯”å¤§äº10åº¦ï¼Œæ­¤æ—¶æ‰æ˜¯è®¤ä¸ºæ˜¯æœ‰æ•ˆå€¼
 		{
 			data_count = 0;
 			last_angle = angle;
 		}
 	}
-	else							//²¨¶¯Ğ¡ÓÚ10¶ÈµÄ¿ÉÒÔÖ±½ÓÈÏÎªÊÇÓĞĞ§Öµ
+	else							//æ³¢åŠ¨å°äº10åº¦çš„å¯ä»¥ç›´æ¥è®¤ä¸ºæ˜¯æœ‰æ•ˆå€¼
 	{
 			data_count = 0;	
 			last_angle = angle;
 	}
-	if(calculation_angle_cnt<6)		//ÔÚ¸úËæ·¶Î§ÄÚµÄµãÉÙÓÚ6¸ö
+	if(calculation_angle_cnt<6)		//åœ¨è·ŸéšèŒƒå›´å†…çš„ç‚¹å°‘äº6ä¸ª
 	{
 		
-		if(cnt < 40)		 		//Á¬Ğø¼ÆÊı³¬40´ÎÃ»ÓĞÒª¸úËæµÄµã£¬´ËÊ±²ÅÊÇ²»ÓÃ¸úËæ
+		if(cnt < 40)		 		//è¿ç»­è®¡æ•°è¶…40æ¬¡æ²¡æœ‰è¦è·Ÿéšçš„ç‚¹ï¼Œæ­¤æ—¶æ‰æ˜¯ä¸ç”¨è·Ÿéš
 			cnt++;
 		if(cnt >= 40)
 		{
-			Move_X = 0;				//ËÙ¶ÈÎª0
+			Move_X = 0;				//é€Ÿåº¦ä¸º0
 			Move_Z = 0;
 		}
 	}
@@ -611,44 +611,44 @@ void Lidar_Follow(void)
 		if(Car_Num==Akm_Car)
 		{
 
-			if((((angle>15)&&(angle<180)) || ((angle>-180)&&angle<-15))&&(mini_distance<500))//°¢¿¨Âü³µĞÍ´¦Àí³µÍ·²»¶Ô×Å¸úËæÎï£¬Ïàµ±ÓÚµ¹³µÒ»Ñù£¬Ò»´Î²»¶Ô×¼£¬ÄÇºóÍËÔÙÀ´¶Ô×¼
+			if((((angle>15)&&(angle<180)) || ((angle>-180)&&angle<-15))&&(mini_distance<500))//é˜¿å¡æ›¼è½¦å‹å¤„ç†è½¦å¤´ä¸å¯¹ç€è·Ÿéšç‰©ï¼Œç›¸å½“äºå€’è½¦ä¸€æ ·ï¼Œä¸€æ¬¡ä¸å¯¹å‡†ï¼Œé‚£åé€€å†æ¥å¯¹å‡†
 			{
 				Move_X = -0.20;
 			    Move_Z = -Follow_Turn_PID(last_angle,0);
 			}
 			else
 			{
-				Move_X = Distance_Adjust_PID(mini_distance, Keep_Follow_Distance);  //±£³Ö¾àÀë±£³ÖÔÚ400mm
+				Move_X = Distance_Adjust_PID(mini_distance, Keep_Follow_Distance);  //ä¿æŒè·ç¦»ä¿æŒåœ¨400mm
 				Move_Z = Follow_Turn_PID(last_angle,0);
 			}
 		    
 		}
-		else//ÆäÓà³µĞÍ
+		else//å…¶ä½™è½¦å‹
 		{
 			if((angle > 30 || angle < -30)&&(mini_distance>400))
 			{
-				Move_Z = -0.1f*last_angle;  //½Ç¶È²î¾à¹ı´óÖ±½Ó¿ìËÙ×ªÏò
-				Move_X = 0;                   //²îËÙĞ¡³µºÍÂÄ´øĞ¡³µ¿ÉÒÔÊµÏÖÔ­µØ×ª¶¯
+				Move_Z = -0.1f*last_angle;  //è§’åº¦å·®è·è¿‡å¤§ç›´æ¥å¿«é€Ÿè½¬å‘
+				Move_X = 0;                   //å·®é€Ÿå°è½¦å’Œå±¥å¸¦å°è½¦å¯ä»¥å®ç°åŸåœ°è½¬åŠ¨
 			}
 			else
 			{
-				Move_X = Distance_Adjust_PID(mini_distance, Keep_Follow_Distance);  //±£³Ö¾àÀë±£³ÖÔÚ400mm
-				Move_Z = Follow_Turn_PID(last_angle,0);		//×ªÏòPID£¬³µÍ·ÓÀÔ¶¶Ô×Å¸úËæÎïÆ·
+				Move_X = Distance_Adjust_PID(mini_distance, Keep_Follow_Distance);  //ä¿æŒè·ç¦»ä¿æŒåœ¨400mm
+				Move_Z = Follow_Turn_PID(last_angle,0);		//è½¬å‘PIDï¼Œè½¦å¤´æ°¸è¿œå¯¹ç€è·Ÿéšç‰©å“
 			}
 			
 	    }
 	}
 	if(Move_X==0)
-		Move_Z = target_limit_float(Move_Z,-Pi/2,Pi/2);   //ÏŞ·ù
+		Move_Z = target_limit_float(Move_Z,-Pi/2,Pi/2);   //é™å¹…
 	else
-	    Move_Z = target_limit_float(Move_Z,-Pi/6,Pi/6);   //ÏŞ·ù
+	    Move_Z = target_limit_float(Move_Z,-Pi/6,Pi/6);   //é™å¹…
 	Move_X= target_limit_float(Move_X,-0.4,0.4); 
 }
 
 /**************************************************************************
-º¯Êı¹¦ÄÜ£ºĞ¡³µ×ßÖ±ÏßÄ£Ê½
-Èë¿Ú²ÎÊı£ºÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šå°è½¦èµ°ç›´çº¿æ¨¡å¼
+å…¥å£å‚æ•°ï¼šæ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
 void Lidar_along_wall(void)
 {
@@ -663,32 +663,32 @@ void Lidar_along_wall(void)
 		{
 			if(n == 0)
 			{
-				target_distance = Dataprocess[i].distance;   //»ñÈ¡µÄµÚÒ»¸öµã×÷ÎªÄ¿±ê¾àÀë
+				target_distance = Dataprocess[i].distance;   //è·å–çš„ç¬¬ä¸€ä¸ªç‚¹ä½œä¸ºç›®æ ‡è·ç¦»
 				n++;
 			}
-			if(Dataprocess[i].distance < target_distance+100)  //+100ÏŞÖÆ»ñÈ¡¾àÀëµÄ·¶Î§Öµ
+			if(Dataprocess[i].distance < target_distance+100)  //+100é™åˆ¶è·å–è·ç¦»çš„èŒƒå›´å€¼
 			{
-				distance = Dataprocess[i].distance;          //»ñÈ¡ÊµÊ±¾àÀë
+				distance = Dataprocess[i].distance;          //è·å–å®æ—¶è·ç¦»
 			}
 		}
 	}
-	Move_X = forward_velocity;  //³õÊ¼ËÙ¶È
+	Move_X = forward_velocity;  //åˆå§‹é€Ÿåº¦
 	Move_Z = -Along_Adjust_PID(distance, target_distance);
 	if(Car_Num == Akm_Car)
 	{
-		Move_Z = target_limit_float(Move_Z,-Pi/4,Pi/4);   //ÏŞ·ù
+		Move_Z = target_limit_float(Move_Z,-Pi/4,Pi/4);   //é™å¹…
     }
 	else if(Car_Num == Diff_Car)
-		Move_Z = target_limit_float(Move_Z,-Pi/5,Pi/5);   //ÏŞ·ù
+		Move_Z = target_limit_float(Move_Z,-Pi/5,Pi/5);   //é™å¹…
 }
 
 /**************************************************************************
 Function: Car_Perimeter_Init
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º¼ÆËãĞ¡³µ¸÷ÂÖ×ÓµÄÖÜ³¤
-Èë¿Ú²ÎÊı£ºÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šè®¡ç®—å°è½¦å„è½®å­çš„å‘¨é•¿
+å…¥å£å‚æ•°ï¼šæ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
 void Car_Perimeter_Init(void)
 {
@@ -712,34 +712,34 @@ void Car_Perimeter_Init(void)
 Function: Ultrasonic_Follow
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º³¬Éù²¨¸úËæÄ£Ê½
-Èë¿Ú²ÎÊı£ºÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šè¶…å£°æ³¢è·Ÿéšæ¨¡å¼
+å…¥å£å‚æ•°ï¼šæ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
-void Ultrasonic_Follow(void)		//³¬Éù²¨¸úËæ£¬Ö»ÄÜµ¥·½Ïò¸úËæ
+void Ultrasonic_Follow(void)		//è¶…å£°æ³¢è·Ÿéšï¼Œåªèƒ½å•æ–¹å‘è·Ÿéš
 {
 	Move_Z = 0;
-	Read_Distane();					//¶ÁÈ¡³¬Éù²¨µÄ¾àÀë
-	if(Distance1 < 200)				//¾àÀëĞ¡ÓÚ200mm£¬ÍËºó
+	Read_Distane();					//è¯»å–è¶…å£°æ³¢çš„è·ç¦»
+	if(Distance1 < 200)				//è·ç¦»å°äº200mmï¼Œé€€å
 	{
 		if((Move_X-=3) < -210)	
-			Move_X = -210;			//¸øÒ»210ºóÍËËÙ¶È
+			Move_X = -210;			//ç»™ä¸€210åé€€é€Ÿåº¦
 	}
-	else if( Distance1> 270 && Distance1 < 750)	//¾àÀëÔÚ270µ½750Ö®¼äÊÇĞèÒª¸úËæÇ°½ø
+	else if( Distance1> 270 && Distance1 < 750)	//è·ç¦»åœ¨270åˆ°750ä¹‹é—´æ˜¯éœ€è¦è·Ÿéšå‰è¿›
 	{
-		if((Move_X+=3) > 210)					//ËÙ¶ÈÖğ½¥Ôö¼Ó£¬¸øÇ°½øËÙ¶È
+		if((Move_X+=3) > 210)					//é€Ÿåº¦é€æ¸å¢åŠ ï¼Œç»™å‰è¿›é€Ÿåº¦
 			Move_X = 210;
 	}
 	else
 	{
 		if(Move_X>0)
 		{
-			if((Move_X -= 20) < 0)				//ËÙ¶ÈÖğ½¥¼õµ½0
+			if((Move_X -= 20) < 0)				//é€Ÿåº¦é€æ¸å‡åˆ°0
 				Move_X = 0;
 		}
 		else
 		{
-			if((Move_X+=20)>0)					//ËÙ¶ÈÖğ½¥¼õµ½0
+			if((Move_X+=20)>0)					//é€Ÿåº¦é€æ¸å‡åˆ°0
 				Move_X = 0;
 		}
 	}
@@ -748,44 +748,44 @@ void Ultrasonic_Follow(void)		//³¬Éù²¨¸úËæ£¬Ö»ÄÜµ¥·½Ïò¸úËæ
 
 /**************************************************************************
 Function: Get angle
-Input   : way£ºThe algorithm of getting angle 1£ºDMP  2£ºkalman  3£ºComplementary filtering
+Input   : wayï¼šThe algorithm of getting angle 1ï¼šDMP  2ï¼škalman  3ï¼šComplementary filtering
 Output  : none
-º¯Êı¹¦ÄÜ£º»ñÈ¡½Ç¶È	
-Èë¿Ú²ÎÊı£ºway£º»ñÈ¡½Ç¶ÈµÄËã·¨ 1£ºDMP  2£º¿¨¶ûÂü 3£º»¥²¹ÂË²¨
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šè·å–è§’åº¦	
+å…¥å£å‚æ•°ï¼šwayï¼šè·å–è§’åº¦çš„ç®—æ³• 1ï¼šDMP  2ï¼šå¡å°”æ›¼ 3ï¼šäº’è¡¥æ»¤æ³¢
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	
 void Get_Angle(u8 way)
 { 
-	if(way==1)                           //DMPµÄ¶ÁÈ¡ÔÚÊı¾İ²É¼¯ÖĞ¶Ï¶ÁÈ¡£¬ÑÏ¸ñ×ñÑ­Ê±ĞòÒªÇó
+	if(way==1)                           //DMPçš„è¯»å–åœ¨æ•°æ®é‡‡é›†ä¸­æ–­è¯»å–ï¼Œä¸¥æ ¼éµå¾ªæ—¶åºè¦æ±‚
 	{	
-		Read_DMP();                      //¶ÁÈ¡¼ÓËÙ¶È¡¢½ÇËÙ¶È¡¢Çã½Ç
+		Read_DMP();                      //è¯»å–åŠ é€Ÿåº¦ã€è§’é€Ÿåº¦ã€å€¾è§’
 	}			
 	else
 	{
-		Gyro_X=(I2C_ReadOneByte(devAddr,MPU6050_RA_GYRO_XOUT_H)<<8)+I2C_ReadOneByte(devAddr,MPU6050_RA_GYRO_XOUT_L);    //¶ÁÈ¡XÖáÍÓÂİÒÇ
-		Gyro_Y=(I2C_ReadOneByte(devAddr,MPU6050_RA_GYRO_YOUT_H)<<8)+I2C_ReadOneByte(devAddr,MPU6050_RA_GYRO_YOUT_L);    //¶ÁÈ¡YÖáÍÓÂİÒÇ
-		Gyro_Z=(I2C_ReadOneByte(devAddr,MPU6050_RA_GYRO_ZOUT_H)<<8)+I2C_ReadOneByte(devAddr,MPU6050_RA_GYRO_ZOUT_L);    //¶ÁÈ¡ZÖáÍÓÂİÒÇ
-		Accel_X=(I2C_ReadOneByte(devAddr,MPU6050_RA_ACCEL_XOUT_H)<<8)+I2C_ReadOneByte(devAddr,MPU6050_RA_ACCEL_XOUT_L); //¶ÁÈ¡XÖá¼ÓËÙ¶È¼Æ
-		Accel_Y=(I2C_ReadOneByte(devAddr,MPU6050_RA_ACCEL_YOUT_H)<<8)+I2C_ReadOneByte(devAddr,MPU6050_RA_ACCEL_YOUT_L); //¶ÁÈ¡XÖá¼ÓËÙ¶È¼Æ
-		Accel_Z=(I2C_ReadOneByte(devAddr,MPU6050_RA_ACCEL_ZOUT_H)<<8)+I2C_ReadOneByte(devAddr,MPU6050_RA_ACCEL_ZOUT_L); //¶ÁÈ¡ZÖá¼ÓËÙ¶È¼Æ
-//		if(Gyro_X>32768)  Gyro_X-=65536;                 //Êı¾İÀàĞÍ×ª»»  Ò²¿ÉÍ¨¹ıshortÇ¿ÖÆÀàĞÍ×ª»»
-//		if(Gyro_Y>32768)  Gyro_Y-=65536;                 //Êı¾İÀàĞÍ×ª»»  Ò²¿ÉÍ¨¹ıshortÇ¿ÖÆÀàĞÍ×ª»»
-//		if(Gyro_Z>32768)  Gyro_Z-=65536;                 //Êı¾İÀàĞÍ×ª»»
-//		if(Accel_X>32768) Accel_X-=65536;                //Êı¾İÀàĞÍ×ª»»
-//		if(Accel_Y>32768) Accel_Y-=65536;                //Êı¾İÀàĞÍ×ª»»
-//		if(Accel_Z>32768) Accel_Z-=65536;                //Êı¾İÀàĞÍ×ª»»
-		Accel_Angle_x=atan2(Accel_Y,Accel_Z)*180/Pi;     //¼ÆËãÇã½Ç£¬×ª»»µ¥Î»Îª¶È	
-		Accel_Angle_y=atan2(Accel_X,Accel_Z)*180/Pi;     //¼ÆËãÇã½Ç£¬×ª»»µ¥Î»Îª¶È
-		Gyro_X=Gyro_X/65.5;                              //ÍÓÂİÒÇÁ¿³Ì×ª»»£¬Á¿³Ì¡À2000¡ã/s¶ÔÓ¦ÁéÃô¶È16.4£¬¿É²éÊÖ²á
-		Gyro_Y=Gyro_Y/65.5;                              //ÍÓÂİÒÇÁ¿³Ì×ª»»	
+		Gyro_X=(I2C_ReadOneByte(devAddr,MPU6050_RA_GYRO_XOUT_H)<<8)+I2C_ReadOneByte(devAddr,MPU6050_RA_GYRO_XOUT_L);    //è¯»å–Xè½´é™€èºä»ª
+		Gyro_Y=(I2C_ReadOneByte(devAddr,MPU6050_RA_GYRO_YOUT_H)<<8)+I2C_ReadOneByte(devAddr,MPU6050_RA_GYRO_YOUT_L);    //è¯»å–Yè½´é™€èºä»ª
+		Gyro_Z=(I2C_ReadOneByte(devAddr,MPU6050_RA_GYRO_ZOUT_H)<<8)+I2C_ReadOneByte(devAddr,MPU6050_RA_GYRO_ZOUT_L);    //è¯»å–Zè½´é™€èºä»ª
+		Accel_X=(I2C_ReadOneByte(devAddr,MPU6050_RA_ACCEL_XOUT_H)<<8)+I2C_ReadOneByte(devAddr,MPU6050_RA_ACCEL_XOUT_L); //è¯»å–Xè½´åŠ é€Ÿåº¦è®¡
+		Accel_Y=(I2C_ReadOneByte(devAddr,MPU6050_RA_ACCEL_YOUT_H)<<8)+I2C_ReadOneByte(devAddr,MPU6050_RA_ACCEL_YOUT_L); //è¯»å–Xè½´åŠ é€Ÿåº¦è®¡
+		Accel_Z=(I2C_ReadOneByte(devAddr,MPU6050_RA_ACCEL_ZOUT_H)<<8)+I2C_ReadOneByte(devAddr,MPU6050_RA_ACCEL_ZOUT_L); //è¯»å–Zè½´åŠ é€Ÿåº¦è®¡
+//		if(Gyro_X>32768)  Gyro_X-=65536;                 //æ•°æ®ç±»å‹è½¬æ¢  ä¹Ÿå¯é€šè¿‡shortå¼ºåˆ¶ç±»å‹è½¬æ¢
+//		if(Gyro_Y>32768)  Gyro_Y-=65536;                 //æ•°æ®ç±»å‹è½¬æ¢  ä¹Ÿå¯é€šè¿‡shortå¼ºåˆ¶ç±»å‹è½¬æ¢
+//		if(Gyro_Z>32768)  Gyro_Z-=65536;                 //æ•°æ®ç±»å‹è½¬æ¢
+//		if(Accel_X>32768) Accel_X-=65536;                //æ•°æ®ç±»å‹è½¬æ¢
+//		if(Accel_Y>32768) Accel_Y-=65536;                //æ•°æ®ç±»å‹è½¬æ¢
+//		if(Accel_Z>32768) Accel_Z-=65536;                //æ•°æ®ç±»å‹è½¬æ¢
+		Accel_Angle_x=atan2(Accel_Y,Accel_Z)*180/Pi;     //è®¡ç®—å€¾è§’ï¼Œè½¬æ¢å•ä½ä¸ºåº¦	
+		Accel_Angle_y=atan2(Accel_X,Accel_Z)*180/Pi;     //è®¡ç®—å€¾è§’ï¼Œè½¬æ¢å•ä½ä¸ºåº¦
+		Gyro_X=Gyro_X/65.5;                              //é™€èºä»ªé‡ç¨‹è½¬æ¢ï¼Œé‡ç¨‹Â±2000Â°/så¯¹åº”çµæ•åº¦16.4ï¼Œå¯æŸ¥æ‰‹å†Œ
+		Gyro_Y=Gyro_Y/65.5;                              //é™€èºä»ªé‡ç¨‹è½¬æ¢	
 		if(way==2)		  	
 		{
-			Roll= -Kalman_Filter_x(Accel_Angle_x,Gyro_X);//¿¨¶ûÂüÂË²¨
+			Roll= -Kalman_Filter_x(Accel_Angle_x,Gyro_X);//å¡å°”æ›¼æ»¤æ³¢
 			Pitch = -Kalman_Filter_y(Accel_Angle_y,Gyro_Y);
 		}
 		else if(way==3) 
 		{  
-			Roll = -Complementary_Filter_x(Accel_Angle_x,Gyro_X);//»¥²¹ÂË²¨
+			Roll = -Complementary_Filter_x(Accel_Angle_x,Gyro_X);//äº’è¡¥æ»¤æ³¢
 			Pitch= -Complementary_Filter_y(Accel_Angle_y,Gyro_Y);
 		}
 	}
@@ -796,36 +796,36 @@ void Get_Angle(u8 way)
 Function: The remote control command of model aircraft is processed
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º¶Ôº½Ä£Ò£¿Ø¿ØÖÆÃüÁî½øĞĞ´¦Àí
-Èë¿Ú²ÎÊı£ºÎŞ
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šå¯¹èˆªæ¨¡é¥æ§æ§åˆ¶å‘½ä»¤è¿›è¡Œå¤„ç†
+å…¥å£å‚æ•°ï¼šæ— 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
 void Remote_Control(void)
 {
 	  //Data within 1 second after entering the model control mode will not be processed
-	  //¶Ô½øÈëº½Ä£¿ØÖÆÄ£Ê½ºó1ÃëÄÚµÄÊı¾İ²»´¦Àí
+	  //å¯¹è¿›å…¥èˆªæ¨¡æ§åˆ¶æ¨¡å¼å1ç§’å†…çš„æ•°æ®ä¸å¤„ç†
     static u8 thrice=100;
     int Threshold=100;
 
-	  //limiter //ÏŞ·ù
+	  //limiter //é™å¹…
     int LX,RY,RX,Remote_RCvelocity=350; 
 //	  static float Target_LX,Target_LY,Target_RY,Target_RX;
 		Remoter_Ch1=target_limit_int(Remoter_Ch1,1000,2000);
 		Remoter_Ch2=target_limit_int(Remoter_Ch2,1000,2000);
 //        Remoter_Ch3=target_limit_int(Remoter_Ch3,1000,2000);
 		// Front and back direction of left rocker. Control forward and backward.
-	  //×óÒ¡¸ËÇ°ºó·½Ïò¡£¿ØÖÆÇ°½øºóÍË¡£
+	  //å·¦æ‘‡æ†å‰åæ–¹å‘ã€‚æ§åˆ¶å‰è¿›åé€€ã€‚
        LX=Remoter_Ch2-1500;
 	
 //		//Left joystick left and right. Control left and right movement.
-//	  //×óÒ¡¸Ë×óÓÒ·½Ïò¡£¿ØÖÆ×óÓÒÒÆ¶¯¡£¡£
+//	  //å·¦æ‘‡æ†å·¦å³æ–¹å‘ã€‚æ§åˆ¶å·¦å³ç§»åŠ¨ã€‚ã€‚
 //      LY=Remoter_Ch2-1500;
 	
 		 //Right stick left and right. To control the rotation. 
-		//ÓÒÒ¡¸Ë×óÓÒ·½Ïò¡£¿ØÖÆ×Ô×ª¡£
+		//å³æ‘‡æ†å·¦å³æ–¹å‘ã€‚æ§åˆ¶è‡ªè½¬ã€‚
 	  RY=Remoter_Ch1-1500;		//
 //	  //Front and back direction of right rocker. Throttle/acceleration/deceleration.
-//		//ÓÒÒ¡¸ËÇ°ºó·½Ïò¡£ÓÍÃÅ/¼Ó¼õËÙ¡£
+//		//å³æ‘‡æ†å‰åæ–¹å‘ã€‚æ²¹é—¨/åŠ å‡é€Ÿã€‚
 //	  RX=Remoter_Ch3-1500;		//
 	
    
@@ -839,12 +839,12 @@ void Remote_Control(void)
 //		if(RY==0) Target_RY=Target_RY/1.2f;
 		
 		
-//		//Throttle related //ÓÍÃÅÏà¹Ø
+//		//Throttle related //æ²¹é—¨ç›¸å…³
 //		Remote_RCvelocity=RC_Velocity+RX;
 //	  if(Remote_RCvelocity<0)Remote_RCvelocity=0;
 		
 		//The remote control command of model aircraft is processed
-		//¶Ôº½Ä£Ò£¿Ø¿ØÖÆÃüÁî½øĞĞ´¦Àí
+		//å¯¹èˆªæ¨¡é¥æ§æ§åˆ¶å‘½ä»¤è¿›è¡Œå¤„ç†
         Move_X= LX; 
 		Move_Z= -RY; 
         Move_X= Move_X*1.3;//*Remote_RCvelocity/350.0;
@@ -854,17 +854,17 @@ void Remote_Control(void)
 		   Move_Z= Move_Z*2*(Pi/4)/350.0;  
 			 
 		//Unit conversion, mm/s -> m/s
-    //µ¥Î»×ª»»£¬mm/s -> m/s	
+    //å•ä½è½¬æ¢ï¼Œmm/s -> m/s	
 		Move_X=Move_X/1000;
 		
 		
 		
 		//Data within 1 second after entering the model control mode will not be processed
-	  //¶Ô½øÈëº½Ä£¿ØÖÆÄ£Ê½ºó1ÃëÄÚµÄÊı¾İ²»´¦Àí
+	  //å¯¹è¿›å…¥èˆªæ¨¡æ§åˆ¶æ¨¡å¼å1ç§’å†…çš„æ•°æ®ä¸å¤„ç†
       if(thrice>0) Move_X=0,Move_Z=0,thrice--;
 			
 		//Control target value is obtained and kinematics analysis is performed
-	  //µÃµ½¿ØÖÆÄ¿±êÖµ£¬½øĞĞÔË¶¯Ñ§·ÖÎö			
+	  //å¾—åˆ°æ§åˆ¶ç›®æ ‡å€¼ï¼Œè¿›è¡Œè¿åŠ¨å­¦åˆ†æ			
 //		Get_Target_Encoder(Move_X,Move_Z);
 }
 

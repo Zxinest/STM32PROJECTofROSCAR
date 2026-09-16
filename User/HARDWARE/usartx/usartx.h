@@ -1,18 +1,18 @@
 /***********************************************
-¹«Ë¾£ºÂÖÈ¤¿Æ¼¼£¨¶«İ¸£©ÓĞÏŞ¹«Ë¾
-Æ·ÅÆ£ºWHEELTEC
-¹ÙÍø£ºwheeltec.net
-ÌÔ±¦µêÆÌ£ºshop114407458.taobao.com 
-ËÙÂôÍ¨: https://minibalance.aliexpress.com/store/4455017
-°æ±¾£ºV1.0
-ĞŞ¸ÄÊ±¼ä£º2023-03-02
+å…¬å¸ï¼šè½®è¶£ç§‘æŠ€ï¼ˆä¸œèï¼‰æœ‰é™å…¬å¸
+å“ç‰Œï¼šWHEELTEC
+å®˜ç½‘ï¼šwheeltec.net
+æ·˜å®åº—é“ºï¼šshop114407458.taobao.com 
+é€Ÿå–é€š: https://minibalance.aliexpress.com/store/4455017
+ç‰ˆæœ¬ï¼šV1.0
+ä¿®æ”¹æ—¶é—´ï¼š2023-03-02
 
 Brand: WHEELTEC
 Website: wheeltec.net
 Taobao shop: shop114407458.taobao.com 
 Aliexpress: https://minibalance.aliexpress.com/store/4455017
 Version: V1.0
-Update£º2023-03-02
+Updateï¼š2023-03-02
 
 All rights reserved
 ***********************************************/
@@ -22,40 +22,40 @@ All rights reserved
 #include "Header.h"
 
 
-#define FRAME_HEADER      0X7B //Frame_header //Ö¡Í·
-#define FRAME_TAIL        0X7D //Frame_tail   //Ö¡Î²
+#define FRAME_HEADER      0X7B //Frame_header //å¸§å¤´
+#define FRAME_TAIL        0X7D //Frame_tail   //å¸§å°¾
 #define SEND_DATA_SIZE    24
 #define RECEIVE_DATA_SIZE 11
 
 
 
-//°¢¿ËÂü³µĞÍµÄ×îĞ¡×ªÍä°ë¾¶£¬ÓÉ»úĞµ½á¹¹¾ö¶¨£ºÂÖ¾à¡¢Öá¾à¡¢Ç°ÂÖ×î´ó×ª½Ç
+//é˜¿å…‹æ›¼è½¦å‹çš„æœ€å°è½¬å¼¯åŠå¾„ï¼Œç”±æœºæ¢°ç»“æ„å†³å®šï¼šè½®è·ã€è½´è·ã€å‰è½®æœ€å¤§è½¬è§’
 #define MINI_AKM_MIN_TURN_RADIUS 0.350f 
 
 /*****A structure for storing triaxial data of a gyroscope accelerometer*****/
-/*****ÓÃÓÚ´æ·ÅÍÓÂİÒÇ¼ÓËÙ¶È¼ÆÈıÖáÊı¾İµÄ½á¹¹Ìå*********************************/
+/*****ç”¨äºå­˜æ”¾é™€èºä»ªåŠ é€Ÿåº¦è®¡ä¸‰è½´æ•°æ®çš„ç»“æ„ä½“*********************************/
 typedef struct __Mpu6050_Data_ 
 {
-	short X_data; //2 bytes //2¸ö×Ö½Ú
-	short Y_data; //2 bytes //2¸ö×Ö½Ú
-	short Z_data; //2 bytes //2¸ö×Ö½Ú
+	short X_data; //2 bytes //2ä¸ªå­—èŠ‚
+	short Y_data; //2 bytes //2ä¸ªå­—èŠ‚
+	short Z_data; //2 bytes //2ä¸ªå­—èŠ‚
 }Mpu6050_Data;
 
 /*******The structure of the serial port sending data************/
-/*******´®¿Ú·¢ËÍÊı¾İµÄ½á¹¹Ìå*************************************/
+/*******ä¸²å£å‘é€æ•°æ®çš„ç»“æ„ä½“*************************************/
 typedef struct _SEND_DATA_  
 {
 	unsigned char buffer[SEND_DATA_SIZE];
 	struct _Sensor_Str_
 	{
-		unsigned char Frame_Header; //1¸ö×Ö½Ú
-		short X_speed;	            //2 bytes //2¸ö×Ö½Ú
-		short Y_speed;              //2 bytes //2¸ö×Ö½Ú
-		short Z_speed;              //2 bytes //2¸ö×Ö½Ú
-		short Power_Voltage;        //2 bytes //2¸ö×Ö½Ú
-		Mpu6050_Data Accelerometer; //6 bytes //6¸ö×Ö½Ú
-		Mpu6050_Data Gyroscope;     //6 bytes //6¸ö×Ö½Ú	
-		unsigned char Frame_Tail;   //1 bytes //1¸ö×Ö½Ú
+		unsigned char Frame_Header; //1ä¸ªå­—èŠ‚
+		short X_speed;	            //2 bytes //2ä¸ªå­—èŠ‚
+		short Y_speed;              //2 bytes //2ä¸ªå­—èŠ‚
+		short Z_speed;              //2 bytes //2ä¸ªå­—èŠ‚
+		short Power_Voltage;        //2 bytes //2ä¸ªå­—èŠ‚
+		Mpu6050_Data Accelerometer; //6 bytes //6ä¸ªå­—èŠ‚
+		Mpu6050_Data Gyroscope;     //6 bytes //6ä¸ªå­—èŠ‚	
+		unsigned char Frame_Tail;   //1 bytes //1ä¸ªå­—èŠ‚
 	}Sensor_Str;
 }SEND_DATA;
 
@@ -64,11 +64,11 @@ typedef struct _RECEIVE_DATA_
 	unsigned char buffer[RECEIVE_DATA_SIZE];
 	struct _Control_Str_
 	{
-		unsigned char Frame_Header; //1 bytes //1¸ö×Ö½Ú
-		float X_speed;	            //4 bytes //4¸ö×Ö½Ú
-		float Y_speed;              //4 bytes //4¸ö×Ö½Ú
-		float Z_speed;              //4 bytes //4¸ö×Ö½Ú
-		unsigned char Frame_Tail;   //1 bytes //1¸ö×Ö½Ú
+		unsigned char Frame_Header; //1 bytes //1ä¸ªå­—èŠ‚
+		float X_speed;	            //4 bytes //4ä¸ªå­—èŠ‚
+		float Y_speed;              //4 bytes //4ä¸ªå­—èŠ‚
+		float Z_speed;              //4 bytes //4ä¸ªå­—èŠ‚
+		unsigned char Frame_Tail;   //1 bytes //1ä¸ªå­—èŠ‚
 	}Control_Str;
 }RECEIVE_DATA;
 

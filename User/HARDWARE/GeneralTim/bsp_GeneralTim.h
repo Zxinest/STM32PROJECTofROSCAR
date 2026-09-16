@@ -1,18 +1,18 @@
 /***********************************************
-¹«Ë¾£ºÂÖÈ¤¿Æ¼¼£¨¶«İ¸£©ÓĞÏŞ¹«Ë¾
-Æ·ÅÆ£ºWHEELTEC
-¹ÙÍø£ºwheeltec.net
-ÌÔ±¦µêÆÌ£ºshop114407458.taobao.com 
-ËÙÂôÍ¨: https://minibalance.aliexpress.com/store/4455017
-°æ±¾£ºV1.0
-ĞŞ¸ÄÊ±¼ä£º2023-03-02
+å…¬å¸ï¼šè½®è¶£ç§‘æŠ€ï¼ˆä¸œèï¼‰æœ‰é™å…¬å¸
+å“ç‰Œï¼šWHEELTEC
+å®˜ç½‘ï¼šwheeltec.net
+æ·˜å®åº—é“ºï¼šshop114407458.taobao.com 
+é€Ÿå–é€š: https://minibalance.aliexpress.com/store/4455017
+ç‰ˆæœ¬ï¼šV1.0
+ä¿®æ”¹æ—¶é—´ï¼š2023-03-02
 
 Brand: WHEELTEC
 Website: wheeltec.net
 Taobao shop: shop114407458.taobao.com 
 Aliexpress: https://minibalance.aliexpress.com/store/4455017
 Version: V1.0
-Update£º2023-03-02
+Updateï¼š2023-03-02
 
 All rights reserved
 ***********************************************/
@@ -24,40 +24,40 @@ All rights reserved
 #include "stm32f10x.h"
 #include "Header.h"
 
-/************Í¨ÓÃ¶¨Ê±Æ÷TIM²ÎÊı¶¨Òå£¬Ö»ÏŞTIM2¡¢3¡¢4¡¢5************/
-// µ±Ê¹ÓÃ²»Í¬µÄ¶¨Ê±Æ÷µÄÊ±ºò£¬¶ÔÓ¦µÄGPIOÊÇ²»Ò»ÑùµÄ£¬ÕâµãÒª×¢Òâ
-//Ö»ĞèĞŞ¸Äºê¶¨Òå
-//ÕâÀïÊä³öPWM
-//Ê¹ÓÃ¶¨Ê±Æ÷TIM3
+/************é€šç”¨å®šæ—¶å™¨TIMå‚æ•°å®šä¹‰ï¼Œåªé™TIM2ã€3ã€4ã€5************/
+// å½“ä½¿ç”¨ä¸åŒçš„å®šæ—¶å™¨çš„æ—¶å€™ï¼Œå¯¹åº”çš„GPIOæ˜¯ä¸ä¸€æ ·çš„ï¼Œè¿™ç‚¹è¦æ³¨æ„
+//åªéœ€ä¿®æ”¹å®å®šä¹‰
+//è¿™é‡Œè¾“å‡ºPWM
+//ä½¿ç”¨å®šæ—¶å™¨TIM3
 #define            PWM_OutPut_TIM                   TIM3
 #define            PWM_OutPut_TIM_APBxClock_FUN     RCC_APB1PeriphClockCmd
 #define            PWM_OutPut_TIM_CLK               RCC_APB1Periph_TIM3
 //#define            GENERAL_TIM_Period            9
 //#define            GENERAL_TIM_Prescaler         71
-// TIM3 Êä³ö±È½ÏÍ¨µÀ1
+// TIM3 è¾“å‡ºæ¯”è¾ƒé€šé“1
 #define            PWM_OutPut_TIM_CH1_GPIO_CLK      RCC_APB2Periph_GPIOA
 #define            PWM_OutPut_TIM_CH1_PORT          GPIOA
 #define            PWM_OutPut_TIM_CH1_PIN           GPIO_Pin_6
 
-// TIM3 Êä³ö±È½ÏÍ¨µÀ2
+// TIM3 è¾“å‡ºæ¯”è¾ƒé€šé“2
 #define            PWM_OutPut_TIM_CH2_GPIO_CLK      RCC_APB2Periph_GPIOA
 #define            PWM_OutPut_TIM_CH2_PORT          GPIOA
 #define            PWM_OutPut_TIM_CH2_PIN           GPIO_Pin_7
 
-// TIM3 Êä³ö±È½ÏÍ¨µÀ3
+// TIM3 è¾“å‡ºæ¯”è¾ƒé€šé“3
 #define            PWM_OutPut_TIM_CH3_GPIO_CLK      RCC_APB2Periph_GPIOB
 #define            PWM_OutPut_TIM_CH3_PORT          GPIOB
 #define            PWM_OutPut_TIM_CH3_PIN           GPIO_Pin_0
 
-// TIM3 Êä³ö±È½ÏÍ¨µÀ4
+// TIM3 è¾“å‡ºæ¯”è¾ƒé€šé“4
 #define            PWM_OutPut_TIM_CH4_GPIO_CLK      RCC_APB2Periph_GPIOB
 #define            PWM_OutPut_TIM_CH4_PORT          GPIOB
 #define            PWM_OutPut_TIM_CH4_PIN           GPIO_Pin_1
 
 
 
-//ÕâÀïÊ¹ÓÃ¶¨Ê±¹¦ÄÜ
-//Ê¹ÓÃ¶¨Ê±Æ÷TIM5
+//è¿™é‡Œä½¿ç”¨å®šæ—¶åŠŸèƒ½
+//ä½¿ç”¨å®šæ—¶å™¨TIM5
 #define 			TIMING_TIM					 	TIM5
 #define            	TIMING_TIM_APBxClock_FUN     	RCC_APB1PeriphClockCmd
 #define            	TIMING_TIM_CLK               	RCC_APB1Periph_TIM5
@@ -66,7 +66,7 @@ All rights reserved
 
 
 
-/***************************º¯ÊıÉùÃ÷*******************************/
+/***************************å‡½æ•°å£°æ˜*******************************/
 
 void PWM_OutPut_TIM_Init(u16 arr,u16 psc);
 void TIMING_TIM_Init(u16 arr,u16 psc);

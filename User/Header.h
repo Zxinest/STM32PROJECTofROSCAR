@@ -1,18 +1,18 @@
 /***********************************************
-¹«Ë¾£ºÂÖÈ¤¿Æ¼¼£¨¶«İ¸£©ÓĞÏŞ¹«Ë¾
-Æ·ÅÆ£ºWHEELTEC
-¹ÙÍø£ºwheeltec.net
-ÌÔ±¦µêÆÌ£ºshop114407458.taobao.com 
-ËÙÂôÍ¨: https://minibalance.aliexpress.com/store/4455017
-°æ±¾£ºV1.0
-ĞŞ¸ÄÊ±¼ä£º2023-03-02
+å…¬å¸ï¼šè½®è¶£ç§‘æŠ€ï¼ˆä¸œèï¼‰æœ‰é™å…¬å¸
+å“ç‰Œï¼šWHEELTEC
+å®˜ç½‘ï¼šwheeltec.net
+æ·˜å®åº—é“ºï¼šshop114407458.taobao.com 
+é€Ÿå–é€š: https://minibalance.aliexpress.com/store/4455017
+ç‰ˆæœ¬ï¼šV1.0
+ä¿®æ”¹æ—¶é—´ï¼š2023-03-02
 
 Brand: WHEELTEC
 Website: wheeltec.net
 Taobao shop: shop114407458.taobao.com 
 Aliexpress: https://minibalance.aliexpress.com/store/4455017
 Version: V1.0
-Update£º2023-03-02
+Updateï¼š2023-03-02
 
 All rights reserved
 ***********************************************/
@@ -20,7 +20,7 @@ All rights reserved
 #ifndef __HEADER_H
 #define __HEADER_H
 
-//Í·ÎÄ¼ş°üº¬
+//å¤´æ–‡ä»¶åŒ…å«
 #include "stm32f10x.h"
 #include "./SysTick/bsp_SysTick.h"
 #include "./Led/bsp_led.h"
@@ -53,12 +53,12 @@ All rights reserved
 #include "inv_mpu.h"
 #include "filter.h"
 #include "stdio.h"
-extern u16 Voltage;						//µçÑ¹±äÁ¿£¬·Å´ó100±¶´¢´æ
-extern u8 Flag_Stop;					//µç»úÆôÍ£±êÖ¾Î»
-extern volatile u8 delay_50,delay_flag; 			//ÑÓÊ±±äÁ¿
-extern u8 Car_Num;						//³µĞÍºÅÂëÑ¡Ôñ
-extern u8 PS2_ON_Flag,APP_ON_Flag,ROS_ON_Flag,Remote_ON_Flag;		//Ä¬ÈÏËùÓĞ·½Ê½²»¿ØÖÆ
-extern u8 Flag_Show ;					//ÏÔÊ¾±êÖ¾Î»£¬Ä¬ÈÏ¿ªÆô£¬³¤°´ÇĞ»»µ½ÉÏÎ»»úÄ£Ê½£¬´ËÊ±¹Ø±Õ
+extern u16 Voltage;						//ç”µå‹å˜é‡ï¼Œæ”¾å¤§100å€å‚¨å­˜
+extern u8 Flag_Stop;					//ç”µæœºå¯åœæ ‡å¿—ä½
+extern volatile u8 delay_50,delay_flag; 			//å»¶æ—¶å˜é‡
+extern u8 Car_Num;						//è½¦å‹å·ç é€‰æ‹©
+extern u8 PS2_ON_Flag,APP_ON_Flag,ROS_ON_Flag,Remote_ON_Flag;		//é»˜è®¤æ‰€æœ‰æ–¹å¼ä¸æ§åˆ¶
+extern u8 Flag_Show ;					//æ˜¾ç¤ºæ ‡å¿—ä½ï¼Œé»˜è®¤å¼€å¯ï¼Œé•¿æŒ‰åˆ‡æ¢åˆ°ä¸Šä½æœºæ¨¡å¼ï¼Œæ­¤æ—¶å…³é—­
 extern float Perimeter; 
 extern float Wheelspacing; 
 extern u16  DISTANCE,ANGLE;
@@ -68,7 +68,7 @@ extern int lap_count,PointDataProcess_count,test_once_flag,Dividing_point;
 
 extern float test1,test2;
 
-//³µĞÍÑ¡ÔñµÄºÅÂë
+//è½¦å‹é€‰æ‹©çš„å·ç 
 #define    Diff_Car    						  	0			
 #define    Akm_Car 							 	1
 #define    Small_Tank_Car				  		2
@@ -79,47 +79,47 @@ extern float test1,test2;
 //#define Wheel_spacing         0.162f
 //#define Diff_wheelSpacing     0.177f
 
-//Î»´ø²Ù×÷
-// ÕâÀïÖ»¶¨ÒåÁË GPIO ODRºÍIDRÕâÁ½¸ö¼Ä´æÆ÷µÄÎ»´ø±ğÃûÇøµØÖ·£¬ÆäËû¼Ä´æÆ÷µÄÃ»ÓĞ¶¨Òå
+//ä½å¸¦æ“ä½œ
+// è¿™é‡Œåªå®šä¹‰äº† GPIO ODRå’ŒIDRè¿™ä¸¤ä¸ªå¯„å­˜å™¨çš„ä½å¸¦åˆ«ååŒºåœ°å€ï¼Œå…¶ä»–å¯„å­˜å™¨çš„æ²¡æœ‰å®šä¹‰
 
-//SRAM Î»´øÇø:    0X2000 0000~0X2010 0000
-//SRAM Î»´ø±ğÃûÇø:0X2200 0000~0X23FF FFFF
+//SRAM ä½å¸¦åŒº:    0X2000 0000~0X2010 0000
+//SRAM ä½å¸¦åˆ«ååŒº:0X2200 0000~0X23FF FFFF
 
-//ÍâÉè Î»´øÇø:    0X4000 0000~0X4010 0000
-//ÍâÉè Î»´ø±ğÃûÇø:0X4200 0000~0X43FF FFFF
+//å¤–è®¾ ä½å¸¦åŒº:    0X4000 0000~0X4010 0000
+//å¤–è®¾ ä½å¸¦åˆ«ååŒº:0X4200 0000~0X43FF FFFF
 
-// °Ñ¡°Î»´øµØÖ·+Î»ĞòºÅ¡±×ª»»³É±ğÃûµØÖ·µÄºê
+// æŠŠâ€œä½å¸¦åœ°å€+ä½åºå·â€è½¬æ¢æˆåˆ«ååœ°å€çš„å®
 #define BITBAND(addr, bitnum) ((addr & 0xF0000000)+0x02000000+((addr & 0x00FFFFFF)<<5)+(bitnum<<2)) 
 /*
- *addr & 0xF0000000£¬È¡µØÖ·µÄ¸ß4Î»£¬¿´¿´ÊÇ2»¹ÊÇ4£¬ÓÃÓÚÇø·ÖSRAMºÍÍâÉèµØÖ·£¬
- *Èç¹ûÊÇ2£¬+0x02000000Ôò=0X2200 0000£¬¼´ÊÇSRAM£¬Èç¹ûÊÇ4£¬+0x02000000Ôò=0X4200 0000£¬¼´ÊÇÍâÉè
+ *addr & 0xF0000000ï¼Œå–åœ°å€çš„é«˜4ä½ï¼Œçœ‹çœ‹æ˜¯2è¿˜æ˜¯4ï¼Œç”¨äºåŒºåˆ†SRAMå’Œå¤–è®¾åœ°å€ï¼Œ
+ *å¦‚æœæ˜¯2ï¼Œ+0x02000000åˆ™=0X2200 0000ï¼Œå³æ˜¯SRAMï¼Œå¦‚æœæ˜¯4ï¼Œ+0x02000000åˆ™=0X4200 0000ï¼Œå³æ˜¯å¤–è®¾
  *
- *addr & 0x000FFFFFF£¬ÆÁ±Îµô¸ßÁ½Î»£¬Ïàµ±ÓÚ-0X2000 0000»òÕß-0X4000 0000£¬½á¹û±íÊ¾Æ«ÒÆÎ»´øÇø¶àÉÙ¸ö×Ö½Ú
- *<<5  µÈÓÚ*8*4£¬ÒòÎªÎ»´øÇøÒ»¸öµØÖ·±íÊ¾Ò»¸ö×Ö½Ú£¬Ò»¸ö×Ö½ÚÓĞ8¸öbit£¬Ò»¸öbit¿ÉÒÔÅòÕÍ³ÉÒ»¸ö×Ö£¬¼´4¸ö×Ö½Ú
- *<<2 µÈÓÚ*4£¬ÒòÎªÒ»¸öÎ»¿ÉÒÔÅòÕÍ³ÉÒ»¸ö×Ö£¬¼´4¸ö×Ö½Ú
+ *addr & 0x000FFFFFFï¼Œå±è”½æ‰é«˜ä¸¤ä½ï¼Œç›¸å½“äº-0X2000 0000æˆ–è€…-0X4000 0000ï¼Œç»“æœè¡¨ç¤ºåç§»ä½å¸¦åŒºå¤šå°‘ä¸ªå­—èŠ‚
+ *<<5  ç­‰äº*8*4ï¼Œå› ä¸ºä½å¸¦åŒºä¸€ä¸ªåœ°å€è¡¨ç¤ºä¸€ä¸ªå­—èŠ‚ï¼Œä¸€ä¸ªå­—èŠ‚æœ‰8ä¸ªbitï¼Œä¸€ä¸ªbitå¯ä»¥è†¨èƒ€æˆä¸€ä¸ªå­—ï¼Œå³4ä¸ªå­—èŠ‚
+ *<<2 ç­‰äº*4ï¼Œå› ä¸ºä¸€ä¸ªä½å¯ä»¥è†¨èƒ€æˆä¸€ä¸ªå­—ï¼Œå³4ä¸ªå­—èŠ‚
  *
- *·Ö½â³ÉÁ½Ìõ¹«Ê½Ó¦¸Ã¾ÍÊÇÕâÑù£º
- *SRAMÎ»´ø±ğÃûµØÖ·
+ *åˆ†è§£æˆä¸¤æ¡å…¬å¼åº”è¯¥å°±æ˜¯è¿™æ ·ï¼š
+ *SRAMä½å¸¦åˆ«ååœ°å€
  *AliasAddr= 0x22000000+((A-0x20000000)*8+n)*4 =0x22000000+ (A-0x20000000)*8*4 +n*4
- *ÍâÉèÎ»´ø±ğÃûµØÖ·
+ *å¤–è®¾ä½å¸¦åˆ«ååœ°å€
  *AliasAddr= 0x22000000+((A-0x20000000)*8+n)*4 =0x22000000+ (A-0x20000000)*8*4 +n*4
  */
 
-/* Ö±½Ó²Ù×÷¼Ä´æÆ÷µÄ·½·¨¿ØÖÆIO */
-#define	digitalHi(p,i)		 {p->BSRR=i;}	 	//Êä³öÎª¸ßµçÆ½		
-#define digitalLo(p,i)		 {p->BRR=i;}	 	//Êä³öµÍµçÆ½
-#define digitalToggle(p,i) {p->ODR ^=i;} 		//Êä³ö·´×ª×´Ì¬
+/* ç›´æ¥æ“ä½œå¯„å­˜å™¨çš„æ–¹æ³•æ§åˆ¶IO */
+#define	digitalHi(p,i)		 {p->BSRR=i;}	 	//è¾“å‡ºä¸ºé«˜ç”µå¹³		
+#define digitalLo(p,i)		 {p->BRR=i;}	 	//è¾“å‡ºä½ç”µå¹³
+#define digitalToggle(p,i) {p->ODR ^=i;} 		//è¾“å‡ºåè½¬çŠ¶æ€
 
 
-// °ÑÒ»¸öµØÖ·×ª»»³ÉÒ»¸öÖ¸Õë
+// æŠŠä¸€ä¸ªåœ°å€è½¬æ¢æˆä¸€ä¸ªæŒ‡é’ˆ
 #define MEM_ADDR(addr)  *((volatile unsigned long  *)(addr)) 
 
 
-// °ÑÎ»´ø±ğÃûÇøµØÖ·×ª»»³ÉÖ¸Õë
+// æŠŠä½å¸¦åˆ«ååŒºåœ°å€è½¬æ¢æˆæŒ‡é’ˆ
 #define BIT_ADDR(addr, bitnum)   MEM_ADDR(BITBAND(addr, bitnum))   
 
 
-// GPIO ODR ºÍ IDR ¼Ä´æÆ÷µØÖ·Ó³Éä 
+// GPIO ODR å’Œ IDR å¯„å­˜å™¨åœ°å€æ˜ å°„ 
 #define GPIOA_ODR_Addr    (GPIOA_BASE+12) //0x4001080C   
 #define GPIOB_ODR_Addr    (GPIOB_BASE+12) //0x40010C0C   
 #define GPIOC_ODR_Addr    (GPIOC_BASE+12) //0x4001100C   
@@ -138,27 +138,27 @@ extern float test1,test2;
 
 
 
-// µ¥¶À²Ù×÷ GPIOµÄÄ³Ò»¸öIO¿Ú£¬n(0,1,2...16),n±íÊ¾¾ßÌåÊÇÄÄÒ»¸öIO¿Ú
-#define PAout(n)   BIT_ADDR(GPIOA_ODR_Addr,n)  //Êä³ö   
-#define PAin(n)    BIT_ADDR(GPIOA_IDR_Addr,n)  //ÊäÈë   
+// å•ç‹¬æ“ä½œ GPIOçš„æŸä¸€ä¸ªIOå£ï¼Œn(0,1,2...16),nè¡¨ç¤ºå…·ä½“æ˜¯å“ªä¸€ä¸ªIOå£
+#define PAout(n)   BIT_ADDR(GPIOA_ODR_Addr,n)  //è¾“å‡º   
+#define PAin(n)    BIT_ADDR(GPIOA_IDR_Addr,n)  //è¾“å…¥   
   
-#define PBout(n)   BIT_ADDR(GPIOB_ODR_Addr,n)  //Êä³ö   
-#define PBin(n)    BIT_ADDR(GPIOB_IDR_Addr,n)  //ÊäÈë   
+#define PBout(n)   BIT_ADDR(GPIOB_ODR_Addr,n)  //è¾“å‡º   
+#define PBin(n)    BIT_ADDR(GPIOB_IDR_Addr,n)  //è¾“å…¥   
   
-#define PCout(n)   BIT_ADDR(GPIOC_ODR_Addr,n)  //Êä³ö   
-#define PCin(n)    BIT_ADDR(GPIOC_IDR_Addr,n)  //ÊäÈë   
+#define PCout(n)   BIT_ADDR(GPIOC_ODR_Addr,n)  //è¾“å‡º   
+#define PCin(n)    BIT_ADDR(GPIOC_IDR_Addr,n)  //è¾“å…¥   
   
-#define PDout(n)   BIT_ADDR(GPIOD_ODR_Addr,n)  //Êä³ö   
-#define PDin(n)    BIT_ADDR(GPIOD_IDR_Addr,n)  //ÊäÈë   
+#define PDout(n)   BIT_ADDR(GPIOD_ODR_Addr,n)  //è¾“å‡º   
+#define PDin(n)    BIT_ADDR(GPIOD_IDR_Addr,n)  //è¾“å…¥   
   
-#define PEout(n)   BIT_ADDR(GPIOE_ODR_Addr,n)  //Êä³ö   
-#define PEin(n)    BIT_ADDR(GPIOE_IDR_Addr,n)  //ÊäÈë  
+#define PEout(n)   BIT_ADDR(GPIOE_ODR_Addr,n)  //è¾“å‡º   
+#define PEin(n)    BIT_ADDR(GPIOE_IDR_Addr,n)  //è¾“å…¥  
   
-#define PFout(n)   BIT_ADDR(GPIOF_ODR_Addr,n)  //Êä³ö   
-#define PFin(n)    BIT_ADDR(GPIOF_IDR_Addr,n)  //ÊäÈë  
+#define PFout(n)   BIT_ADDR(GPIOF_ODR_Addr,n)  //è¾“å‡º   
+#define PFin(n)    BIT_ADDR(GPIOF_IDR_Addr,n)  //è¾“å…¥  
   
-#define PGout(n)   BIT_ADDR(GPIOG_ODR_Addr,n)  //Êä³ö   
-#define PGin(n)    BIT_ADDR(GPIOG_IDR_Addr,n)  //ÊäÈë  
+#define PGout(n)   BIT_ADDR(GPIOG_ODR_Addr,n)  //è¾“å‡º   
+#define PGin(n)    BIT_ADDR(GPIOG_IDR_Addr,n)  //è¾“å…¥  
 
 
 

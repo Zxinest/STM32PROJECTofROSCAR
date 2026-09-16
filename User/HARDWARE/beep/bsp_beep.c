@@ -1,18 +1,18 @@
 /***********************************************
-¹«Ë¾£ºÂÖÈ¤¿Æ¼¼£¨¶«İ¸£©ÓĞÏŞ¹«Ë¾
-Æ·ÅÆ£ºWHEELTEC
-¹ÙÍø£ºwheeltec.net
-ÌÔ±¦µêÆÌ£ºshop114407458.taobao.com 
-ËÙÂôÍ¨: https://minibalance.aliexpress.com/store/4455017
-°æ±¾£ºV1.0
-ĞŞ¸ÄÊ±¼ä£º2023-03-02
+å…¬å¸ï¼šè½®è¶£ç§‘æŠ€ï¼ˆä¸œèï¼‰æœ‰é™å…¬å¸
+å“ç‰Œï¼šWHEELTEC
+å®˜ç½‘ï¼šwheeltec.net
+æ·˜å®åº—é“ºï¼šshop114407458.taobao.com 
+é€Ÿå–é€š: https://minibalance.aliexpress.com/store/4455017
+ç‰ˆæœ¬ï¼šV1.0
+ä¿®æ”¹æ—¶é—´ï¼š2023-03-02
 
 Brand: WHEELTEC
 Website: wheeltec.net
 Taobao shop: shop114407458.taobao.com 
 Aliexpress: https://minibalance.aliexpress.com/store/4455017
 Version: V1.0
-Update£º2023-03-02
+Updateï¼š2023-03-02
 
 All rights reserved
 ***********************************************/
@@ -23,49 +23,49 @@ All rights reserved
 Function: Buzzer initialization
 Input   : none
 Output  : none
-º¯Êı¹¦ÄÜ£º·äÃùÆ÷³õÊ¼»¯
-Èë¿Ú²ÎÊı: ÎŞ 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šèœ‚é¸£å™¨åˆå§‹åŒ–
+å…¥å£å‚æ•°: æ—  
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
 void BEEP_GPIO_Config(void)
 {		
 
-	/*¶¨ÒåÒ»¸öGPIO_InitTypeDefÀàĞÍµÄ½á¹¹Ìå*/
+	/*å®šä¹‰ä¸€ä¸ªGPIO_InitTypeDefç±»å‹çš„ç»“æ„ä½“*/
 	GPIO_InitTypeDef GPIO_InitStructure;
 
-	/*¹Ø±ÕJTAG½Ó¿Ú*/
+	/*å…³é—­JTAGæ¥å£*/
 	JTAG_Set(JTAG_SWD_DISABLE);    
 
-	/*´ò¿ªSWD½Ó¿Ú ¿ÉÒÔÀûÓÃÖ÷°åµÄSWD½Ó¿Úµ÷ÊÔ*/
+	/*æ‰“å¼€SWDæ¥å£ å¯ä»¥åˆ©ç”¨ä¸»æ¿çš„SWDæ¥å£è°ƒè¯•*/
 	JTAG_Set(SWD_ENABLE);           
 
-	/*¿ªÆô¿ØÖÆ·äÃùÆ÷µÄGPIOµÄ¶Ë¿ÚÊ±ÖÓ*/
+	/*å¼€å¯æ§åˆ¶èœ‚é¸£å™¨çš„GPIOçš„ç«¯å£æ—¶é’Ÿ*/
 	RCC_APB2PeriphClockCmd( BEEP_GPIO_CLK, ENABLE); 
 
-	/*Ñ¡ÔñÒª¿ØÖÆ·äÃùÆ÷µÄGPIO*/															   
+	/*é€‰æ‹©è¦æ§åˆ¶èœ‚é¸£å™¨çš„GPIO*/															   
 	GPIO_InitStructure.GPIO_Pin = BEEP_GPIO_PIN;	
 
-	/*ÉèÖÃGPIOÄ£Ê½ÎªÍ¨ÓÃÍÆÍìÊä³ö*/
+	/*è®¾ç½®GPIOæ¨¡å¼ä¸ºé€šç”¨æ¨æŒ½è¾“å‡º*/
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;   
 
-	/*ÉèÖÃGPIOËÙÂÊÎª50MHz */   
+	/*è®¾ç½®GPIOé€Ÿç‡ä¸º50MHz */   
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz; 
 
-	/*µ÷ÓÃ¿âº¯Êı£¬³õÊ¼»¯¿ØÖÆ·äÃùÆ÷µÄGPIO*/
+	/*è°ƒç”¨åº“å‡½æ•°ï¼Œåˆå§‹åŒ–æ§åˆ¶èœ‚é¸£å™¨çš„GPIO*/
 	GPIO_Init(BEEP_GPIO_PORT, &GPIO_InitStructure);			 
 
-	/* ¹Ø±Õ·äÃùÆ÷*/
+	/* å…³é—­èœ‚é¸£å™¨*/
 	GPIO_ResetBits(BEEP_GPIO_PORT, BEEP_GPIO_PIN);	 
 }
 
 
 /**************************************************************************
 Function: Set JTAG mode
-Input   : mode:JTAG, swd mode settings£»00£¬all enable£»01£¬enable SWD£»10£¬Full shutdown
+Input   : mode:JTAG, swd mode settingsï¼›00ï¼Œall enableï¼›01ï¼Œenable SWDï¼›10ï¼ŒFull shutdown
 Output  : none
-º¯Êı¹¦ÄÜ£ºÉèÖÃJTAGÄ£Ê½
-Èë¿Ú²ÎÊı£ºmode:jtag,swdÄ£Ê½ÉèÖÃ;00,È«Ê¹ÄÜ;01,Ê¹ÄÜSWD;10,È«¹Ø±Õ;	
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šè®¾ç½®JTAGæ¨¡å¼
+å…¥å£å‚æ•°ï¼šmode:jtag,swdæ¨¡å¼è®¾ç½®;00,å…¨ä½¿èƒ½;01,ä½¿èƒ½SWD;10,å…¨å…³é—­;	
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/
 //#define JTAG_SWD_DISABLE   0X02
 //#define SWD_ENABLE         0X01
@@ -75,9 +75,9 @@ void JTAG_Set(u8 mode)
 	u32 temp;
 	temp=mode;
 	temp<<=25;
-	RCC->APB2ENR|=1<<0;     //¿ªÆô¸¨ÖúÊ±ÖÓ	   
-	AFIO->MAPR&=0XF8FFFFFF; //Çå³ıMAPRµÄ[26:24]
-	AFIO->MAPR|=temp;       //ÉèÖÃjtagÄ£Ê½
+	RCC->APB2ENR|=1<<0;     //å¼€å¯è¾…åŠ©æ—¶é’Ÿ	   
+	AFIO->MAPR&=0XF8FFFFFF; //æ¸…é™¤MAPRçš„[26:24]
+	AFIO->MAPR|=temp;       //è®¾ç½®jtagæ¨¡å¼
 } 
 
 
@@ -86,11 +86,11 @@ void JTAG_Set(u8 mode)
 Function: Buzzer_Alarm
 Input   : Indicates the count of frequencies
 Output  : none
-º¯Êı¹¦ÄÜ£º·äÃùÆ÷±¨¾¯
-Èë¿Ú²ÎÊı: Ö¸Ê¾ÆµÂÊµÄ¼ÆÊı 
-·µ»Ø  Öµ£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šèœ‚é¸£å™¨æŠ¥è­¦
+å…¥å£å‚æ•°: æŒ‡ç¤ºé¢‘ç‡çš„è®¡æ•° 
+è¿”å›  å€¼ï¼šæ— 
 **************************************************************************/	 	
-//ÔÚÖĞ¶Ïº¯Êıµ÷ÓÃ
+//åœ¨ä¸­æ–­å‡½æ•°è°ƒç”¨
 void Buzzer_Alarm(u16 count)
 {
 	static int count_time;

@@ -1,18 +1,18 @@
 /***********************************************
-¹«Ë¾£ºÂÖÈ¤¿Æ¼¼£¨¶«İ¸£©ÓĞÏŞ¹«Ë¾
-Æ·ÅÆ£ºWHEELTEC
-¹ÙÍø£ºwheeltec.net
-ÌÔ±¦µêÆÌ£ºshop114407458.taobao.com 
-ËÙÂôÍ¨: https://minibalance.aliexpress.com/store/4455017
-°æ±¾£ºV1.0
-ĞŞ¸ÄÊ±¼ä£º2023-03-02
+å…¬å¸ï¼šè½®è¶£ç§‘æŠ€ï¼ˆä¸œèï¼‰æœ‰é™å…¬å¸
+å“ç‰Œï¼šWHEELTEC
+å®˜ç½‘ï¼šwheeltec.net
+æ·˜å®åº—é“ºï¼šshop114407458.taobao.com 
+é€Ÿå–é€š: https://minibalance.aliexpress.com/store/4455017
+ç‰ˆæœ¬ï¼šV1.0
+ä¿®æ”¹æ—¶é—´ï¼š2023-03-02
 
 Brand: WHEELTEC
 Website: wheeltec.net
 Taobao shop: shop114407458.taobao.com 
 Aliexpress: https://minibalance.aliexpress.com/store/4455017
 Version: V1.0
-Update£º2023-03-02
+Updateï¼š2023-03-02
 
 All rights reserved
 ***********************************************/
@@ -24,8 +24,8 @@ All rights reserved
 #include "Header.h"
 
 
-//¿ÉÑ¡À×´ï
-//Ä¿Ç°Ö»ÓĞLD14
+//å¯é€‰é›·è¾¾
+//ç›®å‰åªæœ‰LD14
 #define 	LD14		
 //#define 	LD06
 //#define 	N10
@@ -37,7 +37,7 @@ All rights reserved
 #define ANGLE_PER_FRAME 				12
 #define HEADER 							0x54
 #define POINT_PER_PACK 					12
-#define LENGTH  						0x2C 	//µÍÎåÎ»ÊÇÒ»Ö¡Êı¾İ½ÓÊÕµ½µÄµãÊı£¬Ä¿Ç°¹Ì¶¨ÊÇ12£¬¸ßÈıÎ»Ô¤Áô
+#define LENGTH  						0x2C 	//ä½äº”ä½æ˜¯ä¸€å¸§æ•°æ®æ¥æ”¶åˆ°çš„ç‚¹æ•°ï¼Œç›®å‰å›ºå®šæ˜¯12ï¼Œé«˜ä¸‰ä½é¢„ç•™
 
 
 #define offset_x						5.9f
@@ -48,10 +48,10 @@ All rights reserved
 
 typedef struct __attribute__((packed)) Point_Data
 {
-	u16 distance;//¾àÀë
-	u8 confidence;//ÖÃĞÅ¶È
+	u16 distance;//è·ç¦»
+	u8 confidence;//ç½®ä¿¡åº¦
 	
-}LidarPointStructDef;//Ò»Ö¡Êı¾İÖĞÃ¿¸öµã°üº¬µÄÊı¾İ
+}LidarPointStructDef;//ä¸€å¸§æ•°æ®ä¸­æ¯ä¸ªç‚¹åŒ…å«çš„æ•°æ®
 
 
 typedef struct __attribute__((packed)) Pack_Data
@@ -64,18 +64,18 @@ typedef struct __attribute__((packed)) Pack_Data
 	uint16_t end_angle;
 	uint16_t timestamp;
 	uint8_t crc8;
-}LiDARFrameTypeDef;//Ò»Ö¡Êı¾İ½á¹¹Ìå
+}LiDARFrameTypeDef;//ä¸€å¸§æ•°æ®ç»“æ„ä½“
 
 typedef struct __attribute__((packed)) PointDataProcess_
 {
 	u16 distance;
 	float angle;
-}PointDataProcessDef;//¾­¹ı´¦ÀíºóµÄÊı¾İ
+}PointDataProcessDef;//ç»è¿‡å¤„ç†åçš„æ•°æ®
 
-extern PointDataProcessDef PointDataProcess[420];//¸üĞÂ390¸öÊı¾İ
-extern PointDataProcessDef Dataprocess[420];//ÓÃÓÚĞ¡³µ±ÜÕÏ¡¢¸úËæ¡¢×ßÖ±Ïß¡¢ELEÀ×´ï±ÜÕÏµÄÀ×´ïÊı¾İ
+extern PointDataProcessDef PointDataProcess[420];//æ›´æ–°390ä¸ªæ•°æ®
+extern PointDataProcessDef Dataprocess[420];//ç”¨äºå°è½¦é¿éšœã€è·Ÿéšã€èµ°ç›´çº¿ã€ELEé›·è¾¾é¿éšœçš„é›·è¾¾æ•°æ®
 extern LiDARFrameTypeDef Pack_Data;
-extern PointDataProcessDef TempData[12];  //³¬¹ıÁË0¶ÈµÄÏÂÒ»È¦Êı¾İÁÙÊ±´æ´¢
+extern PointDataProcessDef TempData[12];  //è¶…è¿‡äº†0åº¦çš„ä¸‹ä¸€åœˆæ•°æ®ä¸´æ—¶å­˜å‚¨
 
 void data_process(void);
 #endif
